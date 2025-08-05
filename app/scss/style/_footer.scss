@@ -1,0 +1,17 @@
+.site-footer {
+  @include container;
+
+  &__wrapper {
+    color: $white;
+    background: $colorOne;
+  }
+
+  &__registration {
+    @include container;
+    @include flex-center;
+    padding: 8px 0;
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 9px;
+  }
+}

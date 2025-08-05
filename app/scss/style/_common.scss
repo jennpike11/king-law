@@ -1,0 +1,371 @@
+// reset browser defaults
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+html {
+  height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  color: $white;
+  font-family: $font-primary;
+  font-size: 16px;
+  line-height: 24px;
+  scroll-behavior: smooth;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  z-index: 0;
+
+  &.active {
+    overflow-y: hidden;
+  }
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 16px;
+  font-family: $font-secondary;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 56px;
+  line-height: 64px;
+  font-family: $font-secondary;
+
+  @include respond(small){
+    font-size: 72px;
+    line-height: 88px;
+  }
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 40px;
+  font-family: $font-secondary;
+  
+  @include respond(small){
+    font-size: 40px;
+    line-height: 48px;
+  }
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+p {
+  margin-bottom: 16px;
+
+  &:last-of-type {
+    margin-bottom: unset;
+  }
+}
+ 
+a, a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style-type: none;
+  list-style-position: inside;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.entry-footer {
+  display: none;
+}
+
+.container {
+  @include container;
+}
+
+.show-on-mobile {
+  @include respond(large){
+    display: none;
+  }
+}
+
+.padding--xsmall {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.padding--small {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.padding--medium {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  
+  @include respond(small) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+.padding--large {
+  padding-top: 104px;
+  padding-bottom: 104px;
+
+  @include respond(small){
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+.padding--xlarge {
+  padding-top: 120px;
+  padding-bottom: 120px;
+  
+  @include respond(small) {
+    padding-top: 160px;
+    padding-bottom: 160px;
+  }
+}
+
+.width--center {
+  max-width: 800px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Background colors for sections, buttons, etc
+.background-color {
+  &--white {
+    background-color: $white;
+  }
+
+  &--black {
+    background-color: $black;
+  }
+
+  &--color-one {
+    background-color: $colorOne;
+  }
+
+  &--color-two {
+    background-color: $colorTwo;
+  }
+
+  &--color-one-light {
+    background-color: tint($colorOne, 80%);
+  }
+
+  &--color-two-light {
+    background-color: tint($colorTwo, 80%);
+  }
+}
+
+
+// Font color options
+.color {
+  &--white {
+    color: $white;
+  }
+
+  &--black {
+    color: $black;
+  }
+
+  &--color-one {
+    color: $colorOne;
+  }
+ 
+  &--color-two {
+    color: $colorTwo;
+  }
+
+  &--color-one-light {
+    color: tint($colorOne, 80%);
+  }
+ 
+  &--color-two-light {
+    color: tint($colorTwo, 80%);
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(
+    to bottom right,
+    lighten($colorOne, 15%),
+    lighten($colorTwo, 15%)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.background-gradient {
+  background: linear-gradient(to bottom right, $colorOne, $colorTwo);
+}
+
+.comments-area {
+  display: none;
+}
+
+.fa-hand-point-right:before {
+  margin-right: 8px;
+  font-family: fontawesome;
+}
+
+.linkedin:after {
+  content: '\f0e1';
+  font-family: fontawesome;
+}
+
+.instagram:after {
+  content: '\f16d';
+  font-family: fontawesome;
+}
+
+.facebook:after {
+  content: '\f39e';
+  font-family: fontawesome;
+}
+
+.pinterest:after {
+  content: '\f231';
+  font-family: fontawesome;
+}
+
+.email:after {
+  content: '\f0e0';
+  font-family: fontawesome;
+}
+
+.twitter:after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  background-image: url(https://highbeach.phoenixroadcreative.com/wp-content/uploads/2024/02/x.png);
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.youtube:after {
+  content: '\f167';
+  font-family: fontawesome;
+}
+
+.google-reviews:after {
+  content: '\f1a0';
+  font-family: fontawesome;
+}
+
+i.fa-solid:before {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  border-radius: 100%;
+  font-size: 12px;
+  font-family: fontawesome;
+  color: $black;
+  background: $white;
+}
+
+  .icon-dollar:before {
+    content: url(#{$icon-dollar});
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+  }
+
+  .icon-scale:before {
+    content: url(#{$icon-scale});
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+  }
+
+    .icon-star:before {
+    content: url(#{$icon-star});
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+  }
+
+  .icon-document:before {
+    content: url(#{$icon-document});
+    display: inline-block;
+    width: 44px;
+    height: 64px;
+    margin-bottom: 16px;
+  }
+
+.page-template-page-legal {
+  margin-top: 80px;
+
+  .entry-title {
+    font-size: 40px;
+    line-height: 48px;
+    font-family: $font-secondary;
+    color: $white;
+  }
+
+  .entry-content {
+    padding-bottom: 80px;
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $white;
+    }
+  
+    a,
+    a:hover {
+      color: $colorTwo;
+      text-decoration: underline;
+    }
+  }
+}  
+
+
+// Shrink to fit headings
+.word-span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.line-wrapper {
+  white-space: nowrap;
+}

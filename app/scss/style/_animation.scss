@@ -1,0 +1,45 @@
+// Animation
+
+// Vertical
+.vertical-slide-yes {
+  opacity: 0 !important;
+  transform: translateY(40px) scale(1);
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.vertical-slide-yes.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1);
+}
+
+
+// Horizontal
+  .horizontal-slide-yes { 
+    transition: all 1.2s cubic-bezier(.03,.6,.33,.96);
+  
+    &.from-left {
+      margin-left: -100%;
+    }
+  
+    &.from-right {
+      margin-right: -100%;
+    }
+  }
+  
+  .horizontal-slide-yes.is-visible {
+  
+   &.from-left  {
+      margin-left: 0;
+    }
+  
+    &.from-right  {
+      margin-right: 0;
+    }
+  }
+
+  // Column Scrolling Speeds
+    .slow-column-scroll,
+    .fast-column-scroll {
+      transition: transform 0.2s ease-out;
+      will-change: transform;
+    }
