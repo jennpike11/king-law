@@ -1,9 +1,9 @@
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./app/scss/main.scss ***!
-  \***********************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./app/scss/main.scss ***!
+  \*******************************************************************************************************************************************************/
 @font-face {
   font-family: Archivo;
-  src: url("//newtemplateone.wpenginepowered.com/wp-content/themes/prc-theme/app/font/archivo.woff");
+  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/prc-theme/app/font/archivo.woff");
 }
 .vertical-slide-yes {
   opacity: 0 !important;
@@ -60,6 +60,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  width: -moz-fit-content;
   width: fit-content;
   min-width: 200px;
   height: 48px;
@@ -100,6 +101,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  width: -moz-fit-content;
   width: fit-content;
   min-width: 200px;
   height: 48px;
@@ -265,6 +267,7 @@
 input.wpcf7-form-control.wpcf7-submit {
   position: relative;
   z-index: 2;
+  width: -moz-fit-content;
   width: fit-content;
   margin: auto;
   padding: unset;
@@ -682,6 +685,9 @@ i.fa-solid:before {
   border-radius: 0;
   padding: 24px 12px;
 }
+.with_frm_style input[type=text] ::-moz-placeholder, .with_frm_style input[type=password] ::-moz-placeholder, .with_frm_style input[type=email] ::-moz-placeholder, .with_frm_style input[type=number] ::-moz-placeholder, .with_frm_style input[type=url] ::-moz-placeholder, .with_frm_style input[type=tel] ::-moz-placeholder, .with_frm_style input[type=file] ::-moz-placeholder, .with_frm_style input[type=search] ::-moz-placeholder, .with_frm_style select ::-moz-placeholder, .with_frm_style .frm-card-element.StripeElement ::-moz-placeholder {
+  color: #fcfefd;
+}
 .with_frm_style input[type=text] ::placeholder,
 .with_frm_style input[type=password] ::placeholder,
 .with_frm_style input[type=email] ::placeholder,
@@ -782,9 +788,11 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
   padding: 8px 0 4px;
 }
 .site-header__logo img {
+  width: -moz-fit-content;
   width: fit-content;
   height: 56px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   margin-right: 8px;
 }
 .site-header__title {
@@ -831,6 +839,7 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
 }
 @media (min-width: 1024px) {
   .site-header .main-navigation ul > li:last-of-type {
+    width: -moz-fit-content;
     width: fit-content;
   }
 }
@@ -978,6 +987,52 @@ h1 {
   color: #110300;
 }
 
+.home-page-hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1px;
+}
+.home-page-hero__wrapper {
+  height: 100vh;
+}
+.home-page-hero__layer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+.home-page-hero__layer.background {
+  background-image: url("https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg");
+  z-index: 1;
+  transform: translateZ(-1px) scale(2);
+}
+.home-page-hero__layer.middle {
+  background-image: url("https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg");
+  z-index: 2;
+  transform: translateZ(0);
+}
+.home-page-hero__layer.foreground {
+  background-image: url("https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg");
+  z-index: 3;
+  transform: translateZ(0.5px) scale(1.1);
+}
+.home-page-hero__layer__content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 4;
+  top: 50%;
+  height: 100%;
+  transform: translateY(-50%);
+}
+
 .landing-page-footer {
   width: calc(100% - 32px);
   max-width: 1440px;
@@ -1072,7 +1127,8 @@ h1 {
 }
 .landing-page-footer__credit img {
   height: 60%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .landing-page-hero-block--standard {
@@ -1154,6 +1210,10 @@ h1 {
   font-size: 1rem;
   font-family: sans-serif !important;
   background: unset;
+}
+.landing-page-hero-block--standard__form form ::-moz-placeholder {
+  color: #fcfefd;
+  font-family: sans-serif !important;
 }
 .landing-page-hero-block--standard__form form ::placeholder {
   color: #fcfefd;
@@ -1283,6 +1343,10 @@ h1 {
   font-family: sans-serif !important;
   background: unset;
 }
+.landing-page-hero-block--sliding-image__form form ::-moz-placeholder {
+  color: #fcfefd;
+  font-family: sans-serif !important;
+}
 .landing-page-hero-block--sliding-image__form form ::placeholder {
   color: #fcfefd;
   font-family: sans-serif !important;
@@ -1337,9 +1401,11 @@ h1 {
 .sliding-image img {
   position: absolute;
   left: 100%;
+  width: -moz-fit-content;
   width: fit-content;
   height: 280px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   transform: translateX(0);
   transition: left 1s ease-out, transform 1s ease-out;
   opacity: 1;
@@ -1501,6 +1567,7 @@ h1 {
 }
 
 .sticky-cta-block__wrapper {
+  width: -moz-fit-content;
   width: fit-content;
   margin: auto;
 }
@@ -1600,6 +1667,7 @@ h1 {
   }
 }
 .two-column-block.column-alignment--center .column__image {
+  width: -moz-fit-content;
   width: fit-content;
   height: 100%;
   max-height: 640px;
@@ -1623,7 +1691,8 @@ h1 {
 .two-column-block .column__image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .two-column-block .column__heading {
   margin: 16px 0;
@@ -1673,6 +1742,7 @@ h1 {
 }
 @media (min-width: 768px) {
   .video-block__info {
+    width: -moz-fit-content;
     width: fit-content;
     max-width: calc(50% - 20px);
     margin: 0 auto;
@@ -1715,5 +1785,3 @@ h1 {
   color: #030843;
   background-color: #fcfefd;
 }
-
-/*# sourceMappingURL=style.css.map*/

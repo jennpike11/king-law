@@ -1,0 +1,49 @@
+.home-page-hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1px; 
+
+  &__wrapper {
+    height: 100vh;
+  }
+
+  &__layer {
+    @include flex-center;
+    position: absolute; 
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+
+    &.background {
+      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
+      z-index: 1;
+      transform: translateZ(-1px) scale(2);
+    }
+
+    &.middle {
+      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
+      z-index: 2;
+      transform: translateZ(0);
+    }
+
+    &.foreground {
+      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
+      z-index: 3;
+      transform: translateZ(0.5px) scale(1.1);
+    }
+
+    &__content-wrapper {
+      @include flex-center;
+      position: relative;  
+      z-index: 4;
+      top: 50%;  
+      height: 100%;
+      transform: translateY(-50%);
+    }
+
+  
+  } 
+} 

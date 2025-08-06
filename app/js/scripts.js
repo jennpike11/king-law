@@ -1,4 +1,6 @@
-import '../scss/main.scss';
+require('../scss/main.scss');
+console.log('JS is working');
+
 
 (function ($) {
   $(function () {
@@ -12,10 +14,20 @@ import '../scss/main.scss';
       }
     });
 
-    // Stop scroll when menu is open
+    // Stop scroll when menu is open 
     $('.menu-toggle').on('click', function () {
       $('html').toggleClass('active');
     });
+
+
+  // Home Page Hero Parallax
+  $(window).on('scroll', function () {
+  let scrolled = $(window).scrollTop();
+  $('.home-page-hero__layer.background').css('transform', 'translateY(' + scrolled * 0.3 + 'px)');
+  $('.home-page-hero__layer.middle').css('transform', 'translateY(' + scrolled * 0.5 + 'px)');
+  $('.home-page-hero__layer.foreground').css('transform', 'translateY(' + scrolled * 0.7 + 'px)');
+}); 
+  
 
     // FAQ Accordion
     $('.faq-block__item').on('click', function () {
