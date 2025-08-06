@@ -18,21 +18,22 @@
     will-change: transform;
 
     &.background {
-      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
       z-index: 1;
+      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
       transform: translateZ(-1px) scale(2);
     }
 
     &.middle {
-      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
       z-index: 2;
+      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
       transform: translateZ(0);
     }
 
     &.foreground {
+      position: relative;
+       z-index: 3;
       background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/dtla_skyline-scaled.jpg');
-      z-index: 3;
-      transform: translateZ(0.5px) scale(1.1);
+      transform: translateZ(0.5px) scale(1.3);
     }
 
     &__content-wrapper {
@@ -46,4 +47,65 @@
 
   
   } 
-} 
+
+// Glowing Window Animation
+    &__window-glow {
+    position: absolute;
+    filter: blur(10px);
+    animation: heroGlowFlicker 2s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .glow-us-bank {
+    top: 21%;  
+    left: 47%;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent 90%);
+    animation-delay: 0s;
+  }
+
+  .glow-stadium {
+    top: 70%;
+    left: 44%;
+    width: 100px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(255, 255, 180, 0.6), transparent 80%);
+    animation-delay: 0.5s;
+  }
+
+  .glow-building-right {
+    top: 38%;
+    right: 9%;
+    width: 70px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(255, 255, 200, 0.8), transparent 80%);
+    animation-delay: 1.3s;
+  }
+
+  .glow-city-background {
+    top: 46%;  
+    left: 5%;
+    width: 100px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent 90%);
+    filter: blur(20px);
+    animation-delay: 1s;
+  }
+
+  @keyframes heroGlowFlicker {
+    0% {
+      opacity: 0.2;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+  }
+}

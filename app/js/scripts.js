@@ -1,12 +1,10 @@
 require('../scss/main.scss');
-console.log('JS is working');
-
 
 (function ($) {
   $(function () {
     // Sticky menu
     $(window).on('scroll', function () {
-      if ($(window).scrollTop() >= 10) {
+      if ($(window).scrollTop() >= 100) {
         $('.site-header__wrapper').addClass('sticky');
         $('nav div').addClass('visible-title');
       } else {
@@ -27,7 +25,29 @@ console.log('JS is working');
   $('.home-page-hero__layer.middle').css('transform', 'translateY(' + scrolled * 0.5 + 'px)');
   $('.home-page-hero__layer.foreground').css('transform', 'translateY(' + scrolled * 0.7 + 'px)');
 }); 
-  
+
+
+// Animated Mouse
+$(document).on('mousemove', function (e) {
+  $('#custom-star-cursor').css({
+    left: e.clientX,
+    top: e.clientY
+  });
+
+  const sparkle = $('<div class="sparkle"></div>');
+  sparkle.css({
+    left: e.clientX + 'px',
+    top: e.clientY + 'px'
+  });
+
+  $('#trail-container').append(sparkle);
+
+  setTimeout(() => {
+    sparkle.remove();
+  }, 800);
+});
+
+
 
     // FAQ Accordion
     $('.faq-block__item').on('click', function () {
