@@ -47,6 +47,16 @@ $(document).on('mousemove', function (e) {
   }, 800);
 });
 
+$('.primary-button, .secondary-button').hover(
+    function () {
+      // Mouse enters the button
+      $('body').addClass('mouse-trail-hidden');
+    },
+    function () {
+      // Mouse leaves the button
+      $('body').removeClass('mouse-trail-hidden');
+    }
+  );
 
 
     // FAQ Accordion
@@ -289,3 +299,41 @@ if (
 
   });
 })(jQuery);
+
+
+// Horizontal Text Block Animation
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.horizontal-slide-text-block__scroll-wrapper');
+  const fixed = document.querySelector('.horizontal-slide-text-block__fixed');
+  const slides = document.querySelectorAll('.horizontal-slide-text-block__item');
+
+  if (!wrapper || !fixed || slides.length === 0) {
+    console.warn('Slide block missing required elements');
+    return;
+  }
+
+  const wrapperTop = wrapper.offsetTop;
+  const wrapperHeight = wrapper.offsetHeight;
+  const scrollRange = wrapperHeight - window.innerHeight;
+  const totalSlides = slides.length;
+
+  // Show first slide immediately
+  slides[0].classList.add('active');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+
+    if (scrollY >= wrapperTop && scrollY < wrapperTop + wrapperHeight) {
+      fixed.style.visibility = 'visible';
+      const scrollOffset = scrollY - wrapperTop;
+      const progress = scrollOffset / scrollRange;
+      const index = Math.floor(progress * totalSlides);
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    } else {
+      fixed.style.visibility = 'hidden';
+    }
+  });
+});

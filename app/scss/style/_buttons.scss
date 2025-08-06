@@ -1,251 +1,51 @@
-.primary-button {
-    @include flex-center;
-    position: relative;
-    width: fit-content;
-    min-width: 200px;
-    height: 48px;
-    padding: 8px 24px;
-    border: 2px solid $white;
-    color: $white;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: $font-secondary;
-    text-align: center;
-    text-transform: uppercase;
+.primary-button, .secondary-button {
+  @include flex-center;
+  width: fit-content;
+  min-width: 200px;
+  min-height: 48px;
+  margin: 32px 0;
+  padding: 0 24px;
+  border-radius: 24px !important;
+  color: $white !important;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: $font-secondary;
+  background: $colorTwo !important;
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0); // default: no glow
+  transition: box-shadow 0.4s ease-in-out;
+  cursor: pointer;
 
-    &:hover {
-        color: $black;
-    }
-
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 100%;
-        background-color: $white;
-        transition: width .3s ease-in-out;
-    }
-
-    &:hover:before {
-        content: '';
-        width: 100%;
-        transition: width .3s ease-in-out;
-    }
-
-    a {
-        position: relative;
-        z-index: 2;
-    }
-}
-
-.secondary-button {
-    @include flex-center;
-    position: relative;
-    width: fit-content;
-    min-width: 200px;
-    height: 48px;
-    padding: 8px 24px;
-    border: 1px solid $colorOne;
-    color: $white;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: $font-secondary;
-    text-align: center;
-    text-transform: uppercase;
-    background-color: $colorOne;
-
-    &:hover {
-        border-color: $colorTwo;
-        background-color: $colorTwo;
-        transition: all .2s ease-in-out;
-    }
-}
-
-.background-color--white .primary-button {
-    color: $colorOne;
-    border-color: $colorOne;
-
-    &:hover {
-        color: $white;
-    }
-
-    &:before {
-        content: '';
-        background-color: $colorOne;
-    }
-}
-
-.cta-color--color-one,
-.background-color--white .cta-color--color-one {
-    .primary-button {
-        color: $colorOne;
-        border-color: $colorOne;
-
-         &:before {
-            background-color: $colorOne;
-         }
-
-        &:hover {
-            color: $white;
-        }
-    }
-
-    .secondary-button {
-        border: 1px solid $colorOne;
-        background-color: $colorOne;
-
-        &:hover {
-            border-color: $colorTwo;
-            background-color: $colorTwo;
-            transition: all .2s ease-in-out;
-        }
-    }
-}
-
-.cta-color--color-two,
-.background-color--white .cta-color--color-two {
-    .primary-button {
-        color: $colorTwo;
-        border-color: $colorTwo;
-
-        &:before {
-            background-color: $colorTwo;
-         }
-
-        &:hover {
-            color: $white;
-        }
-    }
-
-    .secondary-button {
-        border-color: $colorTwo;
-        background-color: $colorTwo;
-
-        &:hover {
-            border-color: $colorOne;
-            background-color: $colorOne;
-            transition: all .2s ease-in-out;
-        }
-    }
-}
-
-.cta-color--white {
-    .primary-button {
-        color: $white;
-        border-color: $white;
-
-        &:before {
-            background-color: $white;
-         }
-
-        &:hover {
-            color: $colorOne;
-        }
-    }
-
-    .secondary-button {
-        border-color: $white;
-        color: $colorOne;
-        background-color: $white;
-
-        &:hover {
-            border-color: $colorOne;
-            color: $white;
-            background-color: $colorOne;
-            transition: all .2s ease-in-out;
-        }
-    }
-}
-
-.cta-color--black,
-.background-color--white .cta-color--black {
-    .primary-button {
-        color: $black;
-        border-color: $black;
-
-        &:before {
-            background-color: $black;
-         }
-
-        &:hover {
-            color: $white;
-        }
-    }
-
-    .secondary-button {
-        border-color: $black;
-        color: $white !important;
-        background-color: $black;
-
-        &:hover {
-            border-color: $colorOne;
-            color: $white;
-            background-color: $colorOne;
-            transition: all .2s ease-in-out;
-        }
-    }
-}
-
-.background-color--color-one {
-    .cta-color--color-two .secondary-button:hover {
-        border-color: $white;
-        color: $colorOne;
-        background-color: $white;
-        transition: all .2s ease-in-out;
-    }
-
-    .cta-color--white .secondary-button:hover {
-        border-color: $colorTwo;
-        color: $white;
-        background-color: $colorTwo;
-        transition: all .2s ease-in-out;
-    }
-}
-
-.background-color--color-two {
-    .cta-color--color-one .secondary-button:hover {
-        border-color: $white;
-        color: $colorOne;
-        background-color: $white;
-        transition: all .2s ease-in-out;
-    }
-}
-
-.submit {
-    @extend .primary-button;
-    width: 100%;
-    border-radius: 4px;
-
-    &:hover {
-        input.wpcf7-form-control.wpcf7-submit {
-            color: $colorTwo;
-        }
-    }
-}
-
-.landing-page-hero-block--sliding-image .submit {
-    &:hover {
-        input.wpcf7-form-control.wpcf7-submit {
-            color: $colorOne;
-        }
-    }
-}
-
-input.wpcf7-form-control.wpcf7-submit {
-    position: relative;
-    z-index: 2;
-    width: fit-content;
+  &.center {
     margin: auto;
-    padding: unset;
-    border: unset;
-    border-radius: unset;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: $font-secondary;
+  }
+
+  &:hover {
+    box-shadow:
+      inset 0 0 10px rgba(255, 255, 255, 0.6),
+      inset 0 0 20px rgba(255, 255, 255, 0.4),
+      inset 0 0 40px rgba(255, 255, 255, 0.2);
+  }
 }
 
-.wpcf7-spinner {
-    display: none;
+@keyframes inner-glow-pulse {
+  0% {
+    box-shadow:
+      inset 0 0 10px rgba(255, 255, 255, 0.3),
+      inset 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 20px rgba(255, 255, 255, 0.6),
+      inset 0 0 40px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    box-shadow:
+      inset 0 0 10px rgba(255, 255, 255, 0.3),
+      inset 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  animation: inner-glow-pulse 1.5s ease-in-out infinite;
 }

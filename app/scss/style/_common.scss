@@ -45,15 +45,15 @@ h6 {
   font-family: $font-secondary;
   font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: .2rem;
 }
 
 h1 {
-  font-size: 56px;
-  line-height: 64px;
-  font-family: $font-secondary;
+  font-size: 64px;
+  line-height: 72px;
 
   @include respond(small){
-    font-size: 72px;
+    font-size: 96px;
     line-height: 88px;
   }
 }
@@ -61,7 +61,6 @@ h1 {
 h2 {
   font-size: 32px;
   line-height: 40px;
-  font-family: $font-secondary;
   
   @include respond(small){
     font-size: 40px;
@@ -329,35 +328,35 @@ i.fa-solid:before {
     margin-bottom: 16px;
   }
 
-.page-template-page-legal {
-  margin-top: 80px;
+// .page-template-page-legal {
+//   margin-top: 80px;
 
-  .entry-title {
-    font-size: 40px;
-    line-height: 48px;
-    font-family: $font-secondary;
-    color: $white;
-  }
+//   .entry-title {
+//     font-size: 40px;
+//     line-height: 48px;
+//     font-family: $font-secondary;
+//     color: $white;
+//   }
 
-  .entry-content {
-    padding-bottom: 80px;
+//   .entry-content {
+//     padding-bottom: 80px;
     
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: $white;
-    }
+//     h1,
+//     h2,
+//     h3,
+//     h4,
+//     h5,
+//     h6 {
+//       color: $white;
+//     }
   
-    a,
-    a:hover {
-      color: $colorTwo;
-      text-decoration: underline;
-    }
-  }
-}  
+//     a,
+//     a:hover {
+//       color: $colorTwo;
+//       text-decoration: underline;
+//     }
+//   }
+// }  
 
 
 // Shrink to fit headings

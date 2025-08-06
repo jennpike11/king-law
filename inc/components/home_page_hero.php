@@ -20,10 +20,10 @@
       <h1 class="home-page-hero__heading">
         <?php echo $heading ?>
       </h1>
-      <div class="home-page-hero__heading">
+      <div class="home-page-hero__subheading">
         <?php echo $subheading ?>
       </div>
-      <div class="home-page-hero__cta">
+      <div class="home-page-hero__cta primary-button">
         <a href="<?php echo $cta['url'] ?>"><?php echo $cta['title'] ?></a>
       </div>
     </div>
