@@ -22,6 +22,9 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+
+<div class="motion-gradient"></div>
+
 <div id="page" class="site">
 	<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'prc-theme' ); ?></button>
 	<header id="masthead" class="site-header__wrapper">

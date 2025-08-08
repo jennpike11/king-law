@@ -1,0 +1,70 @@
+$grey:       #F0EFEF;
+$colorOne:   #181A35;
+$gold:       #FFD700;
+$red:        #DC143C;
+$black:      #000000;
+
+.motion-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  --ang: 35deg;
+  --shiftX: 0%;
+  --shiftY: 0%;
+
+  background:
+    radial-gradient(850px 650px at calc(72% + var(--shiftX)) calc(78% + var(--shiftY)),
+      rgba($gold, 0.18), transparent 60%),
+    radial-gradient(650px 480px at calc(24% - var(--shiftX)) calc(26% - var(--shiftY)),
+      rgba($red, 0.18), transparent 65%),
+    radial-gradient(750px 550px at calc(60% + var(--shiftX)) calc(34% + var(--shiftY)),
+      rgba($colorOne, 0.12), transparent 70%),
+    radial-gradient(950px 740px at calc(48% - var(--shiftX)) calc(64% - var(--shiftY)),
+      rgba($grey, 0.08), transparent 75%),
+    linear-gradient(var(--ang),
+      $black 0%,
+      mix($black, $colorOne, 15%) 30%,
+      mix($black, $colorOne, 25%) 60%,
+      mix($black, $colorOne, 35%) 80%,
+      $colorOne 100%);
+
+  animation: sky-wave 10s ease-in-out infinite alternate;
+  will-change: background-position, filter;
+}
+
+.motion-gradient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes sky-wave {
+  0% {
+    filter: hue-rotate(0deg) saturate(1.05);
+    background-position:
+      0% 0%,
+      30% 30%,
+      70% 10%,
+      40% 50%,
+      center;
+  }
+  100% {
+    filter: hue-rotate(-10deg) saturate(1.12);
+    background-position:
+      40% 20%,
+      0% 50%,
+      80% 30%,
+      55% 60%,
+      center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-gradient { animation: none; }
+}

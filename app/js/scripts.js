@@ -301,6 +301,48 @@ if (
 })(jQuery);
 
 
+// Background Animation
+// Gradient parallax with faster, visible motion
+(function ($) {
+  function init() {
+    const $bg = $('.motion-gradient');
+    if (!$bg.length) { requestAnimationFrame(init); return; }
+
+    let mx = 0, my = 0;
+    let sx = 0, sy = 0; // smoothed
+    let ang = 35;
+
+    $(window).on('mousemove', function (e) {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      mx = (e.clientX - cx) / cx;   // -1 to 1
+      my = (e.clientY - cy) / cy;
+    });
+
+    let t = 0;
+    function tick() {
+      t += 0.01; // faster base speed
+
+      // widen the range and keep it smooth
+      sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06; // was 8 and 2
+      sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06; // was 6 and 2
+
+      ang += Math.sin(t * 0.6) * 0.12; // more sway
+
+      const el = $bg[0].style;
+      el.setProperty('--shiftX', sx + '%');
+      el.setProperty('--shiftY', sy + '%');
+      el.setProperty('--ang', ang + 'deg');
+
+      requestAnimationFrame(tick);
+    }
+    tick();
+  }
+  init();
+})(jQuery);
+
+
+
 // Horizontal Text Block Animation
 document.addEventListener('DOMContentLoaded', () => {
   const wrapper = document.querySelector('.horizontal-slide-text-block__scroll-wrapper');

@@ -1,0 +1,82 @@
+.animated-list-block {
+  @include container;
+
+  &__items {
+    @include flex-center;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    @include flex-center;
+    flex: 0 0 50%;
+    min-height: 160px;
+    border: .5px solid $colorThree;
+
+    &__item:nth-child(3),
+    &__item:nth-child(4),
+    &__item:nth-child(5) {
+      flex: 0 0 33.33%;
+    }
+
+    &__item:nth-child(6),
+    &__item:nth-child(7) {
+      flex: 0 0 50%;
+    }
+
+    &__item:nth-child(8),
+    &__item:nth-child(9),
+    &__item:nth-child(10) {
+      flex: 0 0 33.33%;
+    }
+  }
+
+  &__heading {
+    margin-bottom: unset;
+    padding: 24px;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    font-family: $font-tertiary;
+    color: $white;
+  }
+}
+
+/* In each 5-item cycle: items 3,4,5 are 33.33% */
+.animated-list-block__item:nth-child(5n + 3),
+.animated-list-block__item:nth-child(5n + 4),
+.animated-list-block__item:nth-child(5n + 5) {
+  flex-basis: 33.3333%;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 768px) {
+  .animated-list-block__item { flex-basis: 100%; }
+}
+
+
+
+.animated-list-block__item {
+  position: relative;
+  background: transparent;
+  z-index: 0;
+
+  // Fake the border with a pseudo-element
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px; // border thickness
+    background: linear-gradient(to right, $colorThree, $colorThree);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    transition: background 0.4s ease;
+    z-index: -1;
+  }
+
+  &:hover::before {
+    background: linear-gradient(to right, $colorThree, $colorFour);
+  }
+}
