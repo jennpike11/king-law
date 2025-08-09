@@ -12,6 +12,10 @@
         ?>
         <a class="animated-list-block__item" href="<?php echo $link['url'] ?>">
           <h2 class="animated-list-block__heading"><?php echo esc_html($heading); ?></h2>
+          <span class="b-1"></span>
+          <span class="b-2"></span>
+          <span class="b-3"></span>
+          <span class="b-4"></span>
         </a>
         <?php endwhile; ?>
       </div>

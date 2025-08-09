@@ -1,6 +1,7 @@
 /*!*******************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./app/scss/main.scss ***!
   \*******************************************************************************************************************************************************/
+@charset "UTF-8";
 @font-face {
   font-family: Bangers-Regular;
   src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/prc-theme/app/font/Bangers-Regular.woff");
@@ -797,8 +798,13 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
   justify-content: center;
   align-items: center;
   flex: 0 0 50%;
-  min-height: 160px;
+  min-height: 200px;
   border: 0.5px solid #FF3131;
+}
+.animated-list-block__item:hover {
+  border: unset;
+  transition: border 0.1s;
+  animation-delay: 0.4s;
 }
 .animated-list-block__item__item:nth-child(3), .animated-list-block__item__item:nth-child(4), .animated-list-block__item__item:nth-child(5) {
   flex: 0 0 33.33%;
@@ -832,25 +838,88 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
     flex-basis: 100%;
   }
 }
+/* Ensure the edge spans position correctly */
 .animated-list-block__item {
   position: relative;
-  background: transparent;
-  z-index: 0;
+  overflow: hidden;
 }
-.animated-list-block__item::before {
-  content: "";
+
+/* Edge spans (one per side) */
+.animated-list-block__item .b-1,
+.animated-list-block__item .b-2,
+.animated-list-block__item .b-3,
+.animated-list-block__item .b-4 {
   position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: linear-gradient(to right, #FF3131, #FF3131);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  transition: background 0.4s ease;
-  z-index: -1;
+  pointer-events: none;
+  z-index: 1;
+  background: #FFD700;
+  transition: transform 0.25s linear;
+  will-change: transform;
 }
-.animated-list-block__item:hover::before {
-  background: linear-gradient(to right, #FF3131, #FFD700);
+
+/* top */
+.animated-list-block__item .b-1 {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* right */
+.animated-list-block__item .b-2 {
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+/* bottom */
+.animated-list-block__item .b-3 {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+/* left */
+.animated-list-block__item .b-4 {
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: center bottom;
+}
+
+/* Clockwise draw on hover: top → right → bottom → left */
+.animated-list-block__item:hover .b-1 {
+  transform: scaleX(1);
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+}
+
+.animated-list-block__item:hover .b-2 {
+  transform: scaleY(1);
+  transition-duration: 0.25s;
+  transition-delay: 0.25s;
+}
+
+.animated-list-block__item:hover .b-3 {
+  transform: scaleX(1);
+  transition-duration: 0.25s;
+  transition-delay: 0.5s;
+}
+
+.animated-list-block__item:hover .b-4 {
+  transform: scaleY(1);
+  transition-duration: 0.25s;
+  transition-delay: 0.75s;
 }
 
 .cta-block {
