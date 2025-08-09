@@ -176,6 +176,52 @@ require('../scss/main.scss');
     }
 
 
+     // Home Page Hero Parallax
+  $(window).on('scroll', function () {
+  let scrolled = $(window).scrollTop();
+  $('.home-page-hero__layer.background').css('transform', 'translateY(' + scrolled * 0.3 + 'px)');
+  $('.home-page-hero__layer.middle').css('transform', 'translateY(' + scrolled * 0.5 + 'px)');
+  $('.home-page-hero__layer.foreground').css('transform', 'translateY(' + scrolled * 0.7 + 'px)');
+}); 
+
+
+jQuery(function ($) {
+  function animateStat($el) {
+    let finalText = $el.text().trim();
+    let finalValue = parseInt(finalText.replace(/[^0-9]/g, ''), 10);
+    let prefix = finalText.replace(/[0-9].*$/, ''); 
+    let suffix = finalText.replace(/^[^0-9]*/, '').replace(/[0-9]/g, ''); 
+    let current = 0;
+    let increment = Math.ceil(finalValue / 20); 
+
+    let interval = setInterval(function () {
+      current += increment;
+      if (current >= finalValue) {
+        $el.text(prefix + finalValue + suffix);
+        clearInterval(interval);
+      } else {
+        $el.text(prefix + current + suffix);
+      }
+    }, 50);
+  }
+
+  let observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        $(entry.target).find('.stats-block__number').each(function () {
+          animateStat($(this));
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+
+  $('.stats-block__stats').each(function () {
+    observer.observe(this);
+  });
+});
+
+
+
   });
 })(jQuery);
 
