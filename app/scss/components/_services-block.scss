@@ -1,0 +1,93 @@
+.services-block {
+  @include container;
+
+  @include respond(small){
+    @include flex-between;
+    align-items: flex-start;
+  }
+
+  &__block-heading {
+    @include container;
+    margin-bottom: 56px;
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.4;
+    font-weight: 700;
+    font-family: $font-secondary;
+    letter-spacing: .2rem;;
+  }
+
+  &__images {
+    @include flex-center;
+
+    @include respond(small){
+      width: 50%;
+    }
+
+    img {
+      width: 500px;
+      max-width: 90%;
+
+      @include respond(small){
+        height: 700px;
+        object-fit: cover;
+      }
+      
+    }
+  }
+
+  &__services {
+    margin-bottom: $spacer/2;
+
+    @include respond(small){
+      width: 50%;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid $colorThree;
+    font-family: $font-primary;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: unset;
+    cursor: pointer;
+
+    &.active {
+      padding-bottom: unset;
+      border-bottom: unset;
+    }
+  }
+
+  &__description {
+    display: none;
+    position: relative;
+    padding: 0 0 32px 48px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 6px; 
+      background: $colorFour;
+      border-radius: 50%;
+      transition: height 80ms linear;
+      will-change: height;
+    }
+
+    &.progress-active::before {
+      border-radius: 2px; 
+      height: calc(var(--scroll-progress, 0) * 1%);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 48px 0 24px;
+    }
+  }
+}

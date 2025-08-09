@@ -56,6 +56,66 @@ require('../scss/main.scss');
       }
     });
 
+
+// Services Accordion 
+$('.services-block__heading').on('click', function () {
+  const $heading = $(this);
+  const $container = $heading.closest('.services-block__content'); 
+  const $desc = $container.find('.services-block__description');
+
+  // close others
+  $('.services-block__heading').not($heading).removeClass('active');
+  $('.services-block__description').not($desc).stop(true, true).slideUp();
+
+  // toggle this one
+  $heading.toggleClass('active');
+  $desc.stop(true, true).slideToggle();
+});
+
+
+// Vertical progress line for .services-block__description
+(function () {
+  const $descs = jQuery('.services-block__description');
+  if (!$descs.length) return;
+
+  let ticking = false;
+
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  function updateAll() {
+    $descs.filter('.progress-active').each(function () {
+      const el = this;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      const elementTop = rect.top + window.scrollY;
+      const scrolledPastTop = (window.scrollY + vh) - elementTop;
+      const progress = clamp(scrolledPastTop / rect.height, 0, 1);
+
+      el.style.setProperty('--scroll-progress', Math.round(progress * 100));
+    });
+    ticking = false;
+  }
+
+  function requestUpdate() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateAll);
+    }
+  }
+
+  // Turn on progress when the description becomes visible
+  jQuery('.services-block__heading').on('click', function () {
+    const $desc = jQuery(this).next('.services-block__description');
+    $desc.addClass('progress-active');
+    requestUpdate();
+  });
+
+  jQuery(window).on('scroll resize load', requestUpdate);
+})();
+
+
+
     // Slick Slider 
     if ($('.slider-block').length && typeof $.fn.slick === 'function') {
       $('.slider-block').slick({
