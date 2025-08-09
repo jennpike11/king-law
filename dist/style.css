@@ -1062,6 +1062,7 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
   max-width: 800px;
   font-size: 120px;
   line-height: 120px;
+  letter-spacing: 0.4rem;
 }
 .home-page-hero__subheading {
   font-size: 44px;
