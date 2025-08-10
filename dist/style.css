@@ -1624,6 +1624,33 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
   background-color: #fcfefd;
 }
 
+.media-block {
+  width: calc(100% - 32px);
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 768px) {
+  .media-block {
+    width: calc(100% - 64px);
+  }
+}
+.media-block__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.media-block__video {
+  width: 960px;
+  max-width: 96%;
+  margin: auto;
+}
+.media-block__video iframe {
+  width: 100%;
+  min-height: 560px;
+}
+
 .one-column-block {
   width: calc(100% - 32px);
   max-width: 1440px;

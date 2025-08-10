@@ -2,13 +2,12 @@
 // media
 if (have_rows('media_block')): 
   while (have_rows('media_block')): the_row(); 
-    $verticalPadding = get_sub_field('vertical_padding');
     $mediaType = get_sub_field('media_type');
     $video = get_sub_field('video');
     $image - get_sub_field('media')
     ?>
 
-    <section class="media-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
+    <section class="media-block__wrapper">
         <div class="media-block">
           <?php if ($mediaType == 'video'): ?>
             <div class="media-block__video">
