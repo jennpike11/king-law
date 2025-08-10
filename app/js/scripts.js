@@ -57,63 +57,141 @@ require('../scss/main.scss');
     });
 
 
-// Services Accordion 
-$('.services-block__heading').on('click', function () {
-  const $heading = $(this);
-  const $container = $heading.closest('.services-block__content'); 
-  const $desc = $container.find('.services-block__description');
 
-  // close others
-  $('.services-block__heading').not($heading).removeClass('active');
-  $('.services-block__description').not($desc).stop(true, true).slideUp();
+// Start services block
+// ===============================
+// Services Block — reliable multi-click behavior
+// ===============================
+(function ($) {
+  const TOP_OFFSET = 56;
+  const MOVE_THRESHOLD = 6;
+  const IGNORE_MS = 260;
 
-  // toggle this one
-  $heading.toggleClass('active');
-  $desc.stop(true, true).slideToggle();
-});
+  // per-description state
+  const baseline = new WeakMap();
+  const waiting  = new WeakMap();
+  let ignoreUntil = 0;
 
+  function clamp(v, min, max){ return v < min ? min : v > max ? max : v; }
 
-// Vertical progress line for .services-block__description
-(function () {
-  const $descs = jQuery('.services-block__description');
-  if (!$descs.length) return;
+  function scrollHeadingToTop($heading, done){
+    const y = Math.max(0, $heading.offset().top - TOP_OFFSET);
+    $('html, body').stop(true, true).animate({ scrollTop: y }, 300, 'swing', done);
+  }
 
-  let ticking = false;
-
-  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
-
-  function updateAll() {
-    $descs.filter('.progress-active').each(function () {
+  function hardResetAll($root){
+    $root.find('.services-block__description').each(function(){
       const el = this;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-
-      const elementTop = rect.top + window.scrollY;
-      const scrolledPastTop = (window.scrollY + vh) - elementTop;
-      const progress = clamp(scrolledPastTop / rect.height, 0, 1);
-
-      el.style.setProperty('--scroll-progress', Math.round(progress * 100));
+      el.classList.remove('progress-active','progress-dot-top');
+      el.style.setProperty('--scroll-progress', 0);
+      baseline.delete(el);
+      waiting.delete(el);
     });
-    ticking = false;
   }
 
-  function requestUpdate() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateAll);
-    }
+  function setDot($desc){
+    const el = $desc[0];
+    el.classList.remove('progress-active','progress-dot-top');
+    el.style.setProperty('--scroll-progress', 0);
+    baseline.delete(el);
+    waiting.delete(el);
+    el.classList.add('progress-active','progress-dot-top');
   }
 
-  // Turn on progress when the description becomes visible
-  jQuery('.services-block__heading').on('click', function () {
-    const $desc = jQuery(this).next('.services-block__description');
-    $desc.addClass('progress-active');
-    requestUpdate();
+  function updateProgress($root){
+    const now = performance.now();
+
+    $root.find('.services-block__description.progress-active:visible').each(function(){
+      const el = this;
+      const base = baseline.get(el);
+      if (base == null) return;
+
+      if (now < ignoreUntil) {
+        el.style.setProperty('--scroll-progress', 0);
+        el.classList.add('progress-dot-top');
+        return;
+      }
+
+      const dist = window.scrollY - base; // +down, -up
+      const rect = el.getBoundingClientRect();
+      const h = rect.height || el.offsetHeight || 1;
+
+      if (waiting.get(el)) {
+        if (dist >= MOVE_THRESHOLD) {
+          waiting.set(el, false);
+          el.classList.remove('progress-dot-top');
+          el.style.setProperty('--scroll-progress', Math.round(clamp(dist / h, 0, 1) * 100));
+        } else {
+          el.style.setProperty('--scroll-progress', 0);
+        }
+        return;
+      }
+
+      el.style.setProperty('--scroll-progress', Math.round(clamp(dist / h, 0, 1) * 100));
+    });
+  }
+
+  // keep progress live
+  $(window).on('scroll resize', function(){
+    $('.services-block').each(function(){ updateProgress($(this)); });
   });
 
-  jQuery(window).on('scroll resize load', requestUpdate);
-})();
+  // ensure first image shows on load (per block)
+  $(function(){
+    $('.services-block').each(function(){
+      const $root = $(this);
+      const $images = $root.find('.services-block__images .services-block__image');
+      if ($images.length) $images.removeClass('is-active').eq(0).addClass('is-active');
+    });
+  });
 
+  // main click handler – RE-QUERIES INSIDE THE CLICK
+  $(document).on('click', '.services-block__heading, .services-block__header', function(e){
+    e.preventDefault(); // in case someone made it a link
+    const $heading = $(this);
+    const $root    = $heading.closest('.services-block');
+
+    // Fresh collections every click (prevents stale indexes)
+    const $allHeadings = $root.find('.services-block__heading, .services-block__header');
+    const $allDescs    = $root.find('.services-block__description');
+    const $images      = $root.find('.services-block__images .services-block__image');
+
+    // map index safely
+    const idx = $allHeadings.index($heading);
+
+    // close others + hard reset progress
+    $allHeadings.not($heading).removeClass('active');
+    $allDescs.not($heading.next('.services-block__description')).stop(true, true).slideUp();
+    hardResetAll($root);
+
+    // image swap by index (guard if counts differ)
+    if (idx >= 0 && $images.length) {
+      const safeIdx = Math.min(idx, $images.length - 1);
+      $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
+    }
+
+    // open this one
+    const $desc = $heading.next('.services-block__description');
+    $heading.addClass('active');
+    $desc.stop(true, true).slideDown(150, () => {
+      // dot now
+      setDot($desc);
+
+      // ignore programmatic scroll
+      ignoreUntil = performance.now() + IGNORE_MS;
+
+      // snap heading to 56px, then arm progress
+      scrollHeadingToTop($heading, () => {
+        baseline.set($desc[0], window.scrollY);
+        waiting.set($desc[0], true);
+        updateProgress($root); // show dot
+      });
+    });
+  });
+
+})(jQuery);
+
+//end services block
 
 
     // Slick Slider 
