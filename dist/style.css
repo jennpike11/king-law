@@ -1756,7 +1756,7 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
 .services-block__services:last-child {
   margin-bottom: 0;
 }
-.services-block__heading, .services-block__header {
+.services-block__heading {
   margin-bottom: 24px;
   padding-bottom: 24px;
   border-bottom: 1px solid #FFD700;
@@ -1766,7 +1766,7 @@ div[submit-success] > .wpforms-confirmation-container-full:not(.wpforms-redirect
   letter-spacing: unset;
   cursor: pointer;
 }
-.services-block__heading.active, .services-block__header.active {
+.services-block__heading.active {
   padding-bottom: unset;
   border-bottom: unset;
 }
