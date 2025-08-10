@@ -389,6 +389,25 @@ jQuery(function ($) {
 
 
 
+// Parallax for media-block background
+$(window).on('scroll', function () {
+    $('.media-block__media-background').each(function () {
+        var $el = $(this);
+        var scrollTop = $(window).scrollTop();
+        var offsetTop = $el.offset().top;
+        var height = $el.outerHeight();
+
+        // Only process when element is in viewport
+        if (scrollTop + $(window).height() > offsetTop && scrollTop < offsetTop + height) {
+            var yPos = (scrollTop - offsetTop) * 0.8; // Adjust multiplier for speed
+            $el.css('transform', 'translateY(' + yPos + 'px)');
+        }
+    });
+});
+
+
+
+
   });
 })(jQuery);
 

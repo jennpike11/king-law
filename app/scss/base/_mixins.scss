@@ -54,3 +54,30 @@
   display: flex;
   justify-content: space-between;
 }
+
+
+// Button Border
+@mixin btn-border-drawing($color, $thickness: 1px, $startEdge: bottom, $direction: right) {
+  position: relative;
+  color: $color;
+
+  &::after {
+    content: "";
+    position: absolute;
+    #{$startEdge}: 0;
+    #{$direction}: 0;
+    left: if($direction == right, 0, auto);
+    right: if($direction == left, 0, auto);
+    top: if($startEdge == top, 0, auto);
+    bottom: if($startEdge == bottom, 0, auto);
+    width: 0%;
+    height: $thickness;
+    background: $color;
+    transition: width .25s linear, background-color .25s linear;
+  }
+
+  &:hover::after {
+    width: 100%;
+    background: $colorOne; // hover color
+  }
+}
