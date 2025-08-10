@@ -127,3 +127,50 @@
     }
   }
 }
+
+  /* Hover preview image styling */
+.services-block {
+  .services-block__heading,
+  .services-block__header {
+    position: relative;
+    border-bottom: 1px solid $colorFour;
+    transition: color 180ms ease; // optional text color change
+
+    /* Animated border-bottom color effect */
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      height: 1px;
+      width: 0%;
+      background-color: $colorThree;
+      transition: width 250ms ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+
+  /* Hover preview image styling */
+  .services-block__images {
+    position: relative;
+  }
+
+  .services-block__image {
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 250ms ease;
+
+    &.is-active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    &.is-hover {
+      opacity: 1;
+      z-index: 2; // above active image
+    }
+  }
+}

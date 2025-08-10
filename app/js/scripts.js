@@ -190,8 +190,37 @@ require('../scss/main.scss');
   });
 
 })(jQuery);
-
 //end services block
+
+// Services Block Hover Effect
+(function ($) {
+  const $root = $('.services-block');
+
+  // Hover → show matching image temporarily
+  $root.on('mouseenter', '.services-block__heading, .services-block__header', function () {
+    const $block = $(this).closest('.services-block');
+    const $headings = $block.find('.services-block__heading, .services-block__header');
+    const $images = $block.find('.services-block__image');
+
+    const idx = $headings.index(this);
+    if (idx < 0) return;
+
+    // Remove previous hover state
+    $images.removeClass('is-hover');
+    // Show hovered image
+    $images.eq(idx).addClass('is-hover');
+  });
+
+  // Mouse leave → revert to active image
+  $root.on('mouseleave', '.services-block__heading, .services-block__header', function () {
+    const $block = $(this).closest('.services-block');
+    const $images = $block.find('.services-block__image');
+
+    // Remove hover, keep active image visible
+    $images.removeClass('is-hover');
+  });
+})(jQuery);
+// end services block hover effect
 
 
     // Slick Slider 
