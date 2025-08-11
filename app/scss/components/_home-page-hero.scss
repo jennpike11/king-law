@@ -1,3 +1,5 @@
+@use '../base/globals' as *;
+
 .home-page-hero {
   position: relative;
   height: 100vh;
@@ -52,10 +54,10 @@
   }
 
   &__heading {
-    max-width: 800px;
-    font-size: 120px;
-    line-height: 120px;
-    letter-spacing: .4rem;
+    max-width: 960px;
+    font-size: 96px;
+    line-height: 104px;
+    letter-spacing: -.08rem;
   }
 
   &__subheading {

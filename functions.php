@@ -109,3 +109,7 @@ function prc_theme_setup() {
 }
 add_action('after_setup_theme', 'prc_theme_setup');
 
+// Shouldn't need this but will figure out later why it's acting up
+add_action('after_setup_theme', function () {
+  add_theme_support('post-thumbnails'); 
+});

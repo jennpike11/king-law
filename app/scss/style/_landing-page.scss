@@ -1,3 +1,5 @@
+@use '../base/globals' as *;
+
 .landing-page-template-default {
     .site-header__title, .site-header__logo {
        pointer-events: none;

@@ -1,3 +1,5 @@
+@use '../base/globals' as *;
+
 .landing-page-hero-block--standard {
   @include flex-center;
   min-height: 656px;
@@ -42,7 +44,7 @@
     }
 
     > div {
-      @extend .background-gradient;
+      @include background-gradient;
       width: 88%;
       padding: 24px 32px;
       border-radius: 2px;

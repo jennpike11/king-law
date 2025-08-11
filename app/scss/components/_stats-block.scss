@@ -1,3 +1,5 @@
+@use '../base/globals' as *;
+
 .stats-block {
   @include container;
 

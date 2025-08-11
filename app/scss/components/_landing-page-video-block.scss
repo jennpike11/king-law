@@ -1,3 +1,5 @@
+@use '../base/globals' as *;
+
 .landing-page-video-block {
   @include container;
 

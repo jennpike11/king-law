@@ -1,3 +1,5 @@
+@use '../base/globals' as *;
+
 .faq-block {
   @include container;
   max-width: 900px;
