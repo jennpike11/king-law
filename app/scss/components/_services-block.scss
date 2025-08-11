@@ -11,11 +11,10 @@
   &__block-heading {
     @include container;
     margin-bottom: 56px;
-    font-size: clamp(28px, 3.6vw, 42px);
+    font-size: clamp(28px, 4vw, 48px);
     line-height: 1.4;
     font-weight: 700;
-    font-family: $font-tertiary;
-    letter-spacing: .2rem;
+    font-family: $font-secondary;
   }
 
   /* Text (headings + descriptions) */
@@ -36,9 +35,8 @@
     padding-bottom: 24px;
     border-bottom: 1px solid $colorFour;
     font-family: $font-primary;
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: unset;
+    font-size: 24px;
+    line-height: 32px;
     cursor: pointer;
 
     &.active {

@@ -38,7 +38,7 @@ require('../scss/main.scss');
       }, 800);
     });
 
-    $('.primary-button, .secondary-button').hover(
+    $('.primary-button, .primary-button').hover(
       function () { $('body').addClass('mouse-trail-hidden'); },
       function () { $('body').removeClass('mouse-trail-hidden'); }
     );

@@ -32,6 +32,13 @@ if (have_rows('featured_posts_block')):
             </div>
             <div class="featured-posts-block__content">
               <h3 class="featured-posts-block__title"><?php the_title(); ?></h3>
+              <?php $ex = trim( wp_strip_all_tags( get_the_excerpt(), true ) );
+              if ( $ex !== '' ) : ?>
+                <div class="featured-posts-block__excerpt">
+                  <?php echo wp_kses_post( get_the_excerpt() ); ?>
+                </div>
+              <?php endif; ?>
+
             </div>
           </a>
         <?php endwhile; 

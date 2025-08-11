@@ -26,7 +26,7 @@
     max-width: 480px;
   }
 
-  .secondary-button {
+  .primary-button {
     margin-top: 40px;
   }
 
@@ -45,7 +45,7 @@
   }
 }
 
-.background-color--color-one .secondary-button {
+.background-color--color-one .primary-button {
   border-color: $white;
   color: $colorOne;
   background-color: $white;
@@ -57,7 +57,7 @@
   }
 }
 
-.background-color--color-two .secondary-button {
+.background-color--color-two .primary-button {
   &:hover {
     border-color: $white;
     color: $colorOne;

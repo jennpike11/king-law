@@ -29,7 +29,7 @@ if (have_rows('button_block')):
       <?php endif; ?>
 
       <?php if (!empty($buttonTwo['url']) && !empty($buttonTwo['title'])): ?>
-        <div class="secondary-button">
+        <div class="primary-button">
           <a href="<?php echo esc_url($buttonTwo['url']); ?>" 
             target="<?php echo esc_attr($buttonTwo['target'] ?? '_self'); ?>">
             <?php echo esc_html($buttonTwo['title']); ?>

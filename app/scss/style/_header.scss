@@ -69,7 +69,7 @@
     }
 
     &__title {
-        font-family: $font-tertiary;
+        font-family: $font-secondary;
         font-size: 40px;
         color: $white;
 
@@ -111,7 +111,7 @@
 
          ul > li:last-of-type {
             width: 100%;
-            font-family: $font-tertiary;
+            font-family: $font-secondary;
 
             @include respond(large){
                 width: fit-content;

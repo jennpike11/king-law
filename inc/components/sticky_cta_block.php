@@ -28,7 +28,7 @@ if ( have_rows('sticky_cta_block') ):
       <?php endif; ?>
 
       <?php if ( $phone ): ?>
-        <div class="sticky-cta-block__phone secondary-button">
+        <div class="sticky-cta-block__phone primary-button">
           <a href="tel:<?php echo esc_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a>
         </div>
       <?php endif; ?>

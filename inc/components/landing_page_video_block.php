@@ -28,7 +28,7 @@ if( have_rows('landing_page_video_block') ):
       <?php endif; ?>
 
       <?php if (!empty($cta['url']) && !empty($cta['title'])): ?>
-        <div class="secondary-button">
+        <div class="primary-button">
           <a href="<?php echo esc_url($cta['url']); ?>" target="<?php echo esc_attr($cta['target'] ?? '_self'); ?>">
             <?php echo esc_html($cta['title']); ?>
           </a>
