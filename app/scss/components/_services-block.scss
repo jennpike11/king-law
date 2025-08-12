@@ -123,6 +123,13 @@
         z-index: 1;
         transition-delay: 0s;
       }
+
+      &.is-hover {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;       
+        transition-delay: 0s;
+      }
     }
   }
 
@@ -141,22 +148,28 @@
   .services-block__header {
     position: relative;
     border-bottom: 1px solid $colorFour;
-    transition: color 180ms ease; // optional text color change
+    transition: color 180ms ease, border-color 200ms ease; /* CHANGED: added border-color transition */
 
-    /* Animated border-bottom color effect */
+    /* Animated underline that changes color on hover/focus */
     &::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: -1px;
+      bottom: 0;                   /* CHANGED: align with the border */
       height: 1px;
       width: 0%;
-      background-color: $colorThree;
-      transition: width 250ms ease;
+      background-color: $colorThree; /* the hover color */
+      transition: width 250ms ease, background-color 200ms ease;
     }
 
-    &:hover::after {
-      width: 100%;
+    &:hover,
+    &:focus-visible {
+      border-bottom-color: transparent; /* CHANGED: reveal the colored underline cleanly */
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      width: 100%; /* CHANGED: expand underline when hovered or focused */
     }
   }
 
@@ -194,7 +207,7 @@
       position: absolute;
       left: 0; top: 0;
       width: 3px;                    /* line thickness */
-      height: calc(120px + var(--scroll-progress));
+      height: calc(120px + var(--scroll-progress)); /* you set 120px, kept */
       background: $colorThree;       /* your yellow */
       border-radius: 3px;
       transition: height .15s linear;
@@ -202,20 +215,5 @@
 
     /* keeps only the 10px dot until the user scrolls */
     &.progress-dot-top::before { height: 10px; }
-  }
-
-  /* Image crossfade, one visible at a time */
-  .services-block__images {
-    position: relative;
-  }
-  .services-block__image {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity .4s ease;
-    pointer-events: none;
-
-    &.is-active,
-    &.is-hover { opacity: 1; pointer-events: auto; }
   }
 }

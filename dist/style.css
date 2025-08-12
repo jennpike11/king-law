@@ -2092,6 +2092,12 @@ i.fa-solid:before {
   z-index: 1;
   transition-delay: 0s;
 }
+.services-block__images .services-block__image.is-hover {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+  transition-delay: 0s;
+}
 .services-block .primary-button {
   margin: 40px 0;
 }
@@ -2107,23 +2113,29 @@ i.fa-solid:before {
 .services-block .services-block__header {
   position: relative;
   border-bottom: 1px solid #f2e4a8;
-  transition: color 180ms ease;
-  /* Animated border-bottom color effect */
+  transition: color 180ms ease, border-color 200ms ease; /* CHANGED: added border-color transition */
+  /* Animated underline that changes color on hover/focus */
 }
 .services-block .services-block__heading::after,
 .services-block .services-block__header::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -1px;
+  bottom: 0; /* CHANGED: align with the border */
   height: 1px;
   width: 0%;
-  background-color: #FF313A;
-  transition: width 250ms ease;
+  background-color: #FF313A; /* the hover color */
+  transition: width 250ms ease, background-color 200ms ease;
 }
-.services-block .services-block__heading:hover::after,
-.services-block .services-block__header:hover::after {
-  width: 100%;
+.services-block .services-block__heading:hover, .services-block .services-block__heading:focus-visible,
+.services-block .services-block__header:hover,
+.services-block .services-block__header:focus-visible {
+  border-bottom-color: transparent; /* CHANGED: reveal the colored underline cleanly */
+}
+.services-block .services-block__heading:hover::after, .services-block .services-block__heading:focus-visible::after,
+.services-block .services-block__header:hover::after,
+.services-block .services-block__header:focus-visible::after {
+  width: 100%; /* CHANGED: expand underline when hovered or focused */
 }
 .services-block .services-block__images {
   position: relative;
@@ -2143,9 +2155,6 @@ i.fa-solid:before {
 }
 
 /* Progress line on the left of each description */
-.services-block {
-  /* Image crossfade, one visible at a time */
-}
 .services-block .services-block__description {
   position: relative;
   --scroll-progress: 0%; /* JS updates this from 0%..100% */
@@ -2157,27 +2166,13 @@ i.fa-solid:before {
   left: 0;
   top: 0;
   width: 3px; /* line thickness */
-  height: calc(120px + var(--scroll-progress));
+  height: calc(120px + var(--scroll-progress)); /* you set 120px, kept */
   background: #FF313A; /* your yellow */
   border-radius: 3px;
   transition: height 0.15s linear;
 }
 .services-block .services-block__description.progress-dot-top::before {
   height: 10px;
-}
-.services-block .services-block__images {
-  position: relative;
-}
-.services-block .services-block__image {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.services-block .services-block__image.is-active, .services-block .services-block__image.is-hover {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .stats-block {

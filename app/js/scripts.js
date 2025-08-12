@@ -150,7 +150,7 @@ require('../scss/main.scss');
   });
 
   // Main click: on heading only
-  $(document).on('click', '.services-block__heading', function (e) {
+$(document).on('click', '.services-block__heading', function (e) {
   e.preventDefault();
 
   const $heading = $(this);
@@ -160,58 +160,74 @@ require('../scss/main.scss');
   const $allDescs    = $root.find('.services-block__description');
   const $images      = $root.find('.services-block__images .services-block__image');
 
-  // 1) reset everything from previous click
+  const $desc = $heading.next('.services-block__description');
+  const isOpen = $heading.hasClass('active');
+
+  // If clicking the open one, close it and reset
+  if (isOpen) {
+    $heading.removeClass('active');
+    $desc.stop(true, true).slideUp(150, () => {
+      // reset progress line for this item
+      $desc[0].classList.remove('progress-active','progress-dot-top');
+      $desc[0].style.setProperty('--scroll-progress', '0%');
+      baseline.delete($desc[0]);
+      waiting.delete($desc[0]);
+    });
+    // show the first image when nothing is selected
+    $images.removeClass('is-active').eq(0).addClass('is-active');
+    return;
+  }
+
+  // Otherwise open this one and close others
   $allHeadings.not($heading).removeClass('active');
-  $allDescs.not($heading.next('.services-block__description')).stop(true, true).slideUp(0);
-  $root.find('.services-block__description').each(function(){
+  $allDescs.not($desc).stop(true, true).slideUp(0);
+  $root.find('.services-block__description').each(function () {
     this.classList.remove('progress-active','progress-dot-top');
     this.style.setProperty('--scroll-progress', '0%');
     baseline.delete(this);
     waiting.delete(this);
   });
 
-  // 5) image crossfade
+  // Image crossfade to the matching image
   const idx = $allHeadings.index($heading);
   if (idx >= 0 && $images.length) {
     const safeIdx = Math.min(idx, $images.length - 1);
     $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
   }
 
-  // 3) open chosen
-  const $desc = $heading.next('.services-block__description');
+  // Open chosen description
   $heading.addClass('active');
-
   $desc.stop(true, true).slideDown(150, () => {
-    // 4) show 10px starter
+    // show starter dot
     armDot($desc);
 
-    // 2) compute target and set baseline BEFORE the snap
+    // snap scroll so heading sits 120px from top, then progress grows on user scroll
     const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);
     ignoreUntil = performance.now() + IGNORE_MS;
-    baseline.set($desc[0], targetY);   // <-- key change
+    baseline.set($desc[0], targetY);
     waiting.set($desc[0], true);
-    updateProgress($root);              // paint starter immediately
-
-    // snap to position
+    updateProgress($root);
     $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');
   });
 });
 
+// swap images on hover
+$(document).on('mouseenter', '.services-block__heading', function () {
+  const $block    = $(this).closest('.services-block');
+  const $headings = $block.find('.services-block__heading');
+  const $images   = $block.find('.services-block__images .services-block__image');
+  const idx = $headings.index(this);
+  if (idx < 0) return;
+  $images.removeClass('is-hover');
+  $images.eq(idx).addClass('is-hover');
+}).on('mouseleave', '.services-block__heading', function () {
+  const $block  = $(this).closest('.services-block');
+  const $images = $block.find('.services-block__images .services-block__image');
+  $images.removeClass('is-hover'); // falls back to .is-active
+});
 
-  // Optional: hover preview image without changing active
-  $(document).on('mouseenter', '.services-block__heading', function () {
-    const $block    = $(this).closest('.services-block');
-    const $headings = $block.find('.services-block__heading');
-    const $images   = $block.find('.services-block__image');
-    const idx = $headings.index(this);
-    if (idx < 0) return;
-    $images.removeClass('is-hover');
-    $images.eq(idx).addClass('is-hover');
-  }).on('mouseleave', '.services-block__heading', function () {
-    const $block  = $(this).closest('.services-block');
-    const $images = $block.find('.services-block__image');
-    $images.removeClass('is-hover');
-  });
+
+
 
 })(jQuery);
 // ===============================
