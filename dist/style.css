@@ -396,13 +396,13 @@ img {
   background-color: #181A35;
 }
 .background-color--color-two {
-  background-color: #462f63;
+  background-color: #9c85bd;
 }
 .background-color--color-one-light {
   background-color: rgb(208.8, 209.2, 214.6);
 }
 .background-color--color-two-light {
-  background-color: rgb(218, 213.4, 223.8);
+  background-color: rgb(235.2, 230.6, 241.8);
 }
 
 .color--white {
@@ -415,23 +415,23 @@ img {
   color: #181A35;
 }
 .color--color-two {
-  color: #462f63;
+  color: #9c85bd;
 }
 .color--color-one-light {
   color: rgb(208.8, 209.2, 214.6);
 }
 .color--color-two-light {
-  color: rgb(218, 213.4, 223.8);
+  color: rgb(235.2, 230.6, 241.8);
 }
 
 .text-gradient {
-  background: linear-gradient(to bottom right, rgb(47.8441558442, 51.8311688312, 105.6558441558), rgb(106.6780821918, 71.6267123288, 150.8732876712));
+  background: linear-gradient(to bottom right, rgb(47.8441558442, 51.8311688312, 105.6558441558), rgb(196.2845744681, 182.6436170213, 215.8563829787));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .background-gradient {
-  background: linear-gradient(to bottom right, #181A35, #462f63);
+  background: linear-gradient(to bottom right, #181A35, #9c85bd);
 }
 
 .comments-area {
@@ -739,7 +739,7 @@ i.fa-solid:before {
   margin-top: 8vh;
   font-family: fontawesome;
   font-size: 30px;
-  color: #462f63;
+  color: #9c85bd;
 }
 
 .menu-toggle.active:after {
@@ -749,7 +749,7 @@ i.fa-solid:before {
   margin-top: 8vh;
   font-family: fontawesome;
   font-size: 30px;
-  color: #462f63;
+  color: #9c85bd;
 }
 
 .landing-page-template-default .menu-toggle {
@@ -1382,7 +1382,7 @@ i.fa-solid:before {
   }
 }
 .landing-page-hero-block--standard__form > div {
-  background: linear-gradient(to bottom right, #181A35, #462f63);
+  background: linear-gradient(to bottom right, #181A35, #9c85bd);
   width: 88%;
   padding: 24px 32px;
   border-radius: 2px;
@@ -1442,10 +1442,10 @@ i.fa-solid:before {
 .landing-page-hero-block--standard__phone a {
   display: block;
   margin-top: 16px;
-  color: rgb(145.1643835616, 111.9246575342, 187.0753424658);
+  color: rgb(236.5691489362, 232.2872340426, 242.7127659574);
 }
 .landing-page-hero-block--standard__phone a:hover {
-  color: #462f63;
+  color: #9c85bd;
 }
 .landing-page-hero-block--standard .primary-button {
   margin: auto;
@@ -1711,9 +1711,9 @@ i.fa-solid:before {
   background-color: #fcfefd;
 }
 .background-color--color-one .primary-button:hover {
-  border-color: #462f63;
+  border-color: #9c85bd;
   color: #fcfefd;
-  background-color: #462f63;
+  background-color: #9c85bd;
 }
 
 .background-color--color-two .primary-button:hover {
