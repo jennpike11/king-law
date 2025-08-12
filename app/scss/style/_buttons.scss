@@ -4,7 +4,7 @@
 
 
 .primary-button, .site-footer form input.wpcf7-submit {
-    @include btn-border-drawing($colorThree, $colorFour, 1px, top, left);
+    @include btn-border-drawing($colorThree, $white, 1px, top, left);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,7 +26,7 @@
     transition: text-shadow 0.3s ease, color 0.3s ease;
 
     &:hover {
-        color: $colorFour;
+        color: $white;
         background: $colorThree;
         transition: color .2s;
     }

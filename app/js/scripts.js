@@ -226,10 +226,52 @@ $(document).on('mouseenter', '.services-block__heading', function () {
   $images.removeClass('is-hover'); // falls back to .is-active
 });
 
-
-
-
 })(jQuery);
+
+// Deep link to services headings by ID
+(function ($) {
+  function findSvcHeadingById(id) {
+    if (!id) return $(); 
+    // safer than CSS escaping
+    return $('.services-block__heading').filter(function () { return this.id === id; });
+  }
+
+  // 1) On-page hash link clicks behave like clicking the heading
+  $(document).on('click', 'a[href^="#"]', function (e) {
+    const href = this.getAttribute('href');
+    if (!href || href === '#') return; // ignore empty hashes
+    const id = decodeURIComponent(href.slice(1));
+    const $target = findSvcHeadingById(id);
+    if ($target.length) {
+      e.preventDefault();
+      // keep the hash in the URL without jumping
+      if (location.hash !== '#' + id && history.replaceState) {
+        history.replaceState(null, '', '#' + id);
+      }
+      $target.trigger('click'); // reuse your existing heading click behavior
+    }
+  });
+
+  // 2) If the page loads with a hash, open that service
+  $(function () {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const $target = findSvcHeadingById(id);
+    if ($target.length) {
+      // defer a tick so layout is stable
+      setTimeout(function () { $target.trigger('click'); }, 0);
+    }
+  });
+
+  // 3) Support back/forward between hashes
+  $(window).on('hashchange', function () {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const $target = findSvcHeadingById(id);
+    if ($target.length) {
+      $target.trigger('click');
+    }
+  });
+})(jQuery);
+
 // ===============================
 // end services block 
 

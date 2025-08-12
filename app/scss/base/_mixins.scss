@@ -65,7 +65,7 @@
 
 
 
-@mixin btn-border-drawing($color: $colorFour, $hover: black, $width: 1px, $vertical: top, $horizontal: left, $duration: 0.25s) {
+@mixin btn-border-drawing($color: $white, $hover: black, $width: 1px, $vertical: top, $horizontal: left, $duration: 0.25s) {
   box-shadow: inset 0 0 0 $width $color;
   color: $color;
   transition: color $duration $duration/3;

@@ -178,10 +178,10 @@ body.mouse-trail-hidden #trail-container, body.mouse-trail-hidden #custom-star-c
   border-left-width: 1px;
 }
 .primary-button:hover, .site-footer form input.wpcf7-submit:hover {
-  color: #f2e4a8;
+  color: #fcfefd;
 }
 .primary-button:hover::before, .primary-button:hover::after, .site-footer form input.wpcf7-submit:hover::before, .site-footer form input.wpcf7-submit:hover::after {
-  border-color: #f2e4a8;
+  border-color: #fcfefd;
   transition: border-color 0s, width 0.25s, height 0.25s;
   width: 100%;
   height: 100%;
@@ -193,7 +193,7 @@ body.mouse-trail-hidden #trail-container, body.mouse-trail-hidden #custom-star-c
   transition-delay: 0s, 0.25s, 0s;
 }
 .primary-button:hover, .site-footer form input.wpcf7-submit:hover {
-  color: #f2e4a8;
+  color: #fcfefd;
   background: #FF313A;
   transition: color 0.2s;
 }
