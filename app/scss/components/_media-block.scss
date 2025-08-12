@@ -1,46 +1,44 @@
 @use '../base/globals' as *;
 
-.media-block__wrapper {
-  position: relative;
-  height: 100vh;
-  overflow: hidden; 
-}
-
-.media-block__media-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 140%; // extra height helps parallax look
-  z-index: 1;
-  overflow: hidden;
-
-  .media-block__video,
-  .media-block__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  iframe.media-block__video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; 
-  }
-}
-
 .media-block {
   position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
+  min-height: 100vh;
+  min-height: 100svh;              
+  display: grid;
   align-items: center;
 
+  &__wrapper {
+    position: relative;
+    overflow: hidden;
+    perspective: 1px;                 
+    transform-style: preserve-3d;
+  }
+
+  &__background {
+    position: absolute;
+    inset: 0;                        
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(-1px) scale(2); 
+    transform-origin: center top;
+    z-index: 0;
+    transition: none;
+
+    .media-block__video,
+    .media-block__image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;            
+      display: block;
+    }
+  }
+   
   &__content {
     @include container;
+    position: relative; 
+    z-index: 2; 
     color: $white;
   }
 

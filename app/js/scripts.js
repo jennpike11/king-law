@@ -408,70 +408,38 @@ function isElementInViewport(el) {
 }
 
 
+// Home Page Hero Parallax
+(function () {
+  const bg  = document.querySelector('.home-page-hero__layer.background');
+  const mid = document.querySelector('.home-page-hero__layer.middle');
+  const fg  = document.querySelector('.home-page-hero__layer.foreground');
+  if (!bg || !mid || !fg) return;
 
-  // Home Page Hero Parallax
-  $(window).on('scroll', function () {
-  let scrolled = $(window).scrollTop();
-  $('.home-page-hero__layer.background').css('transform', 'translateY(' + scrolled * 0.3 + 'px)');
-  $('.home-page-hero__layer.middle').css('transform', 'translateY(' + scrolled * 0.5 + 'px)');
-  $('.home-page-hero__layer.foreground').css('transform', 'translateY(' + scrolled * 0.7 + 'px)');
-}); 
+  let target  = window.scrollY || 0;
+  let current = target;
 
-
-jQuery(function ($) {
-  function animateStat($el) {
-    let finalText = $el.text().trim();
-    let finalValue = parseInt(finalText.replace(/[^0-9]/g, ''), 10);
-    let prefix = finalText.replace(/[0-9].*$/, ''); 
-    let suffix = finalText.replace(/^[^0-9]*/, '').replace(/[0-9]/g, ''); 
-    let current = 0;
-    let increment = Math.ceil(finalValue / 20); 
-
-    let interval = setInterval(function () {
-      current += increment;
-      if (current >= finalValue) {
-        $el.text(prefix + finalValue + suffix);
-        clearInterval(interval);
-      } else {
-        $el.text(prefix + current + suffix);
-      }
-    }, 50);
+  function apply(y) {
+    const b = Math.round(y * 0.30);
+    const m = Math.round(y * 0.50);
+    const f = Math.round(y * 0.70);
+    bg.style.transform  = `translate3d(0, ${b}px, 0)`;
+    mid.style.transform = `translate3d(0, ${m}px, 0)`;
+    fg.style.transform  = `translate3d(0, ${f}px, 0)`;
   }
 
-  let observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        $(entry.target).find('.stats-block__number').each(function () {
-          animateStat($(this));
-        });
-      }
-    });
-  }, { threshold: 0.2 });
+  function tick() {
+    current += (target - current) * 0.08; // lower = slower easing
+    apply(current);
+    requestAnimationFrame(tick);
+  }
 
-  $('.stats-block__stats').each(function () {
-    observer.observe(this);
-  });
-});
+  window.addEventListener('scroll', () => {
+    target = window.scrollY || 0;
+  }, { passive: true });
 
-
-
-// Parallax for media-block background
-$(window).on('scroll', function () {
-    $('.media-block__media-background').each(function () {
-        var $el = $(this);
-        var scrollTop = $(window).scrollTop();
-        var offsetTop = $el.offset().top;
-        var height = $el.outerHeight();
-
-        // Only process when element is in viewport
-        if (scrollTop + $(window).height() > offsetTop && scrollTop < offsetTop + height) {
-            var yPos = (scrollTop - offsetTop) * 0.8; // Adjust multiplier for speed
-            $el.css('transform', 'translateY(' + yPos + 'px)');
-        }
-    });
-});
-
-
+  apply(current);
+  tick();
+})();
 
 
   });
