@@ -13,6 +13,7 @@ if (have_rows('services_block')):
           'heading'     => get_sub_field('heading'),
           'description' => get_sub_field('description'),
           'link'        => get_sub_field('link'),
+          'anchor'       => get_sub_field('anchor'),
           'image'       => get_sub_field('image'),
         ];
       }
@@ -32,36 +33,40 @@ if (have_rows('services_block')):
   <?php endif; ?>
 
   <div class="services-block">
-    <!-- Left: headings + descriptions (accordion) -->
-    <div class="services-block__services">
-      <?php foreach ($services as $svc): ?>
-        <div class="services-block__content">
-          <?php if($anchor): ?>
-            <div id="<?php echo ($anchor) ?>"></div>
-          <?php endif; ?>
-          <?php if (!empty($svc['heading'])): ?>
-            <h2 class="services-block__heading">
-              <?php echo esc_html($svc['heading']); ?>
-            </h2>
-          <?php endif; ?>
+  <!-- Left: headings + descriptions (accordion) -->
+<div class="services-block__services">
+  <?php foreach ($services as $i => $svc): 
+    // build a safe, unique id
+    $raw_anchor = isset($svc['anchor']) ? trim($svc['anchor']) : '';
+    $base_id    = $raw_anchor !== '' ? $raw_anchor : ($svc['heading'] ?? '');
+    $id         = sanitize_title($base_id);
+    if ($id === '') { $id = 'svc-' . ($i + 1); } // fallback
+  ?>
+    <div class="services-block__content">
+      <?php if (!empty($svc['heading'])): ?>
+        <h2 id="<?php echo esc_attr($id); ?>" class="services-block__heading">
+          <?php echo esc_html($svc['heading']); ?>
+        </h2>
+      <?php endif; ?>
 
-          <div class="services-block__description">
-            <?php
-              if (!empty($svc['description'])) {
-                echo wp_kses_post($svc['description']);
-              }
-              if (!empty($svc['link']) && !empty($svc['link']['url'])):
-            ?>
-              <div class="primary-button">
-                <a href="<?php echo esc_url($svc['link']['url']); ?>">
-                  <?php echo esc_html($svc['link']['title'] ?? ''); ?>
-                </a>
-              </div>
-            <?php endif; ?>
+      <div class="services-block__description">
+        <?php
+          if (!empty($svc['description'])) {
+            echo wp_kses_post($svc['description']);
+          }
+          if (!empty($svc['link']['url'])):
+        ?>
+          <div class="primary-button">
+            <a href="<?php echo esc_url($svc['link']['url']); ?>">
+              <?php echo esc_html($svc['link']['title'] ?? ''); ?>
+            </a>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
     </div>
+  <?php endforeach; ?>
+</div>
+
 
     <!-- Right: stacked images (same order as headings) -->
     <div class="services-block__images">

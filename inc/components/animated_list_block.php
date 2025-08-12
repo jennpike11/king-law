@@ -10,7 +10,7 @@
         $heading = get_sub_field('heading');
         $link = get_sub_field('link');
         ?>
-        <a class="animated-list-block__item" href="<?php echo $link['url'] ?>">
+        <a class="animated-list-block__item" href="<?php echo $link ?>">
           <h2 class="animated-list-block__heading"><?php echo esc_html($heading); ?></h2>
           <span class="b-1"></span>
           <span class="b-2"></span>
