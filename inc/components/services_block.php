@@ -36,6 +36,9 @@ if (have_rows('services_block')):
     <div class="services-block__services">
       <?php foreach ($services as $svc): ?>
         <div class="services-block__content">
+          <?php if($anchor): ?>
+            <div id="<?php echo ($anchor) ?>"></div>
+          <?php endif; ?>
           <?php if (!empty($svc['heading'])): ?>
             <h2 class="services-block__heading">
               <?php echo esc_html($svc['heading']); ?>

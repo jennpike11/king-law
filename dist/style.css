@@ -1980,6 +1980,9 @@ i.fa-solid:before {
 .services-block .primary-button {
   margin: 40px 0;
 }
+.services-block #anchor {
+  padding-top: 96px;
+}
 
 /* Hover preview image styling */
 .services-block {
