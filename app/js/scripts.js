@@ -60,167 +60,162 @@ require('../scss/main.scss');
 
 // Start services block
 // ===============================
-// Services Block — reliable multi-click behavior
-// ===============================
 (function ($) {
-  const TOP_OFFSET = 56;
-  const MOVE_THRESHOLD = 6;
-  const IGNORE_MS = 260;
+  const TOP_OFFSET = 120;      // 1) scroll target = 120px from top
+  const MOVE_THRESHOLD = 6;    // small guard so the line waits until user scrolls
+  const IGNORE_MS = 260;       // ignore scroll while we animate to the heading
 
-  // per-description state
-  const baseline = new WeakMap();
-  const waiting  = new WeakMap();
+  // Per-description state
+  const baseline = new WeakMap(); // starting window.scrollY after snap
+  const waiting  = new WeakMap(); // wait for user scroll before growing line
   let ignoreUntil = 0;
 
   function clamp(v, min, max){ return v < min ? min : v > max ? max : v; }
 
   function scrollHeadingToTop($heading, done){
     const y = Math.max(0, $heading.offset().top - TOP_OFFSET);
-    $('html, body').stop(true, true).animate({ scrollTop: y }, 300, 'swing', done);
+    $('html, body').stop(true, true).animate({ scrollTop: y }, 350, 'swing', done);
   }
 
   function hardResetAll($root){
+    // close all descriptions and reset progress classes and vars
     $root.find('.services-block__description').each(function(){
       const el = this;
+      $(el).stop(true, true).slideUp(0);
       el.classList.remove('progress-active','progress-dot-top');
-      el.style.setProperty('--scroll-progress', 0);
+      el.style.setProperty('--scroll-progress', '0%');
       baseline.delete(el);
       waiting.delete(el);
     });
+    $root.find('.services-block__heading').removeClass('active');
   }
 
-  function setDot($desc){
+  function armDot($desc){
+    // show only the 10px starter
     const el = $desc[0];
     el.classList.remove('progress-active','progress-dot-top');
-    el.style.setProperty('--scroll-progress', 0);
+    el.style.setProperty('--scroll-progress', '0%');
     baseline.delete(el);
     waiting.delete(el);
+
     el.classList.add('progress-active','progress-dot-top');
   }
 
   function updateProgress($root){
     const now = performance.now();
 
-    $root.find('.services-block__description.progress-active:visible').each(function(){
+    $root.find('.services-block__description.progress-active').each(function(){
       const el = this;
       const base = baseline.get(el);
       if (base == null) return;
 
+      // ignore during programmatic scroll
       if (now < ignoreUntil) {
-        el.style.setProperty('--scroll-progress', 0);
+        el.style.setProperty('--scroll-progress', '0%');
         el.classList.add('progress-dot-top');
         return;
       }
 
-      const dist = window.scrollY - base; // +down, -up
+      const dist = window.scrollY - base; // +down
       const rect = el.getBoundingClientRect();
       const h = rect.height || el.offsetHeight || 1;
 
+      // wait for a tiny real scroll before growing the line
       if (waiting.get(el)) {
         if (dist >= MOVE_THRESHOLD) {
           waiting.set(el, false);
           el.classList.remove('progress-dot-top');
-          el.style.setProperty('--scroll-progress', Math.round(clamp(dist / h, 0, 1) * 100));
         } else {
-          el.style.setProperty('--scroll-progress', 0);
+          el.style.setProperty('--scroll-progress', '0%');
+          return;
         }
-        return;
       }
 
-      el.style.setProperty('--scroll-progress', Math.round(clamp(dist / h, 0, 1) * 100));
+      // set progress as a percentage string so CSS can do calc(10px + var(--scroll-progress))
+      const pct = Math.round(clamp(dist / h, 0, 1) * 100);
+      el.style.setProperty('--scroll-progress', pct + '%');
     });
   }
 
-  // keep progress live
   $(window).on('scroll resize', function(){
     $('.services-block').each(function(){ updateProgress($(this)); });
   });
 
-  // ensure first image shows on load (per block)
+  // ensure first image shows on load per block
   $(function(){
     $('.services-block').each(function(){
-      const $root = $(this);
-      const $images = $root.find('.services-block__images .services-block__image');
-      if ($images.length) $images.removeClass('is-active').eq(0).addClass('is-active');
+      const $images = $(this).find('.services-block__images .services-block__image');
+      $images.removeClass('is-active').eq(0).addClass('is-active');
     });
   });
 
-  // main click handler – RE-QUERIES INSIDE THE CLICK
-  $(document).on('click', '.services-block__heading, .services-block__header', function(e){
-    e.preventDefault(); // in case someone made it a link
-    const $heading = $(this);
-    const $root    = $heading.closest('.services-block');
+  // Main click: on heading only
+  $(document).on('click', '.services-block__heading', function (e) {
+  e.preventDefault();
 
-    // Fresh collections every click (prevents stale indexes)
-    const $allHeadings = $root.find('.services-block__heading, .services-block__header');
-    const $allDescs    = $root.find('.services-block__description');
-    const $images      = $root.find('.services-block__images .services-block__image');
+  const $heading = $(this);
+  const $root    = $heading.closest('.services-block');
 
-    // map index safely
-    const idx = $allHeadings.index($heading);
+  const $allHeadings = $root.find('.services-block__heading');
+  const $allDescs    = $root.find('.services-block__description');
+  const $images      = $root.find('.services-block__images .services-block__image');
 
-    // close others + hard reset progress
-    $allHeadings.not($heading).removeClass('active');
-    $allDescs.not($heading.next('.services-block__description')).stop(true, true).slideUp();
-    hardResetAll($root);
-
-    // image swap by index (guard if counts differ)
-    if (idx >= 0 && $images.length) {
-      const safeIdx = Math.min(idx, $images.length - 1);
-      $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
-    }
-
-    // open this one
-    const $desc = $heading.next('.services-block__description');
-    $heading.addClass('active');
-    $desc.stop(true, true).slideDown(150, () => {
-      // dot now
-      setDot($desc);
-
-      // ignore programmatic scroll
-      ignoreUntil = performance.now() + IGNORE_MS;
-
-      // snap heading to 56px, then arm progress
-      scrollHeadingToTop($heading, () => {
-        baseline.set($desc[0], window.scrollY);
-        waiting.set($desc[0], true);
-        updateProgress($root); // show dot
-      });
-    });
+  // 1) reset everything from previous click
+  $allHeadings.not($heading).removeClass('active');
+  $allDescs.not($heading.next('.services-block__description')).stop(true, true).slideUp(0);
+  $root.find('.services-block__description').each(function(){
+    this.classList.remove('progress-active','progress-dot-top');
+    this.style.setProperty('--scroll-progress', '0%');
+    baseline.delete(this);
+    waiting.delete(this);
   });
 
-})(jQuery);
-//end services block
+  // 5) image crossfade
+  const idx = $allHeadings.index($heading);
+  if (idx >= 0 && $images.length) {
+    const safeIdx = Math.min(idx, $images.length - 1);
+    $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
+  }
 
-// Services Block Hover Effect
-(function ($) {
-  const $root = $('.services-block');
+  // 3) open chosen
+  const $desc = $heading.next('.services-block__description');
+  $heading.addClass('active');
 
-  // Hover → show matching image temporarily
-  $root.on('mouseenter', '.services-block__heading, .services-block__header', function () {
-    const $block = $(this).closest('.services-block');
-    const $headings = $block.find('.services-block__heading, .services-block__header');
-    const $images = $block.find('.services-block__image');
+  $desc.stop(true, true).slideDown(150, () => {
+    // 4) show 10px starter
+    armDot($desc);
 
+    // 2) compute target and set baseline BEFORE the snap
+    const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);
+    ignoreUntil = performance.now() + IGNORE_MS;
+    baseline.set($desc[0], targetY);   // <-- key change
+    waiting.set($desc[0], true);
+    updateProgress($root);              // paint starter immediately
+
+    // snap to position
+    $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');
+  });
+});
+
+
+  // Optional: hover preview image without changing active
+  $(document).on('mouseenter', '.services-block__heading', function () {
+    const $block    = $(this).closest('.services-block');
+    const $headings = $block.find('.services-block__heading');
+    const $images   = $block.find('.services-block__image');
     const idx = $headings.index(this);
     if (idx < 0) return;
-
-    // Remove previous hover state
     $images.removeClass('is-hover');
-    // Show hovered image
     $images.eq(idx).addClass('is-hover');
-  });
-
-  // Mouse leave → revert to active image
-  $root.on('mouseleave', '.services-block__heading, .services-block__header', function () {
-    const $block = $(this).closest('.services-block');
+  }).on('mouseleave', '.services-block__heading', function () {
+    const $block  = $(this).closest('.services-block');
     const $images = $block.find('.services-block__image');
-
-    // Remove hover, keep active image visible
     $images.removeClass('is-hover');
   });
+
 })(jQuery);
-// end services block hover effect
+// ===============================
+// end services block 
 
 
     // Slick Slider 
@@ -356,7 +351,7 @@ function isElementInViewport(el) {
 
 
 
-     // Home Page Hero Parallax
+  // Home Page Hero Parallax
   $(window).on('scroll', function () {
   let scrolled = $(window).scrollTop();
   $('.home-page-hero__layer.background').css('transform', 'translateY(' + scrolled * 0.3 + 'px)');

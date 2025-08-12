@@ -2142,6 +2142,44 @@ i.fa-solid:before {
   z-index: 2;
 }
 
+/* Progress line on the left of each description */
+.services-block {
+  /* Image crossfade, one visible at a time */
+}
+.services-block .services-block__description {
+  position: relative;
+  --scroll-progress: 0%; /* JS updates this from 0%..100% */
+  /* keeps only the 10px dot until the user scrolls */
+}
+.services-block .services-block__description.progress-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px; /* line thickness */
+  height: calc(120px + var(--scroll-progress));
+  background: #FF313A; /* your yellow */
+  border-radius: 3px;
+  transition: height 0.15s linear;
+}
+.services-block .services-block__description.progress-dot-top::before {
+  height: 10px;
+}
+.services-block .services-block__images {
+  position: relative;
+}
+.services-block .services-block__image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.services-block .services-block__image.is-active, .services-block .services-block__image.is-hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .stats-block {
   width: calc(100% - 32px);
   max-width: 1440px;

@@ -181,3 +181,41 @@
     }
   }
 }
+
+
+/* Progress line on the left of each description */
+.services-block {
+  .services-block__description {
+    position: relative;
+    --scroll-progress: 0%; /* JS updates this from 0%..100% */
+
+    &.progress-active::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0;
+      width: 3px;                    /* line thickness */
+      height: calc(120px + var(--scroll-progress));
+      background: $colorThree;       /* your yellow */
+      border-radius: 3px;
+      transition: height .15s linear;
+    }
+
+    /* keeps only the 10px dot until the user scrolls */
+    &.progress-dot-top::before { height: 10px; }
+  }
+
+  /* Image crossfade, one visible at a time */
+  .services-block__images {
+    position: relative;
+  }
+  .services-block__image {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+
+    &.is-active,
+    &.is-hover { opacity: 1; pointer-events: auto; }
+  }
+}
