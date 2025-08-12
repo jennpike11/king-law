@@ -3,7 +3,7 @@
 
 
 
-.primary-button {
+.primary-button, .site-footer form input.wpcf7-submit {
     @include btn-border-drawing($colorThree, $colorFour, 1px, top, left);
     display: flex;
     align-items: center;
@@ -32,6 +32,9 @@
     }
 }
 
+.site-footer form input.wpcf7-submit:hover {
+    color: $white;
+}
 
 // Read more buttons
 .read-more {

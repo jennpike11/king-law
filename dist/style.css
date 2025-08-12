@@ -132,7 +132,7 @@ body.mouse-trail-hidden #trail-container, body.mouse-trail-hidden #custom-star-c
     animation: none;
   }
 }
-.primary-button {
+.primary-button, .site-footer form input.wpcf7-submit {
   box-shadow: inset 0 0 0 1px #FF313A;
   color: #FF313A;
   transition: color 0.25s 0.0833333333s;
@@ -158,7 +158,7 @@ body.mouse-trail-hidden #trail-container, body.mouse-trail-hidden #custom-star-c
   cursor: pointer;
   transition: text-shadow 0.3s ease, color 0.3s ease;
 }
-.primary-button::before, .primary-button::after {
+.primary-button::before, .primary-button::after, .site-footer form input.wpcf7-submit::before, .site-footer form input.wpcf7-submit::after {
   border: 0 solid transparent;
   box-sizing: border-box;
   content: "";
@@ -169,33 +169,37 @@ body.mouse-trail-hidden #trail-container, body.mouse-trail-hidden #custom-star-c
   top: 0;
   left: 0;
 }
-.primary-button::before {
+.primary-button::before, .site-footer form input.wpcf7-submit::before {
   border-top-width: 1px;
   border-right-width: 1px;
 }
-.primary-button::after {
+.primary-button::after, .site-footer form input.wpcf7-submit::after {
   border-bottom-width: 1px;
   border-left-width: 1px;
 }
-.primary-button:hover {
+.primary-button:hover, .site-footer form input.wpcf7-submit:hover {
   color: #f2e4a8;
 }
-.primary-button:hover::before, .primary-button:hover::after {
+.primary-button:hover::before, .primary-button:hover::after, .site-footer form input.wpcf7-submit:hover::before, .site-footer form input.wpcf7-submit:hover::after {
   border-color: #f2e4a8;
   transition: border-color 0s, width 0.25s, height 0.25s;
   width: 100%;
   height: 100%;
 }
-.primary-button:hover::before {
+.primary-button:hover::before, .site-footer form input.wpcf7-submit:hover::before {
   transition-delay: 0s, 0s, 0.25s;
 }
-.primary-button:hover::after {
+.primary-button:hover::after, .site-footer form input.wpcf7-submit:hover::after {
   transition-delay: 0s, 0.25s, 0s;
 }
-.primary-button:hover {
+.primary-button:hover, .site-footer form input.wpcf7-submit:hover {
   color: #f2e4a8;
   background: #FF313A;
   transition: color 0.2s;
+}
+
+.site-footer form input.wpcf7-submit:hover {
+  color: #fcfefd;
 }
 
 .read-more {
@@ -438,56 +442,6 @@ img {
   display: none;
 }
 
-.fa-hand-point-right:before {
-  margin-right: 8px;
-  font-family: fontawesome;
-}
-
-.linkedin:after {
-  content: "\f0e1";
-  font-family: fontawesome;
-}
-
-.instagram:after {
-  content: "\f16d";
-  font-family: fontawesome;
-}
-
-.facebook:after {
-  content: "\f39e";
-  font-family: fontawesome;
-}
-
-.pinterest:after {
-  content: "\f231";
-  font-family: fontawesome;
-}
-
-.email:after {
-  content: "\f0e0";
-  font-family: fontawesome;
-}
-
-.twitter:after {
-  content: "";
-  width: 32px;
-  height: 32px;
-  background-image: url(https://highbeach.phoenixroadcreative.com/wp-content/uploads/2024/02/x.png);
-  background-size: 70%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.youtube:after {
-  content: "\f167";
-  font-family: fontawesome;
-}
-
-.google-reviews:after {
-  content: "\f1a0";
-  font-family: fontawesome;
-}
-
 i.fa-solid:before {
   display: inline-flex;
   justify-content: center;
@@ -572,7 +526,44 @@ i.fa-solid:before {
 }
 .site-footer__wrapper {
   color: #fcfefd;
-  background: #181A35;
+}
+.site-footer__cta {
+  padding: 64px 0;
+}
+.site-footer__heading {
+  margin-bottom: 56px;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.4;
+  font-weight: 700;
+  font-family: "Oswald-Bold", sans-serif;
+}
+.site-footer__contact-info {
+  margin-top: 40px;
+  padding-top: 64px;
+  border-top: 0.0625rem solid rgba(255, 255, 255, 0.1);
+}
+@media (min-width: 768px) {
+  .site-footer__contact-info {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.site-footer__locations {
+  font-size: 24px;
+  line-height: 32px;
+}
+@media (min-width: 768px) {
+  .site-footer__locations {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+}
+.site-footer__phone {
+  margin-top: 16px;
+}
+.site-footer__phone span {
+  color: #FF313A;
 }
 .site-footer__registration {
   width: calc(100% - 32px);
@@ -591,6 +582,126 @@ i.fa-solid:before {
   .site-footer__registration {
     width: calc(100% - 64px);
   }
+}
+@media (min-width: 768px) {
+  .site-footer form {
+    width: 50%;
+  }
+}
+.site-footer form input, .site-footer form textarea {
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 1rem;
+  border: 1px solid #fcfefd;
+  border-radius: 0.25rem;
+  color: #fcfefd;
+  font-size: 1rem;
+  font-family: "RobotoCondensed-Light", sans-serif !important;
+  background: unset;
+}
+.site-footer form ::-moz-placeholder {
+  color: #fcfefd;
+  font-family: "RobotoCondensed-Light", sans-serif !important;
+}
+.site-footer form ::placeholder {
+  color: #fcfefd;
+  font-family: "RobotoCondensed-Light", sans-serif !important;
+}
+.site-footer form textarea[name=your-message] {
+  height: 7.5em;
+  resize: vertical;
+}
+.site-footer form p {
+  margin: unset;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.socials__message {
+  font-size: 32px;
+  margin-right: 32px;
+  text-transform: uppercase;
+  font-family: "Oswald-Bold", sans-serif;
+  max-width: 160px;
+  line-height: 36px;
+}
+.socials__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.socials a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+  border: 1px solid #FF313A;
+  border-radius: 50%;
+  font-size: 24px;
+  color: #FF313A;
+}
+.socials a:hover {
+  color: #fcfefd;
+  background-color: #FF313A;
+  transition: all 0.2s;
+}
+.socials a:last-of-type {
+  margin-right: unset;
+}
+
+.linkedin:after {
+  content: "\f0e1";
+  font-family: fontawesome;
+}
+
+.instagram:after {
+  content: "\f16d";
+  font-family: fontawesome;
+}
+
+.facebook:after {
+  content: "\f39e";
+  font-family: fontawesome;
+}
+
+.pinterest:after {
+  content: "\f231";
+  font-family: fontawesome;
+}
+
+.email:after {
+  content: "\f0e0";
+  font-family: fontawesome;
+}
+
+.x:after {
+  content: "\e61b";
+  font-family: fontawesome;
+}
+
+.youtube:after {
+  content: "\f167";
+  font-family: fontawesome;
+}
+
+.google-reviews:after {
+  content: "\f1a0";
+  font-family: fontawesome;
+}
+
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-footer__wrapper {
+  margin-top: auto;
 }
 
 .site-header {
@@ -962,7 +1073,11 @@ i.fa-solid:before {
   }
 }
 .featured-posts-block__heading {
-  margin: 0 0 24px;
+  margin-bottom: 56px;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.4;
+  font-weight: 700;
+  font-family: "Oswald-Bold", sans-serif;
 }
 @media (min-width: 768px) {
   .featured-posts-block__blocks {
@@ -1412,8 +1527,8 @@ i.fa-solid:before {
   font-family: "RobotoCondensed-Light", sans-serif !important;
 }
 .landing-page-hero-block--standard__form form textarea[name=your-message] {
-  height: 7.5em; /* Adjust this value for 5 rows' worth of height */
-  resize: vertical; /* optional: allows manual resizing */
+  height: 7.5em;
+  resize: vertical;
 }
 .landing-page-hero-block--standard__form form p {
   margin: unset;
@@ -1871,7 +1986,7 @@ i.fa-solid:before {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 56px;
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(28px, 4vw, 56px);
   line-height: 1.4;
   font-weight: 700;
   font-family: "Oswald-Bold", sans-serif;

@@ -25,7 +25,7 @@ if (have_rows('featured_posts_block')):
       $the_query = new WP_Query($args);
       if ($the_query->have_posts()):
         while ($the_query->have_posts()): $the_query->the_post(); ?>
-          <a class="featured-posts-block__block" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(get_the_title()); ?>">
+          <a class="featured-posts-block__block vertical-slide-yes" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(get_the_title()); ?>">
             <div class="featured-posts-block__image">
               <?php the_post_thumbnail('large', array('loading' => 'lazy', 'decoding' => 'async')); ?>
               <span class="featured-posts-block__overlay" aria-hidden="true"></span>

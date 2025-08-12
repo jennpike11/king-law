@@ -343,18 +343,17 @@ require('../scss/main.scss');
   // Call the loop for the first time
   loop();
 
-  function isElementInViewport(el) {
-    if (typeof jQuery === "function" && el instanceof jQuery) {
-      el = el[0];
-    }
-    var rect = el.getBoundingClientRect();
-    return (
-      (rect.top <= 0 && rect.bottom >= 0) ||
-      (rect.bottom >= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.top <= (window.innerHeight || document.documentElement.clientHeight)) ||
-      (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight))
-    );
-  }
+function isElementInViewport(el) {
+  if (typeof jQuery === "function" && el instanceof jQuery) el = el[0];
+  var rect = el.getBoundingClientRect();
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  var revealPoint = vh * 0.1; // reveal when 20% into the viewport
+  return (
+    rect.top <= vh - revealPoint && 
+    rect.bottom >= revealPoint
+  );
+}
+
 
 
      // Home Page Hero Parallax

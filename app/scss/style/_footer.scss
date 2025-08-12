@@ -5,7 +5,45 @@
 
   &__wrapper {
     color: $white;
-    background: $colorOne;
+  }
+
+  &__cta {
+    padding: 64px 0;
+  }
+
+  &__heading {
+    margin-bottom: 56px;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.4;
+    font-weight: 700;
+    font-family: $font-secondary;
+  }
+
+  &__contact-info {
+    margin-top: 40px;
+    padding-top: 64px;
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.1);
+
+    @include respond(small){
+      @include flex-between;
+    }
+  }
+
+  &__locations {
+    font-size: 24px;
+    line-height: 32px;
+    @include respond(small){
+      @include flex-between;
+      width: 50%;
+    }
+  }
+
+  &__phone {
+    margin-top: 16px;
+
+    span {
+      color: $colorThree;
+    }
   }
 
   &__registration {
@@ -16,4 +54,128 @@
     text-align: center;
     font-size: 9px;
   }
+
+  form {
+    @include respond(small){
+      width: 50%;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin: 0 0 20px;
+      padding: 1rem;
+      border: 1px solid $white;
+      border-radius: 0.25rem;
+      color: $white;
+      font-size: 1rem;
+      font-family: $font-primary !important;
+      background: unset;
+    }
+
+    ::placeholder {
+      color: $white;
+      font-family: $font-primary !important;
+    }
+
+    textarea[name="your-message"] {
+      height: 7.5em; 
+      resize: vertical; 
+    }
+
+    p {
+      margin: unset;
+    }
+  }
+}
+
+.socials { 
+    @include flex-center;
+
+    &__message {
+      font-size: 32px;
+      margin-right: 32px;
+      text-transform: uppercase;
+      font-family: 'Oswald-Bold', sans-serif;
+      max-width: 160px;
+      line-height: 36px;
+    }
+
+    &__links {
+       @include flex-center;
+    }
+
+    a {
+        @include flex-center;
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
+        border: 1px solid $colorThree;
+        border-radius: 50%;
+        font-size: 24px;
+        color: $colorThree; 
+
+        &:hover {
+          color: $white;
+          background-color: $colorThree;
+          transition: all .2s;
+        }
+
+        &:last-of-type {
+            margin-right: unset;
+        }
+    } 
+}
+
+
+.linkedin:after {
+  content: '\f0e1';
+  font-family: fontawesome;
+}
+
+.instagram:after {
+  content: '\f16d';
+  font-family: fontawesome;
+}
+
+.facebook:after {
+  content: '\f39e';
+  font-family: fontawesome;
+}
+
+.pinterest:after {
+  content: '\f231';
+  font-family: fontawesome;
+}
+
+.email:after {
+  content: '\f0e0';
+  font-family: fontawesome;
+}
+
+.x:after {
+  content: '\e61b';
+  font-family: fontawesome;
+}
+
+.youtube:after {
+  content: '\f167';
+  font-family: fontawesome;
+}
+
+.google-reviews:after {
+  content: '\f1a0';
+  font-family: fontawesome;
+}
+
+
+
+ // For sticky footer
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-footer__wrapper {
+   margin-top: auto;
 }

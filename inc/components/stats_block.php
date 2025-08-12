@@ -7,7 +7,7 @@ if (have_rows('stats_block')):
 <section class="stats-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
   <div class="stats-block">
     <?php if ($heading): ?>
-      <h2 class="stats-block__heading"><?php echo esc_html($heading); ?></h2>
+      <h2 class="stats-block__heading vertical-slide-yes"><?php echo esc_html($heading); ?></h2>
     <?php endif; ?>
 
     <?php if (have_rows('stats')): ?>

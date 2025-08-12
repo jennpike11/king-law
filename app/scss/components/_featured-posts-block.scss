@@ -4,7 +4,11 @@
   @include container;
 
   &__heading {
-    margin: 0 0 24px;
+    margin-bottom: 56px;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.4;
+    font-weight: 700;
+    font-family: "Oswald-Bold", sans-serif;
   }
 
   &__blocks {
