@@ -42,7 +42,7 @@
     margin-top: 16px;
 
     span {
-      color: $colorThree;
+      color: $colorFour;
     }
   }
 
@@ -109,14 +109,14 @@
         width: 40px;
         height: 40px;
         margin-right: 20px;
-        border: 1px solid $colorThree;
+        border: 1px solid $colorFour;
         border-radius: 50%;
         font-size: 24px;
-        color: $colorThree; 
+        color: $colorFour; 
 
         &:hover {
           color: $white;
-          background-color: $colorThree;
+          background-color: $colorFour;
           transition: all .2s;
         }
 

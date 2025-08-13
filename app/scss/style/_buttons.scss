@@ -2,35 +2,41 @@
 @use '../base/mixins' as *;
 
 
-
 .primary-button, .site-footer form input.wpcf7-submit {
-    @include btn-border-drawing($colorThree, $white, 1px, top, left);
     display: flex;
     align-items: center;
     justify-content: center;
     width: fit-content;
-    min-width: 240px;
+    min-width: 200px;
     height: 48px;
     padding: 0 24px;
-    overflow: hidden;
+    border: 0;
+    border-radius: 4px;
     text-align: center;
     white-space: nowrap;
     color: $white;
     font-family: $font-secondary;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: .05rem;
-    background: $colorThree;
+    background: linear-gradient(270deg, $colorFour, $colorThree);
+    background-size: 200% 200%;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    transition: text-shadow 0.3s ease, color 0.3s ease;
 
     &:hover {
         color: $white;
-        background: $colorThree;
-        transition: color .2s;
+        animation: changeBg 2s ease infinite;
     }
 }
+
+
+@keyframes changeBg {
+    0%{ background-position: 0% 50%}
+    50%{ background-position: 100% 50%}
+    100%{ background-position: 0% 50%}
+}
+
 
 .site-footer form input.wpcf7-submit:hover {
     color: $white;

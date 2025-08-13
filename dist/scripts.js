@@ -1,23 +1,5 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./app/js/scripts.js":
-/*!***************************!*\
-  !*** ./app/js/scripts.js ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("{__webpack_require__(/*! ../scss/main.scss */ \"./app/scss/main.scss\");\n\n(function ($) {\n  $(function () {\n    // Sticky menu\n    $(window).on('scroll', function () {\n      if ($(window).scrollTop() >= 100) {\n        $('.site-header__wrapper').addClass('sticky');\n        $('nav div').addClass('visible-title');\n      } else {\n        $('.site-header__wrapper').removeClass('sticky');\n      }\n    });\n\n    // Stop scroll when menu is open \n    $('.menu-toggle').on('click', function () {\n      $('html').toggleClass('active');\n    });\n\n\n    // Animated Mouse\n    $(document).on('mousemove', function (e) {\n      $('#custom-star-cursor').css({\n        left: e.clientX,\n        top: e.clientY\n      });\n\n      const sparkle = $('<div class=\"sparkle\"></div>');\n      sparkle.css({\n        left: e.clientX + 'px',\n        top: e.clientY + 'px'\n      });\n\n      $('#trail-container').append(sparkle);\n\n      setTimeout(() => {\n        sparkle.remove();\n      }, 800);\n    });\n\n    $('.primary-button, .primary-button').hover(\n      function () { $('body').addClass('mouse-trail-hidden'); },\n      function () { $('body').removeClass('mouse-trail-hidden'); }\n    );\n\n    // FAQ Accordion\n    $('.faq-block__item').on('click', function () {\n      if ($(this).hasClass('active')) {\n        $('.faq-block__details').slideUp();\n        $('.faq-block__item').removeClass('active');\n      } else {\n        $('.faq-block__item').removeClass('active');\n        $(this).addClass('active');\n        $('.faq-block__details').slideUp();\n        $(this).find('.faq-block__details').slideDown();\n      }\n    });\n\n\n\n// Start services block\n// ===============================\n(function ($) {\n  const TOP_OFFSET = 120;      // 1) scroll target = 120px from top\n  const MOVE_THRESHOLD = 6;    // small guard so the line waits until user scrolls\n  const IGNORE_MS = 260;       // ignore scroll while we animate to the heading\n\n  // Per-description state\n  const baseline = new WeakMap(); // starting window.scrollY after snap\n  const waiting  = new WeakMap(); // wait for user scroll before growing line\n  let ignoreUntil = 0;\n\n  function clamp(v, min, max){ return v < min ? min : v > max ? max : v; }\n\n  function scrollHeadingToTop($heading, done){\n    const y = Math.max(0, $heading.offset().top - TOP_OFFSET);\n    $('html, body').stop(true, true).animate({ scrollTop: y }, 350, 'swing', done);\n  }\n\n  function hardResetAll($root){\n    // close all descriptions and reset progress classes and vars\n    $root.find('.services-block__description').each(function(){\n      const el = this;\n      $(el).stop(true, true).slideUp(0);\n      el.classList.remove('progress-active','progress-dot-top');\n      el.style.setProperty('--scroll-progress', '0%');\n      baseline.delete(el);\n      waiting.delete(el);\n    });\n    $root.find('.services-block__heading').removeClass('active');\n  }\n\n  function armDot($desc){\n    // show only the 10px starter\n    const el = $desc[0];\n    el.classList.remove('progress-active','progress-dot-top');\n    el.style.setProperty('--scroll-progress', '0%');\n    baseline.delete(el);\n    waiting.delete(el);\n\n    el.classList.add('progress-active','progress-dot-top');\n  }\n\n  function updateProgress($root){\n    const now = performance.now();\n\n    $root.find('.services-block__description.progress-active').each(function(){\n      const el = this;\n      const base = baseline.get(el);\n      if (base == null) return;\n\n      // ignore during programmatic scroll\n      if (now < ignoreUntil) {\n        el.style.setProperty('--scroll-progress', '0%');\n        el.classList.add('progress-dot-top');\n        return;\n      }\n\n      const dist = window.scrollY - base; // +down\n      const rect = el.getBoundingClientRect();\n      const h = rect.height || el.offsetHeight || 1;\n\n      // wait for a tiny real scroll before growing the line\n      if (waiting.get(el)) {\n        if (dist >= MOVE_THRESHOLD) {\n          waiting.set(el, false);\n          el.classList.remove('progress-dot-top');\n        } else {\n          el.style.setProperty('--scroll-progress', '0%');\n          return;\n        }\n      }\n\n      // set progress as a percentage string so CSS can do calc(10px + var(--scroll-progress))\n      const pct = Math.round(clamp(dist / h, 0, 1) * 100);\n      el.style.setProperty('--scroll-progress', pct + '%');\n    });\n  }\n\n  $(window).on('scroll resize', function(){\n    $('.services-block').each(function(){ updateProgress($(this)); });\n  });\n\n  // ensure first image shows on load per block\n  $(function(){\n    $('.services-block').each(function(){\n      const $images = $(this).find('.services-block__images .services-block__image');\n      $images.removeClass('is-active').eq(0).addClass('is-active');\n    });\n  });\n\n  // Main click: on heading only\n$(document).on('click', '.services-block__heading', function (e) {\n  e.preventDefault();\n\n  const $heading = $(this);\n  const $root    = $heading.closest('.services-block');\n\n  const $allHeadings = $root.find('.services-block__heading');\n  const $allDescs    = $root.find('.services-block__description');\n  const $images      = $root.find('.services-block__images .services-block__image');\n\n  const $desc = $heading.next('.services-block__description');\n  const isOpen = $heading.hasClass('active');\n\n  // If clicking the open one, close it and reset\n  if (isOpen) {\n    $heading.removeClass('active');\n    $desc.stop(true, true).slideUp(150, () => {\n      // reset progress line for this item\n      $desc[0].classList.remove('progress-active','progress-dot-top');\n      $desc[0].style.setProperty('--scroll-progress', '0%');\n      baseline.delete($desc[0]);\n      waiting.delete($desc[0]);\n    });\n    // show the first image when nothing is selected\n    $images.removeClass('is-active').eq(0).addClass('is-active');\n    return;\n  }\n\n  // Otherwise open this one and close others\n  $allHeadings.not($heading).removeClass('active');\n  $allDescs.not($desc).stop(true, true).slideUp(0);\n  $root.find('.services-block__description').each(function () {\n    this.classList.remove('progress-active','progress-dot-top');\n    this.style.setProperty('--scroll-progress', '0%');\n    baseline.delete(this);\n    waiting.delete(this);\n  });\n\n  // Image crossfade to the matching image\n  const idx = $allHeadings.index($heading);\n  if (idx >= 0 && $images.length) {\n    const safeIdx = Math.min(idx, $images.length - 1);\n    $images.removeClass('is-active').eq(safeIdx).addClass('is-active');\n  }\n\n  // Open chosen description\n  $heading.addClass('active');\n  $desc.stop(true, true).slideDown(150, () => {\n    // show starter dot\n    armDot($desc);\n\n    // snap scroll so heading sits 120px from top, then progress grows on user scroll\n    const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);\n    ignoreUntil = performance.now() + IGNORE_MS;\n    baseline.set($desc[0], targetY);\n    waiting.set($desc[0], true);\n    updateProgress($root);\n    $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');\n  });\n});\n\n// swap images on hover\n$(document).on('mouseenter', '.services-block__heading', function () {\n  const $block    = $(this).closest('.services-block');\n  const $headings = $block.find('.services-block__heading');\n  const $images   = $block.find('.services-block__images .services-block__image');\n  const idx = $headings.index(this);\n  if (idx < 0) return;\n  $images.removeClass('is-hover');\n  $images.eq(idx).addClass('is-hover');\n}).on('mouseleave', '.services-block__heading', function () {\n  const $block  = $(this).closest('.services-block');\n  const $images = $block.find('.services-block__images .services-block__image');\n  $images.removeClass('is-hover'); // falls back to .is-active\n});\n\n})(jQuery);\n\n// Deep link to services headings by ID\n(function ($) {\n  function findSvcHeadingById(id) {\n    if (!id) return $(); \n    // safer than CSS escaping\n    return $('.services-block__heading').filter(function () { return this.id === id; });\n  }\n\n  // 1) On-page hash link clicks behave like clicking the heading\n  $(document).on('click', 'a[href^=\"#\"]', function (e) {\n    const href = this.getAttribute('href');\n    if (!href || href === '#') return; // ignore empty hashes\n    const id = decodeURIComponent(href.slice(1));\n    const $target = findSvcHeadingById(id);\n    if ($target.length) {\n      e.preventDefault();\n      // keep the hash in the URL without jumping\n      if (location.hash !== '#' + id && history.replaceState) {\n        history.replaceState(null, '', '#' + id);\n      }\n      $target.trigger('click'); // reuse your existing heading click behavior\n    }\n  });\n\n  // 2) If the page loads with a hash, open that service\n  $(function () {\n    const id = decodeURIComponent(location.hash.slice(1));\n    const $target = findSvcHeadingById(id);\n    if ($target.length) {\n      // defer a tick so layout is stable\n      setTimeout(function () { $target.trigger('click'); }, 0);\n    }\n  });\n\n  // 3) Support back/forward between hashes\n  $(window).on('hashchange', function () {\n    const id = decodeURIComponent(location.hash.slice(1));\n    const $target = findSvcHeadingById(id);\n    if ($target.length) {\n      $target.trigger('click');\n    }\n  });\n})(jQuery);\n\n// ===============================\n// end services block \n\n\n    // Slick Slider \n    if ($('.slider-block').length && typeof $.fn.slick === 'function') {\n      $('.slider-block').slick({\n        slidesToShow: 3,\n        slidesToScroll: 1,\n        infinite: true,\n        arrows: true,\n        dots: false,\n        responsive: [\n          {\n            breakpoint: 1024,\n            settings: { slidesToShow: 3, slidesToScroll: 1, infinite: true },\n          },\n          {\n            breakpoint: 450,\n            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true },\n          },\n        ],\n      });\n    }\n\n    // Sticky CTA Block\n    const $inner = $('.sticky-cta-block__inner');\n    const $wrapper = $('.sticky-cta-block__wrapper');\n    const $content = $('.landing-page__content');\n\n    if (\n      window.innerWidth >= 768 &&\n      $inner.length &&\n      $wrapper.length &&\n      $content.length\n    ) {\n      $('.landing-page__content__wrapper').addClass('sticky-block-added');\n\n      const fixedTop = 64;\n      const fixedWidth = 480;\n\n      function updateStickyCTA() {\n        const scrollTop = $(window).scrollTop();\n        const wrapperTop = $wrapper.offset().top;\n        const wrapperLeft = $wrapper.offset().left;\n        const stickyHeight = $inner.outerHeight();\n        const contentBottom = $content.offset().top + $content.outerHeight();\n\n        if (scrollTop >= wrapperTop && scrollTop + stickyHeight < contentBottom) {\n          $inner.css({\n            position: 'fixed',\n            top: fixedTop + 'px',\n            left: wrapperLeft + 'px',\n            width: fixedWidth + 'px',\n            padding: '32px',\n            border: '1px solid',\n            borderRadius: '16px',\n          });\n        } else if (scrollTop + stickyHeight >= contentBottom) {\n          const absoluteTop = contentBottom - wrapperTop - stickyHeight;\n          $inner.css({\n            position: 'absolute',\n            top: absoluteTop + 'px',\n            left: '0',\n            width: '100%',\n            padding: '32px',\n            border: '1px solid',\n            borderRadius: '16px',\n          });\n        } else {\n          $inner.css({\n            position: 'static',\n            top: '',\n            left: '',\n            width: '100%',\n            padding: '32px',\n            border: '1px solid',\n            borderRadius: '16px',\n          });\n        }\n      }\n\n      $(window).on('scroll resize', updateStickyCTA);\n      updateStickyCTA();\n    }\n\n    // Car animation\n    let carHasDrivenOff = false;\n    $(window).on('load', function () {\n      $('.sliding-image').addClass('slide-in');\n    });\n    $(window).on('scroll', function () {\n      const scrollTop = $(window).scrollTop();\n\n      if (scrollTop > 20 && !carHasDrivenOff) {\n        $('.sliding-image').removeClass('slide-in').addClass('slide-out');\n        carHasDrivenOff = true;\n      }\n\n      if (scrollTop <= 10 && carHasDrivenOff) {\n        $('.sliding-image').removeClass('slide-out').addClass('slide-in');\n        carHasDrivenOff = false;\n      }\n    });\n\n \n // Vertical Sliding Animation\n  var scroll = window.requestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60) };\n  var elementsToShow = document.querySelectorAll('.vertical-slide-yes');\n\n  function loop() {\n    Array.prototype.forEach.call(elementsToShow, function (element) {\n      if (isElementInViewport(element)) {\n        element.classList.add('is-visible');\n      } else {\n        element.classList.remove('is-visible');\n      }\n    });\n    scroll(loop);\n  }\n\n  // Call the loop for the first time\n  loop();\n\nfunction isElementInViewport(el) {\n  if (typeof jQuery === \"function\" && el instanceof jQuery) el = el[0];\n  var rect = el.getBoundingClientRect();\n  var vh = window.innerHeight || document.documentElement.clientHeight;\n  var revealPoint = vh * 0.1; // reveal when 20% into the viewport\n  return (\n    rect.top <= vh - revealPoint && \n    rect.bottom >= revealPoint\n  );\n}\n\n\n// Home Page Hero Parallax\n(function () {\n  const bg  = document.querySelector('.home-page-hero__layer.background');\n  const mid = document.querySelector('.home-page-hero__layer.middle');\n  const fg  = document.querySelector('.home-page-hero__layer.foreground');\n  if (!bg || !mid || !fg) return;\n\n  let target  = window.scrollY || 0;\n  let current = target;\n\n  function apply(y) {\n    const b = Math.round(y * 0.30);\n    const m = Math.round(y * 0.50);\n    const f = Math.round(y * 0.70);\n    bg.style.transform  = `translate3d(0, ${b}px, 0)`;\n    mid.style.transform = `translate3d(0, ${m}px, 0)`;\n    fg.style.transform  = `translate3d(0, ${f}px, 0)`;\n  }\n\n  function tick() {\n    current += (target - current) * 0.08; // lower = slower easing\n    apply(current);\n    requestAnimationFrame(tick);\n  }\n\n  window.addEventListener('scroll', () => {\n    target = window.scrollY || 0;\n  }, { passive: true });\n\n  apply(current);\n  tick();\n})();\n\n\n  });\n})(jQuery);\n\n// Background Animation\n(function ($) {\n  function init() {\n    const $bg = $('.motion-gradient');\n    if (!$bg.length) { requestAnimationFrame(init); return; }\n\n    let mx = 0, my = 0;\n    let sx = 0, sy = 0;\n    let ang = 35;\n\n    $(window).on('mousemove', function (e) {\n      const cx = window.innerWidth / 2;\n      const cy = window.innerHeight / 2;\n      mx = (e.clientX - cx) / cx;\n      my = (e.clientY - cy) / cy;\n    });\n\n    let t = 0;\n    function tick() {\n      t += 0.01;\n      sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06;\n      sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06;\n      ang += Math.sin(t * 0.6) * 0.12;\n\n      const el = $bg[0].style;\n      el.setProperty('--shiftX', sx + '%');\n      el.setProperty('--shiftY', sy + '%');\n      el.setProperty('--ang', ang + 'deg');\n\n      requestAnimationFrame(tick);\n    }\n    tick();\n  }\n  init();\n})(jQuery);\n\n\n//# sourceURL=webpack://king-law/./app/js/scripts.js?\n}");
-
-/***/ }),
 
 /***/ "./app/scss/main.scss":
 /*!****************************!*\
@@ -26,7 +8,9 @@ eval("{__webpack_require__(/*! ../scss/main.scss */ \"./app/scss/main.scss\");\n
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("{__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://king-law/./app/scss/main.scss?\n}");
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ })
 
@@ -69,11 +53,505 @@ eval("{__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-ext
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./app/js/scripts.js");
-/******/ 	
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!***************************!*\
+  !*** ./app/js/scripts.js ***!
+  \***************************/
+__webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
+
+(function ($) {
+  $(function () {
+    // Sticky menu
+    $(window).on('scroll', function () {
+      if ($(window).scrollTop() >= 100) {
+        $('.site-header__wrapper').addClass('sticky');
+        $('nav div').addClass('visible-title');
+      } else {
+        $('.site-header__wrapper').removeClass('sticky');
+      }
+    });
+
+    // Stop scroll when menu is open 
+    $('.menu-toggle').on('click', function () {
+      $('html').toggleClass('active');
+    });
+
+
+    // Animated Mouse
+    $(document).on('mousemove', function (e) {
+      $('#custom-star-cursor').css({
+        left: e.clientX,
+        top: e.clientY
+      });
+
+      const sparkle = $('<div class="sparkle"></div>');
+      sparkle.css({
+        left: e.clientX + 'px',
+        top: e.clientY + 'px'
+      });
+
+      $('#trail-container').append(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 800);
+    });
+
+    $('.primary-button, .primary-button').hover(
+      function () { $('body').addClass('mouse-trail-hidden'); },
+      function () { $('body').removeClass('mouse-trail-hidden'); }
+    );
+
+    // FAQ Accordion
+    $('.faq-block__item').on('click', function () {
+      if ($(this).hasClass('active')) {
+        $('.faq-block__details').slideUp();
+        $('.faq-block__item').removeClass('active');
+      } else {
+        $('.faq-block__item').removeClass('active');
+        $(this).addClass('active');
+        $('.faq-block__details').slideUp();
+        $(this).find('.faq-block__details').slideDown();
+      }
+    });
+
+
+
+// Start services block
+// ===============================
+(function ($) {
+  const TOP_OFFSET = 120;      // 1) scroll target = 120px from top
+  const MOVE_THRESHOLD = 6;    // small guard so the line waits until user scrolls
+  const IGNORE_MS = 260;       // ignore scroll while we animate to the heading
+
+  // Per-description state
+  const baseline = new WeakMap(); // starting window.scrollY after snap
+  const waiting  = new WeakMap(); // wait for user scroll before growing line
+  let ignoreUntil = 0;
+
+  function clamp(v, min, max){ return v < min ? min : v > max ? max : v; }
+
+  function scrollHeadingToTop($heading, done){
+    const y = Math.max(0, $heading.offset().top - TOP_OFFSET);
+    $('html, body').stop(true, true).animate({ scrollTop: y }, 350, 'swing', done);
+  }
+
+  function hardResetAll($root){
+    // close all descriptions and reset progress classes and vars
+    $root.find('.services-block__description').each(function(){
+      const el = this;
+      $(el).stop(true, true).slideUp(0);
+      el.classList.remove('progress-active','progress-dot-top');
+      el.style.setProperty('--scroll-progress', '0%');
+      baseline.delete(el);
+      waiting.delete(el);
+    });
+    $root.find('.services-block__heading').removeClass('active');
+  }
+
+  function armDot($desc){
+    // show only the 10px starter
+    const el = $desc[0];
+    el.classList.remove('progress-active','progress-dot-top');
+    el.style.setProperty('--scroll-progress', '0%');
+    baseline.delete(el);
+    waiting.delete(el);
+
+    el.classList.add('progress-active','progress-dot-top');
+  }
+
+  function updateProgress($root){
+    const now = performance.now();
+
+    $root.find('.services-block__description.progress-active').each(function(){
+      const el = this;
+      const base = baseline.get(el);
+      if (base == null) return;
+
+      // ignore during programmatic scroll
+      if (now < ignoreUntil) {
+        el.style.setProperty('--scroll-progress', '0%');
+        el.classList.add('progress-dot-top');
+        return;
+      }
+
+      const dist = window.scrollY - base; // +down
+      const rect = el.getBoundingClientRect();
+      const h = rect.height || el.offsetHeight || 1;
+
+      // wait for a tiny real scroll before growing the line
+      if (waiting.get(el)) {
+        if (dist >= MOVE_THRESHOLD) {
+          waiting.set(el, false);
+          el.classList.remove('progress-dot-top');
+        } else {
+          el.style.setProperty('--scroll-progress', '0%');
+          return;
+        }
+      }
+
+      // set progress as a percentage string so CSS can do calc(10px + var(--scroll-progress))
+      const pct = Math.round(clamp(dist / h, 0, 1) * 100);
+      el.style.setProperty('--scroll-progress', pct + '%');
+    });
+  }
+
+  $(window).on('scroll resize', function(){
+    $('.services-block').each(function(){ updateProgress($(this)); });
+  });
+
+  // ensure first image shows on load per block
+  $(function(){
+    $('.services-block').each(function(){
+      const $images = $(this).find('.services-block__images .services-block__image');
+      $images.removeClass('is-active').eq(0).addClass('is-active');
+    });
+  });
+
+  // Main click: on heading only
+$(document).on('click', '.services-block__heading', function (e) {
+  e.preventDefault();
+
+  const $heading = $(this);
+  const $root    = $heading.closest('.services-block');
+
+  const $allHeadings = $root.find('.services-block__heading');
+  const $allDescs    = $root.find('.services-block__description');
+  const $images      = $root.find('.services-block__images .services-block__image');
+
+  const $desc = $heading.next('.services-block__description');
+  const isOpen = $heading.hasClass('active');
+
+  // If clicking the open one, close it and reset
+  if (isOpen) {
+    $heading.removeClass('active');
+    $desc.stop(true, true).slideUp(150, () => {
+      // reset progress line for this item
+      $desc[0].classList.remove('progress-active','progress-dot-top');
+      $desc[0].style.setProperty('--scroll-progress', '0%');
+      baseline.delete($desc[0]);
+      waiting.delete($desc[0]);
+    });
+    // show the first image when nothing is selected
+    $images.removeClass('is-active').eq(0).addClass('is-active');
+    return;
+  }
+
+  // Otherwise open this one and close others
+  $allHeadings.not($heading).removeClass('active');
+  $allDescs.not($desc).stop(true, true).slideUp(0);
+  $root.find('.services-block__description').each(function () {
+    this.classList.remove('progress-active','progress-dot-top');
+    this.style.setProperty('--scroll-progress', '0%');
+    baseline.delete(this);
+    waiting.delete(this);
+  });
+
+  // Image crossfade to the matching image
+  const idx = $allHeadings.index($heading);
+  if (idx >= 0 && $images.length) {
+    const safeIdx = Math.min(idx, $images.length - 1);
+    $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
+  }
+
+  // Open chosen description
+  $heading.addClass('active');
+  $desc.stop(true, true).slideDown(150, () => {
+    // show starter dot
+    armDot($desc);
+
+    // snap scroll so heading sits 120px from top, then progress grows on user scroll
+    const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);
+    ignoreUntil = performance.now() + IGNORE_MS;
+    baseline.set($desc[0], targetY);
+    waiting.set($desc[0], true);
+    updateProgress($root);
+    $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');
+  });
+});
+
+// swap images on hover
+$(document).on('mouseenter', '.services-block__heading', function () {
+  const $block    = $(this).closest('.services-block');
+  const $headings = $block.find('.services-block__heading');
+  const $images   = $block.find('.services-block__images .services-block__image');
+  const idx = $headings.index(this);
+  if (idx < 0) return;
+  $images.removeClass('is-hover');
+  $images.eq(idx).addClass('is-hover');
+}).on('mouseleave', '.services-block__heading', function () {
+  const $block  = $(this).closest('.services-block');
+  const $images = $block.find('.services-block__images .services-block__image');
+  $images.removeClass('is-hover'); // falls back to .is-active
+});
+
+})(jQuery);
+
+// Deep link to services headings by ID
+(function ($) {
+  function findSvcHeadingById(id) {
+    if (!id) return $(); 
+    // safer than CSS escaping
+    return $('.services-block__heading').filter(function () { return this.id === id; });
+  }
+
+  // 1) On-page hash link clicks behave like clicking the heading
+  $(document).on('click', 'a[href^="#"]', function (e) {
+    const href = this.getAttribute('href');
+    if (!href || href === '#') return; // ignore empty hashes
+    const id = decodeURIComponent(href.slice(1));
+    const $target = findSvcHeadingById(id);
+    if ($target.length) {
+      e.preventDefault();
+      // keep the hash in the URL without jumping
+      if (location.hash !== '#' + id && history.replaceState) {
+        history.replaceState(null, '', '#' + id);
+      }
+      $target.trigger('click'); // reuse your existing heading click behavior
+    }
+  });
+
+  // 2) If the page loads with a hash, open that service
+  $(function () {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const $target = findSvcHeadingById(id);
+    if ($target.length) {
+      // defer a tick so layout is stable
+      setTimeout(function () { $target.trigger('click'); }, 0);
+    }
+  });
+
+  // 3) Support back/forward between hashes
+  $(window).on('hashchange', function () {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const $target = findSvcHeadingById(id);
+    if ($target.length) {
+      $target.trigger('click');
+    }
+  });
+})(jQuery);
+
+// ===============================
+// end services block 
+
+
+    // Slick Slider 
+    if ($('.slider-block').length && typeof $.fn.slick === 'function') {
+      $('.slider-block').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: true,
+        arrows: true,
+        dots: false,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: { slidesToShow: 3, slidesToScroll: 1, infinite: true },
+          },
+          {
+            breakpoint: 450,
+            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true },
+          },
+        ],
+      });
+    }
+
+    // Sticky CTA Block
+    const $inner = $('.sticky-cta-block__inner');
+    const $wrapper = $('.sticky-cta-block__wrapper');
+    const $content = $('.landing-page__content');
+
+    if (
+      window.innerWidth >= 768 &&
+      $inner.length &&
+      $wrapper.length &&
+      $content.length
+    ) {
+      $('.landing-page__content__wrapper').addClass('sticky-block-added');
+
+      const fixedTop = 64;
+      const fixedWidth = 480;
+
+      function updateStickyCTA() {
+        const scrollTop = $(window).scrollTop();
+        const wrapperTop = $wrapper.offset().top;
+        const wrapperLeft = $wrapper.offset().left;
+        const stickyHeight = $inner.outerHeight();
+        const contentBottom = $content.offset().top + $content.outerHeight();
+
+        if (scrollTop >= wrapperTop && scrollTop + stickyHeight < contentBottom) {
+          $inner.css({
+            position: 'fixed',
+            top: fixedTop + 'px',
+            left: wrapperLeft + 'px',
+            width: fixedWidth + 'px',
+            padding: '32px',
+            border: '1px solid',
+            borderRadius: '16px',
+          });
+        } else if (scrollTop + stickyHeight >= contentBottom) {
+          const absoluteTop = contentBottom - wrapperTop - stickyHeight;
+          $inner.css({
+            position: 'absolute',
+            top: absoluteTop + 'px',
+            left: '0',
+            width: '100%',
+            padding: '32px',
+            border: '1px solid',
+            borderRadius: '16px',
+          });
+        } else {
+          $inner.css({
+            position: 'static',
+            top: '',
+            left: '',
+            width: '100%',
+            padding: '32px',
+            border: '1px solid',
+            borderRadius: '16px',
+          });
+        }
+      }
+
+      $(window).on('scroll resize', updateStickyCTA);
+      updateStickyCTA();
+    }
+
+    // Car animation
+    let carHasDrivenOff = false;
+    $(window).on('load', function () {
+      $('.sliding-image').addClass('slide-in');
+    });
+    $(window).on('scroll', function () {
+      const scrollTop = $(window).scrollTop();
+
+      if (scrollTop > 20 && !carHasDrivenOff) {
+        $('.sliding-image').removeClass('slide-in').addClass('slide-out');
+        carHasDrivenOff = true;
+      }
+
+      if (scrollTop <= 10 && carHasDrivenOff) {
+        $('.sliding-image').removeClass('slide-out').addClass('slide-in');
+        carHasDrivenOff = false;
+      }
+    });
+
+ 
+ // Vertical Sliding Animation
+  var scroll = window.requestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60) };
+  var elementsToShow = document.querySelectorAll('.vertical-slide-yes');
+
+  function loop() {
+    Array.prototype.forEach.call(elementsToShow, function (element) {
+      if (isElementInViewport(element)) {
+        element.classList.add('is-visible');
+      } else {
+        element.classList.remove('is-visible');
+      }
+    });
+    scroll(loop);
+  }
+
+  // Call the loop for the first time
+  loop();
+
+function isElementInViewport(el) {
+  if (typeof jQuery === "function" && el instanceof jQuery) el = el[0];
+  var rect = el.getBoundingClientRect();
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  var revealPoint = vh * 0.1; // reveal when 20% into the viewport
+  return (
+    rect.top <= vh - revealPoint && 
+    rect.bottom >= revealPoint
+  );
+}
+
+
+// Home Page Hero Parallax
+(function () {
+  const bg  = document.querySelector('.home-page-hero__layer.background');
+  const mid = document.querySelector('.home-page-hero__layer.middle');
+  const fg  = document.querySelector('.home-page-hero__layer.foreground');
+  if (!bg || !mid || !fg) return;
+
+  let target  = window.scrollY || 0;
+  let current = target;
+
+  function apply(y) {
+    const b = Math.round(y * 0.30);
+    const m = Math.round(y * 0.50);
+    const f = Math.round(y * 0.70);
+    bg.style.transform  = `translate3d(0, ${b}px, 0)`;
+    mid.style.transform = `translate3d(0, ${m}px, 0)`;
+    fg.style.transform  = `translate3d(0, ${f}px, 0)`;
+  }
+
+  function tick() {
+    current += (target - current) * 0.08; // lower = slower easing
+    apply(current);
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('scroll', () => {
+    target = window.scrollY || 0;
+  }, { passive: true });
+
+  apply(current);
+  tick();
+})();
+
+
+  });
+})(jQuery);
+
+
+// Background Animation
+(function ($) {
+  function init() {
+    const $bg = $('.motion-gradient');
+    if (!$bg.length) { requestAnimationFrame(init); return; }
+
+    let mx = 0, my = 0;   // mouse target [-1..1]
+    let sx = 0, sy = 0;   // smoothed %
+    let ang = 35;  
+    let t = 0;
+
+    $(window).on('mousemove', function (e) {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      mx = (e.clientX - cx) / cx;  // -1..1
+      my = (e.clientY - cy) / cy;  // -1..1
+    });
+
+    function tick() {
+      t += 0.01;
+      // ease toward target, add subtle breathing
+      sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06;
+      sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06;
+      ang += Math.sin(t * 0.6) * 0.12;
+
+      const el = $bg[0].style;
+      el.setProperty('--shiftX', sx + '%');
+      el.setProperty('--shiftY', sy + '%');
+      el.setProperty('--ang', ang + 'deg');
+
+      requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})(jQuery);
+
+
+})();
+
 /******/ })()
 ;
+//# sourceMappingURL=scripts.js.map

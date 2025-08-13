@@ -6,16 +6,8 @@
     $cta = get_sub_field('cta');
 ?>
 
-<section class="home-page-hero">
-  <div class="home-page-hero__layer background"></div>
-  <div class="home-page-hero__layer middle"></div>
-  <div class="home-page-hero__layer foreground">
-    <div class="home-page-hero__window-glow glow-us-bank"></div>
-    <div class="home-page-hero__window-glow glow-stadium"></div>
-    <div class="home-page-hero__window-glow glow-building-right"></div>
-    <div class="home-page-hero__window-glow glow-city-background"></div>
-  </div>
-  <div class="home-page-hero__content-wrapper">
+<section class="home-page-hero__wrapper">
+  <div class="home-page-hero">
     <div class="home-page-hero__content">
       <h1 class="home-page-hero__heading">
         <?php echo $heading ?>

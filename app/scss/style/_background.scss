@@ -1,16 +1,16 @@
 @use '../base/globals' as *;
 
 $grey:       #F0EFEF;
-$colorOne:   #181A35;
-$gold:       #FFD700;
-$red:        #DC143C;
-$black:      #000000;
+$colorOne:   #307d98;
+$colorThree: #3f6c2a;
+$colorTwo:   #f2640e;
+$black:      #2a241b;
 
 .motion-gradient {
   position: fixed;
   inset: 0;
   z-index: -1;
-  pointer-events: none;
+  pointer-events: none;   
 
   --ang: 35deg;
   --shiftX: 0%;
@@ -18,9 +18,9 @@ $black:      #000000;
 
   background:
     radial-gradient(850px 650px at calc(72% + var(--shiftX)) calc(78% + var(--shiftY)),
-      rgba($gold, 0.18), transparent 60%),
+      rgba($colorThree, 0.18), transparent 60%),
     radial-gradient(650px 480px at calc(24% - var(--shiftX)) calc(26% - var(--shiftY)),
-      rgba($red, 0.18), transparent 65%),
+      rgba($colorTwo, 0.18), transparent 65%),
     radial-gradient(750px 550px at calc(60% + var(--shiftX)) calc(34% + var(--shiftY)),
       rgba($colorOne, 0.12), transparent 70%),
     radial-gradient(950px 740px at calc(48% - var(--shiftX)) calc(64% - var(--shiftY)),
@@ -28,8 +28,8 @@ $black:      #000000;
     linear-gradient(var(--ang),
       $black 0%,
       mix($black, $colorOne, 15%) 30%,
-      mix($black, $colorOne, 25%) 60%,
-      mix($black, $colorOne, 35%) 80%,
+      mix($black, $colorThree, 25%) 60%,
+      mix($black, $colorTwo, 35%) 80%,
       $colorOne 100%);
 
   animation: sky-wave 10s ease-in-out infinite alternate;

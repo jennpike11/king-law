@@ -445,26 +445,28 @@ function isElementInViewport(el) {
   });
 })(jQuery);
 
+
 // Background Animation
 (function ($) {
   function init() {
     const $bg = $('.motion-gradient');
     if (!$bg.length) { requestAnimationFrame(init); return; }
 
-    let mx = 0, my = 0;
-    let sx = 0, sy = 0;
-    let ang = 35;
+    let mx = 0, my = 0;   // mouse target [-1..1]
+    let sx = 0, sy = 0;   // smoothed %
+    let ang = 35;  
+    let t = 0;
 
     $(window).on('mousemove', function (e) {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      mx = (e.clientX - cx) / cx;
-      my = (e.clientY - cy) / cy;
+      mx = (e.clientX - cx) / cx;  // -1..1
+      my = (e.clientY - cy) / cy;  // -1..1
     });
 
-    let t = 0;
     function tick() {
       t += 0.01;
+      // ease toward target, add subtle breathing
       sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06;
       sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06;
       ang += Math.sin(t * 0.6) * 0.12;
@@ -478,5 +480,11 @@ function isElementInViewport(el) {
     }
     tick();
   }
-  init();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })(jQuery);
+
