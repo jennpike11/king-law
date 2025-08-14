@@ -1,3 +1,4 @@
+@use "sass:color";
 @use '../base/globals' as *;
 
 // reset browser defaults
@@ -9,9 +10,7 @@
   box-sizing: border-box;
 }
 
-*:focus {
-  outline: none;
-}
+*:focus { outline: none; }
 
 html {
   height: 100%;
@@ -26,9 +25,7 @@ html {
   -o-font-smoothing: antialiased;
   z-index: 0;
 
-  &.active {
-    overflow-y: hidden;
-  }
+  &.active { overflow-y: hidden; }
 }
 
 body {
@@ -37,12 +34,7 @@ body {
   margin: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   margin-bottom: 16px;
   font-family: $font-secondary;
   font-weight: 900;
@@ -62,30 +54,21 @@ h1 {
 h2 {
   font-size: 32px;
   line-height: 40px;
-  
+
   @include respond(small){
     font-size: 40px;
     line-height: 48px;
   }
 }
 
-h3 {
-  font-size: 24px;
-  line-height: 32px;
-}
+h3 { font-size: 24px; line-height: 32px; }
 
 p {
   margin-bottom: 16px;
+  &:last-of-type { margin-bottom: unset; }
+}
 
-  &:last-of-type {
-    margin-bottom: unset;
-  }
-}
- 
-a, a:hover {
-  text-decoration: none;
-  color: inherit;
-}
+a, a:hover { text-decoration: none; color: inherit; }
 
 li {
   list-style-type: none;
@@ -95,61 +78,41 @@ li {
   font-weight: inherit;
 }
 
-img {
-  max-width: 100%;
-}
+img { max-width: 100%; }
 
-.entry-footer {
-  display: none;
-}
+.entry-footer { display: none; }
 
-.container {
-  @include container;
-}
+.container { @include container; }
 
 .show-on-mobile {
-  @include respond(large){
-    display: none;
-  }
+  @include respond(large){ display: none; }
 }
 
-.padding--xsmall {
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
+.padding--xsmall { padding-top: 16px; padding-bottom: 16px; }
 
-.padding--small {
-  padding-top: 32px;
-  padding-bottom: 32px;
-}
+.padding--small { padding-top: 32px; padding-bottom: 32px; }
 
 .padding--medium {
-  padding-top: 64px;
-  padding-bottom: 64px;
-  
+  padding-top: 64px; padding-bottom: 64px;
+
   @include respond(small) {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 80px; padding-bottom: 80px;
   }
 }
 
 .padding--large {
-  padding-top: 104px;
-  padding-bottom: 104px;
+  padding-top: 104px; padding-bottom: 104px;
 
   @include respond(small){
-    padding-top: 120px;
-    padding-bottom: 120px;
+    padding-top: 120px; padding-bottom: 120px;
   }
 }
 
 .padding--xlarge {
-  padding-top: 120px;
-  padding-bottom: 120px;
-  
+  padding-top: 120px; padding-bottom: 120px;
+
   @include respond(small) {
-    padding-top: 160px;
-    padding-bottom: 160px;
+    padding-top: 160px; padding-bottom: 160px;
   }
 }
 
@@ -161,77 +124,41 @@ img {
 
 // Background colors for sections, buttons, etc
 .background-color {
-  &--white {
-    background-color: $white;
-  }
+  &--white { background-color: $white; }
+  &--black { background-color: $black; }
+  &--color-one { background-color: $colorOne; }
+  &--color-two { background-color: $colorTwo; }
 
-  &--black {
-    background-color: $black;
-  }
-
-  &--color-one {
-    background-color: $colorOne;
-  }
-
-  &--color-two {
-    background-color: $colorTwo;
-  }
-
-  &--color-one-light {
-    background-color: tint($colorOne, 80%);
-  }
-
-  &--color-two-light {
-    background-color: tint($colorTwo, 80%);
-  }
+  &--color-one-light { background-color: tint($colorOne, 80%); }
+  &--color-two-light { background-color: tint($colorTwo, 80%); }
 }
-
 
 // Font color options
 .color {
-  &--white {
-    color: $white;
-  }
+  &--white { color: $white; }
+  &--black { color: $black; }
+  &--color-one { color: $colorOne; }
+  &--color-two { color: $colorTwo; }
 
-  &--black {
-    color: $black;
-  }
-
-  &--color-one {
-    color: $colorOne;
-  }
- 
-  &--color-two {
-    color: $colorTwo;
-  }
-
-  &--color-one-light {
-    color: tint($colorOne, 80%);
-  }
- 
-  &--color-two-light {
-    color: tint($colorTwo, 80%);
-  }
+  &--color-one-light { color: tint($colorOne, 80%); }
+  &--color-two-light { color: tint($colorTwo, 80%); }
 }
 
 .text-gradient {
   background: linear-gradient(
     to bottom right,
-    lighten($colorOne, 15%),
-    lighten($colorTwo, 15%)
+    color.adjust($colorOne, $lightness: 15%),
+    color.adjust($colorTwo, $lightness: 15%)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-
 .background-gradient {
   background: linear-gradient(to bottom right, $colorOne, $colorTwo);
 }
 
-.comments-area {
-  display: none;
-}
+.comments-area { display: none; }
 
 i.fa-solid:before {
   display: inline-flex;
@@ -247,45 +174,38 @@ i.fa-solid:before {
   background: $white;
 }
 
-  .icon-dollar:before {
-    content: url(#{$icon-dollar});
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-  }
+.icon-dollar:before {
+  content: url(#{$icon-dollar});
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+}
 
-  .icon-scale:before {
-    content: url(#{$icon-scale});
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-  }
+.icon-scale:before {
+  content: url(#{$icon-scale});
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+}
 
-    .icon-star:before {
-    content: url(#{$icon-star});
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-  }
+.icon-star:before {
+  content: url(#{$icon-star});
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+}
 
-  .icon-document:before {
-    content: url(#{$icon-document});
-    display: inline-block;
-    width: 44px;
-    height: 64px;
-    margin-bottom: 16px;
-  }
-
+.icon-document:before {
+  content: url(#{$icon-document});
+  display: inline-block;
+  width: 44px;
+  height: 64px;
+  margin-bottom: 16px;
+}
 
 // Shrink to fit headings
-.word-span {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.line-wrapper {
-  white-space: nowrap;
-}
+.word-span { display: inline-block; white-space: nowrap; }
+.line-wrapper { white-space: nowrap; }

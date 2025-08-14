@@ -19,7 +19,7 @@
 
   /* Text (headings + descriptions) */
   &__services {
-    margin-bottom: $spacer / 2;
+    margin-bottom: 16px;
 
     @include respond(small) {
       width: 50%;

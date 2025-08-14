@@ -3,14 +3,18 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './app/js/scripts.js',
+  entry: {
+    main: './app/js/scripts.js',     // JS bundle → dist/main.js
+    styles: './app/scss/main.scss',  // CSS bundle → dist/styles.css
+  },
   output: {
-    filename: 'scripts.js',
+    filename: '[name].js',           // dist/main.js (no hash)
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
   mode: 'development',
   devtool: 'source-map',
+  stats: { errorDetails: true },
   module: {
     rules: [
       {
@@ -31,17 +35,31 @@ module.exports = {
               sourceMap: true,
               implementation: require('sass'),
               sassOptions: {
-                // if you need global include paths, add them here
-                // includePaths: [path.resolve(__dirname, 'app/scss')],
+                includePaths: [path.resolve(__dirname, 'app/scss')],
               },
+              additionalData: `@use "sass:color";\n@use "sass:math";\n`,
             },
           },
         ],
       },
-      // If you reference images/fonts in your SCSS, keep this handy:
-      { test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot)$/, type: 'asset' },
+      // images → dist/img/
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+        generator: { filename: 'img/[name][ext]' },
+      },
+      // fonts → dist/font/
+      {
+        test: /\.(woff2?|ttf|otf|eot)$/i,
+        type: 'asset/resource',
+        generator: { filename: 'font/[name][ext]' },
+      },
     ],
   },
-  plugins: [new MiniCssExtractPlugin({ filename: 'style.css' })],
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',        // dist/styles.css
+    }),
+  ],
   resolve: { extensions: ['.js', '.scss', '.css'] },
 };

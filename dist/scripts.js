@@ -1,66 +1,7 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./app/scss/main.scss":
-/*!****************************!*\
-  !*** ./app/scss/main.scss ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
-(() => {
 /*!***************************!*\
   !*** ./app/js/scripts.js ***!
   \***************************/
-__webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
-
 (function ($) {
   $(function () {
     // Sticky menu
@@ -73,271 +14,197 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
       }
     });
 
-    // Stop scroll when menu is open 
+    // Stop scroll when menu is open
     $('.menu-toggle').on('click', function () {
       $('html').toggleClass('active');
     });
 
-
     // Animated Mouse
     $(document).on('mousemove', function (e) {
-      $('#custom-star-cursor').css({
-        left: e.clientX,
-        top: e.clientY
-      });
+      $('#custom-star-cursor').css({ left: e.clientX, top: e.clientY });
 
-      const sparkle = $('<div class="sparkle"></div>');
-      sparkle.css({
+      const sparkle = $('<div class="sparkle"></div>').css({
         left: e.clientX + 'px',
-        top: e.clientY + 'px'
+        top: e.clientY + 'px',  
       });
 
       $('#trail-container').append(sparkle);
-
-      setTimeout(() => {
-        sparkle.remove();
-      }, 800);
+      setTimeout(() => sparkle.remove(), 800);
     });
 
-    $('.primary-button, .primary-button').hover(
+    $('.primary-button').hover(
       function () { $('body').addClass('mouse-trail-hidden'); },
       function () { $('body').removeClass('mouse-trail-hidden'); }
     );
 
-    // FAQ Accordion
-    $('.faq-block__item').on('click', function () {
-      if ($(this).hasClass('active')) {
-        $('.faq-block__details').slideUp();
-        $('.faq-block__item').removeClass('active');
-      } else {
-        $('.faq-block__item').removeClass('active');
-        $(this).addClass('active');
-        $('.faq-block__details').slideUp();
-        $(this).find('.faq-block__details').slideDown();
-      }
-    });
+    // ===============================
+    // Services block
+    // ===============================
+    const TOP_OFFSET = 120;
+    const MOVE_THRESHOLD = 6;
+    const IGNORE_MS = 260;
 
+    const baseline = new WeakMap();
+    const waiting = new WeakMap();
+    let ignoreUntil = 0;
 
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
-// Start services block
-// ===============================
-(function ($) {
-  const TOP_OFFSET = 120;      // 1) scroll target = 120px from top
-  const MOVE_THRESHOLD = 6;    // small guard so the line waits until user scrolls
-  const IGNORE_MS = 260;       // ignore scroll while we animate to the heading
-
-  // Per-description state
-  const baseline = new WeakMap(); // starting window.scrollY after snap
-  const waiting  = new WeakMap(); // wait for user scroll before growing line
-  let ignoreUntil = 0;
-
-  function clamp(v, min, max){ return v < min ? min : v > max ? max : v; }
-
-  function scrollHeadingToTop($heading, done){
-    const y = Math.max(0, $heading.offset().top - TOP_OFFSET);
-    $('html, body').stop(true, true).animate({ scrollTop: y }, 350, 'swing', done);
-  }
-
-  function hardResetAll($root){
-    // close all descriptions and reset progress classes and vars
-    $root.find('.services-block__description').each(function(){
-      const el = this;
-      $(el).stop(true, true).slideUp(0);
-      el.classList.remove('progress-active','progress-dot-top');
+    function armDot($desc) {
+      const el = $desc[0];
+      el.classList.remove('progress-active', 'progress-dot-top');
       el.style.setProperty('--scroll-progress', '0%');
       baseline.delete(el);
       waiting.delete(el);
-    });
-    $root.find('.services-block__heading').removeClass('active');
-  }
+      el.classList.add('progress-active', 'progress-dot-top');
+    }
 
-  function armDot($desc){
-    // show only the 10px starter
-    const el = $desc[0];
-    el.classList.remove('progress-active','progress-dot-top');
-    el.style.setProperty('--scroll-progress', '0%');
-    baseline.delete(el);
-    waiting.delete(el);
+    function updateProgress($root) {
+      const now = performance.now();
 
-    el.classList.add('progress-active','progress-dot-top');
-  }
+      $root.find('.services-block__description.progress-active').each(function () {
+        const el = this;
+        const base = baseline.get(el);
+        if (base == null) return;
 
-  function updateProgress($root){
-    const now = performance.now();
-
-    $root.find('.services-block__description.progress-active').each(function(){
-      const el = this;
-      const base = baseline.get(el);
-      if (base == null) return;
-
-      // ignore during programmatic scroll
-      if (now < ignoreUntil) {
-        el.style.setProperty('--scroll-progress', '0%');
-        el.classList.add('progress-dot-top');
-        return;
-      }
-
-      const dist = window.scrollY - base; // +down
-      const rect = el.getBoundingClientRect();
-      const h = rect.height || el.offsetHeight || 1;
-
-      // wait for a tiny real scroll before growing the line
-      if (waiting.get(el)) {
-        if (dist >= MOVE_THRESHOLD) {
-          waiting.set(el, false);
-          el.classList.remove('progress-dot-top');
-        } else {
+        if (now < ignoreUntil) {
           el.style.setProperty('--scroll-progress', '0%');
+          el.classList.add('progress-dot-top');
           return;
         }
-      }
 
-      // set progress as a percentage string so CSS can do calc(10px + var(--scroll-progress))
-      const pct = Math.round(clamp(dist / h, 0, 1) * 100);
-      el.style.setProperty('--scroll-progress', pct + '%');
+        const dist = window.scrollY - base;
+        const rect = el.getBoundingClientRect();
+        const h = rect.height || el.offsetHeight || 1;
+
+        if (waiting.get(el)) {
+          if (dist >= MOVE_THRESHOLD) {
+            waiting.set(el, false);
+            el.classList.remove('progress-dot-top');
+          } else {
+            el.style.setProperty('--scroll-progress', '0%');
+            return;
+          }
+        }
+
+        const pct = Math.round(clamp(dist / h, 0, 1) * 100);
+        el.style.setProperty('--scroll-progress', pct + '%');
+      });
+    }
+
+    $(window).on('scroll resize', function () {
+      $('.services-block').each(function () { updateProgress($(this)); });
     });
-  }
 
-  $(window).on('scroll resize', function(){
-    $('.services-block').each(function(){ updateProgress($(this)); });
-  });
-
-  // ensure first image shows on load per block
-  $(function(){
-    $('.services-block').each(function(){
+    // ensure first image shows on load per block
+    $('.services-block').each(function () {
       const $images = $(this).find('.services-block__images .services-block__image');
       $images.removeClass('is-active').eq(0).addClass('is-active');
     });
-  });
 
-  // Main click: on heading only
-$(document).on('click', '.services-block__heading', function (e) {
-  e.preventDefault();
-
-  const $heading = $(this);
-  const $root    = $heading.closest('.services-block');
-
-  const $allHeadings = $root.find('.services-block__heading');
-  const $allDescs    = $root.find('.services-block__description');
-  const $images      = $root.find('.services-block__images .services-block__image');
-
-  const $desc = $heading.next('.services-block__description');
-  const isOpen = $heading.hasClass('active');
-
-  // If clicking the open one, close it and reset
-  if (isOpen) {
-    $heading.removeClass('active');
-    $desc.stop(true, true).slideUp(150, () => {
-      // reset progress line for this item
-      $desc[0].classList.remove('progress-active','progress-dot-top');
-      $desc[0].style.setProperty('--scroll-progress', '0%');
-      baseline.delete($desc[0]);
-      waiting.delete($desc[0]);
-    });
-    // show the first image when nothing is selected
-    $images.removeClass('is-active').eq(0).addClass('is-active');
-    return;
-  }
-
-  // Otherwise open this one and close others
-  $allHeadings.not($heading).removeClass('active');
-  $allDescs.not($desc).stop(true, true).slideUp(0);
-  $root.find('.services-block__description').each(function () {
-    this.classList.remove('progress-active','progress-dot-top');
-    this.style.setProperty('--scroll-progress', '0%');
-    baseline.delete(this);
-    waiting.delete(this);
-  });
-
-  // Image crossfade to the matching image
-  const idx = $allHeadings.index($heading);
-  if (idx >= 0 && $images.length) {
-    const safeIdx = Math.min(idx, $images.length - 1);
-    $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
-  }
-
-  // Open chosen description
-  $heading.addClass('active');
-  $desc.stop(true, true).slideDown(150, () => {
-    // show starter dot
-    armDot($desc);
-
-    // snap scroll so heading sits 120px from top, then progress grows on user scroll
-    const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);
-    ignoreUntil = performance.now() + IGNORE_MS;
-    baseline.set($desc[0], targetY);
-    waiting.set($desc[0], true);
-    updateProgress($root);
-    $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');
-  });
-});
-
-// swap images on hover
-$(document).on('mouseenter', '.services-block__heading', function () {
-  const $block    = $(this).closest('.services-block');
-  const $headings = $block.find('.services-block__heading');
-  const $images   = $block.find('.services-block__images .services-block__image');
-  const idx = $headings.index(this);
-  if (idx < 0) return;
-  $images.removeClass('is-hover');
-  $images.eq(idx).addClass('is-hover');
-}).on('mouseleave', '.services-block__heading', function () {
-  const $block  = $(this).closest('.services-block');
-  const $images = $block.find('.services-block__images .services-block__image');
-  $images.removeClass('is-hover'); // falls back to .is-active
-});
-
-})(jQuery);
-
-// Deep link to services headings by ID
-(function ($) {
-  function findSvcHeadingById(id) {
-    if (!id) return $(); 
-    // safer than CSS escaping
-    return $('.services-block__heading').filter(function () { return this.id === id; });
-  }
-
-  // 1) On-page hash link clicks behave like clicking the heading
-  $(document).on('click', 'a[href^="#"]', function (e) {
-    const href = this.getAttribute('href');
-    if (!href || href === '#') return; // ignore empty hashes
-    const id = decodeURIComponent(href.slice(1));
-    const $target = findSvcHeadingById(id);
-    if ($target.length) {
+    // Main click: on heading only
+    $(document).on('click', '.services-block__heading', function (e) {
       e.preventDefault();
-      // keep the hash in the URL without jumping
-      if (location.hash !== '#' + id && history.replaceState) {
-        history.replaceState(null, '', '#' + id);
+
+      const $heading = $(this);
+      const $root = $heading.closest('.services-block');
+
+      const $allHeadings = $root.find('.services-block__heading');
+      const $allDescs = $root.find('.services-block__description');
+      const $images = $root.find('.services-block__images .services-block__image');
+
+      const $desc = $heading.next('.services-block__description');
+      const isOpen = $heading.hasClass('active');
+
+      if (isOpen) {
+        $heading.removeClass('active');
+        $desc.stop(true, true).slideUp(150, () => {
+          $desc[0].classList.remove('progress-active', 'progress-dot-top');
+          $desc[0].style.setProperty('--scroll-progress', '0%');
+          baseline.delete($desc[0]);
+          waiting.delete($desc[0]);
+        });
+        $images.removeClass('is-active').eq(0).addClass('is-active');
+        return;
       }
-      $target.trigger('click'); // reuse your existing heading click behavior
+
+      $allHeadings.not($heading).removeClass('active');
+      $allDescs.not($desc).stop(true, true).slideUp(0);
+      $root.find('.services-block__description').each(function () {
+        this.classList.remove('progress-active', 'progress-dot-top');
+        this.style.setProperty('--scroll-progress', '0%');
+        baseline.delete(this);
+        waiting.delete(this);
+      });
+
+      const idx = $allHeadings.index($heading);
+      if (idx >= 0 && $images.length) {
+        const safeIdx = Math.min(idx, $images.length - 1);
+        $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
+      }
+
+      $heading.addClass('active');
+      $desc.stop(true, true).slideDown(150, () => {
+        armDot($desc);
+
+        const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);
+        ignoreUntil = performance.now() + IGNORE_MS;
+        baseline.set($desc[0], targetY);
+        waiting.set($desc[0], true);
+        updateProgress($root);
+        $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');
+      });
+    });
+
+    // swap images on hover
+    $(document)
+      .on('mouseenter', '.services-block__heading', function () {
+        const $block = $(this).closest('.services-block');
+        const $headings = $block.find('.services-block__heading');
+        const $images = $block.find('.services-block__images .services-block__image');
+        const idx = $headings.index(this);
+        if (idx < 0) return;
+        $images.removeClass('is-hover');
+        $images.eq(idx).addClass('is-hover');
+      })
+      .on('mouseleave', '.services-block__heading', function () {
+        const $block = $(this).closest('.services-block');
+        const $images = $block.find('.services-block__images .services-block__image');
+        $images.removeClass('is-hover');
+      });
+
+    // Deep link to services headings by ID
+    function findSvcHeadingById(id) {
+      if (!id) return $();
+      return $('.services-block__heading').filter(function () { return this.id === id; });
     }
-  });
 
-  // 2) If the page loads with a hash, open that service
-  $(function () {
-    const id = decodeURIComponent(location.hash.slice(1));
-    const $target = findSvcHeadingById(id);
-    if ($target.length) {
-      // defer a tick so layout is stable
-      setTimeout(function () { $target.trigger('click'); }, 0);
-    }
-  });
+    $(document).on('click', 'a[href^="#"]', function (e) {
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
+      const id = decodeURIComponent(href.slice(1));
+      const $target = findSvcHeadingById(id);
+      if ($target.length) {
+        e.preventDefault();
+        if (location.hash !== '#' + id && history.replaceState) {
+          history.replaceState(null, '', '#' + id);
+        }
+        $target.trigger('click');
+      }
+    });
 
-  // 3) Support back/forward between hashes
-  $(window).on('hashchange', function () {
-    const id = decodeURIComponent(location.hash.slice(1));
-    const $target = findSvcHeadingById(id);
-    if ($target.length) {
-      $target.trigger('click');
-    }
-  });
-})(jQuery);
+    (function bootstrapHash() {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const $target = findSvcHeadingById(id);
+      if ($target.length) setTimeout(() => $target.trigger('click'), 0);
+      $(window).on('hashchange', function () {
+        const hid = decodeURIComponent(location.hash.slice(1));
+        const $h = findSvcHeadingById(hid);
+        if ($h.length) $h.trigger('click');
+      });
+    })();
 
-// ===============================
-// end services block 
-
-
-    // Slick Slider 
+    // Slick Slider
     if ($('.slider-block').length && typeof $.fn.slick === 'function') {
       $('.slider-block').slick({
         slidesToShow: 3,
@@ -346,14 +213,8 @@ $(document).on('mouseenter', '.services-block__heading', function () {
         arrows: true,
         dots: false,
         responsive: [
-          {
-            breakpoint: 1024,
-            settings: { slidesToShow: 3, slidesToScroll: 1, infinite: true },
-          },
-          {
-            breakpoint: 450,
-            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true },
-          },
+          { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1, infinite: true } },
+          { breakpoint: 450,  settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true } },
         ],
       });
     }
@@ -363,12 +224,7 @@ $(document).on('mouseenter', '.services-block__heading', function () {
     const $wrapper = $('.sticky-cta-block__wrapper');
     const $content = $('.landing-page__content');
 
-    if (
-      window.innerWidth >= 768 &&
-      $inner.length &&
-      $wrapper.length &&
-      $content.length
-    ) {
+    if (window.innerWidth >= 768 && $inner.length && $wrapper.length && $content.length) {
       $('.landing-page__content__wrapper').addClass('sticky-block-added');
 
       const fixedTop = 64;
@@ -438,119 +294,133 @@ $(document).on('mouseenter', '.services-block__heading', function () {
       }
     });
 
- 
- // Vertical Sliding Animation
-  var scroll = window.requestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60) };
-  var elementsToShow = document.querySelectorAll('.vertical-slide-yes');
+    // Vertical Sliding Animation
+    const raf = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 1000 / 60); };
+    const elementsToShow = document.querySelectorAll('.vertical-slide-yes');
 
-  function loop() {
-    Array.prototype.forEach.call(elementsToShow, function (element) {
-      if (isElementInViewport(element)) {
-        element.classList.add('is-visible');
-      } else {
-        element.classList.remove('is-visible');
+    function loop() {
+      Array.prototype.forEach.call(elementsToShow, function (element) {
+        if (isElementInViewport(element)) element.classList.add('is-visible');
+        else element.classList.remove('is-visible');
+      });
+      raf(loop);
+    }
+    loop();
+
+    function isElementInViewport(el) {
+      if (typeof jQuery === 'function' && el instanceof jQuery) el = el[0];
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const revealPoint = vh * 0.1;
+      return rect.top <= vh - revealPoint && rect.bottom >= revealPoint;
+    }
+
+    // Home Page Heading Text Animation
+    (function () {
+      const SEL = '.home-page-hero__heading';
+      const MAX_LINES = 3;
+
+      function splitHeading($el, targetWidth) {
+        if (!$el.length) return;
+        const original = $el.data('orig') || $el.text().trim().replace(/\s+/g, ' ');
+        $el.data('orig', original);
+
+        const width = Math.round(targetWidth || $el.innerWidth() || 888);
+
+        const cs = getComputedStyle($el[0]);
+        const $m = $('<span/>').css({
+          position: 'absolute',
+          left: '-9999px',
+          top: '-9999px',
+          visibility: 'hidden',
+          whiteSpace: 'nowrap',
+          fontFamily: cs.fontFamily,
+          fontSize: cs.fontSize,
+          fontWeight: cs.fontWeight,
+          fontStyle: cs.fontStyle,
+          letterSpacing: cs.letterSpacing,
+          textTransform: cs.textTransform,
+        }).appendTo(document.body);
+
+        const w = (txt) => { $m.text(txt); return $m[0].getBoundingClientRect().width; };
+
+        const words = original.split(' ');
+        const lines = [];
+        let i = 0;
+
+        for (let line = 0; line < MAX_LINES - 1; line++) {
+          let cur = '';
+          while (i < words.length) {
+            const candidate = cur ? cur + ' ' + words[i] : words[i];
+            if (w(candidate) <= width) { cur = candidate; i++; } else { break; }
+          }
+          if (!cur && i < words.length) { cur = words[i++]; }
+          lines.push(cur);
+        }
+
+        let rest = words.slice(i).join(' ');
+        while (rest && w(rest) > width && lines.length) {
+          const prev = lines[lines.length - 1].trim().split(' ');
+          if (prev.length > 1) {
+            const moved = prev.pop();
+            lines[lines.length - 1] = prev.join(' ');
+            rest = moved + ' ' + rest;
+          } else { break; }
+        }
+        lines.push(rest);
+
+        $m.remove();
+        $el.empty();
+        for (let li = 0; li < MAX_LINES; li++) {
+          $('<span/>', { class: 'line l' + (li + 1) }).text(lines[li] || '').appendTo($el);
+        }
       }
-    });
-    scroll(loop);
-  }
 
-  // Call the loop for the first time
-  loop();
+      function run() {
+        const $el = $(SEL);
+        splitHeading($el, 888);
+      }
 
-function isElementInViewport(el) {
-  if (typeof jQuery === "function" && el instanceof jQuery) el = el[0];
-  var rect = el.getBoundingClientRect();
-  var vh = window.innerHeight || document.documentElement.clientHeight;
-  var revealPoint = vh * 0.1; // reveal when 20% into the viewport
-  return (
-    rect.top <= vh - revealPoint && 
-    rect.bottom >= revealPoint
-  );
-}
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(run); } else { run(); }
+      let to;
+      $(window).on('resize', function () { clearTimeout(to); to = setTimeout(run, 120); });
+    })();
 
+    // Background Animation
+    (function () {
+      const $bg = $('.motion-gradient');
+      if (!$bg.length) return;
 
-// Home Page Hero Parallax
-(function () {
-  const bg  = document.querySelector('.home-page-hero__layer.background');
-  const mid = document.querySelector('.home-page-hero__layer.middle');
-  const fg  = document.querySelector('.home-page-hero__layer.foreground');
-  if (!bg || !mid || !fg) return;
+      let mx = 0, my = 0;
+      let sx = 0, sy = 0;
+      let ang = 35;
+      let t = 0;
 
-  let target  = window.scrollY || 0;
-  let current = target;
+      $(window).on('mousemove', function (e) {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        mx = (e.clientX - cx) / cx;
+        my = (e.clientY - cy) / cy;
+      });
 
-  function apply(y) {
-    const b = Math.round(y * 0.30);
-    const m = Math.round(y * 0.50);
-    const f = Math.round(y * 0.70);
-    bg.style.transform  = `translate3d(0, ${b}px, 0)`;
-    mid.style.transform = `translate3d(0, ${m}px, 0)`;
-    fg.style.transform  = `translate3d(0, ${f}px, 0)`;
-  }
+      function tick() {
+        t += 0.01;
+        sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06;
+        sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06;
+        ang += Math.sin(t * 0.6) * 0.12;
 
-  function tick() {
-    current += (target - current) * 0.08; // lower = slower easing
-    apply(current);
-    requestAnimationFrame(tick);
-  }
+        const el = $bg[0].style;
+        el.setProperty('--shiftX', sx + '%');
+        el.setProperty('--shiftY', sy + '%');
+        el.setProperty('--ang', ang + 'deg');
 
-  window.addEventListener('scroll', () => {
-    target = window.scrollY || 0;
-  }, { passive: true });
-
-  apply(current);
-  tick();
-})();
-
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
 
   });
 })(jQuery);
-
-
-// Background Animation
-(function ($) {
-  function init() {
-    const $bg = $('.motion-gradient');
-    if (!$bg.length) { requestAnimationFrame(init); return; }
-
-    let mx = 0, my = 0;   // mouse target [-1..1]
-    let sx = 0, sy = 0;   // smoothed %
-    let ang = 35;  
-    let t = 0;
-
-    $(window).on('mousemove', function (e) {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      mx = (e.clientX - cx) / cx;  // -1..1
-      my = (e.clientY - cy) / cy;  // -1..1
-    });
-
-    function tick() {
-      t += 0.01;
-      // ease toward target, add subtle breathing
-      sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06;
-      sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06;
-      ang += Math.sin(t * 0.6) * 0.12;
-
-      const el = $bg[0].style;
-      el.setProperty('--shiftX', sx + '%');
-      el.setProperty('--shiftY', sy + '%');
-      el.setProperty('--ang', ang + 'deg');
-
-      requestAnimationFrame(tick);
-    }
-    tick();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})(jQuery);
-
-
-})();
 
 /******/ })()
 ;

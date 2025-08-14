@@ -8,6 +8,9 @@
 
 <section class="home-page-hero__wrapper">
   <div class="home-page-hero">
+    <div class="home-page-hero__hero">
+      
+    </div>
     <div class="home-page-hero__content">
       <h1 class="home-page-hero__heading">
         <?php echo $heading ?>
