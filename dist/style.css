@@ -800,17 +800,6 @@ i.fa-solid:before {
   pointer-events: none;
 }
 
-.animated-list-block {
-  width: calc(100% - 32px);
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-}
-@media (min-width: 768px) {
-  .animated-list-block {
-    width: calc(100% - 64px);
-  }
-}
 .animated-list-block__items {
   display: flex;
   justify-content: center;
@@ -821,47 +810,38 @@ i.fa-solid:before {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 0 0 50%;
-  min-height: 200px;
+  height: 400px;
   border: 0.5px solid #00973A;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.38);
+  background-blend-mode: multiply;
+  transition: background-color 0.25s ease;
+}
+.animated-list-block__item:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  background-blend-mode: screen;
+}
+@media (min-width: 768px) {
+  .animated-list-block__item {
+    width: 50%;
+  }
 }
 .animated-list-block__item:hover {
   border: unset;
   transition: border 0.1s;
   animation-delay: 0.4s;
 }
-.animated-list-block__item__item:nth-child(3), .animated-list-block__item__item:nth-child(4), .animated-list-block__item__item:nth-child(5) {
-  flex: 0 0 33.33%;
-}
-.animated-list-block__item__item:nth-child(6), .animated-list-block__item__item:nth-child(7) {
-  flex: 0 0 50%;
-}
-.animated-list-block__item__item:nth-child(8), .animated-list-block__item__item:nth-child(9), .animated-list-block__item__item:nth-child(10) {
-  flex: 0 0 33.33%;
-}
 .animated-list-block__heading {
   margin-bottom: unset;
   padding: 24px;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 36px;
   text-align: center;
   font-family: "Oswald-Bold", sans-serif;
   color: #fcfefd;
 }
 
-/* In each 5-item cycle: items 3,4,5 are 33.33% */
-.animated-list-block__item:nth-child(5n+3),
-.animated-list-block__item:nth-child(5n+4),
-.animated-list-block__item:nth-child(5n+5) {
-  flex-basis: 33.3333%;
-}
-
-/* Responsive: stack on small screens */
-@media (max-width: 768px) {
-  .animated-list-block__item {
-    flex-basis: 100%;
-  }
-}
 /* Ensure the edge spans position correctly */
 .animated-list-block__item {
   position: relative;
