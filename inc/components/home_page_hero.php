@@ -24,11 +24,14 @@
     </h1>
 
     <div class="home-page-hero__content">
-      <div class="home-page-hero__text-left">Better call<br>The Gringo</div>
+      <div class="home-page-hero__text-left">
+        <div class="home-page-hero__text-left__content">Wins over<span>$100,000,000!</span></div>
+        <div class="home-page-hero__text-left__burst"><img src="https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/burst.png"></div>
+      </div>
       <div class="home-page-hero__image">
         <img src="https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/arms_crossed_half_body.png">
       </div>
-      <div class="home-page-hero__text-right">Wins over $100,000,000!</div>
+      <div class="home-page-hero__text-right">Better call<span>"The Gringo"</span></div>
     </div>
     
 

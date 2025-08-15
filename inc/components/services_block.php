@@ -24,10 +24,10 @@ if (have_rows('services_block')):
       continue;
     }
 ?>
-<section class="services-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
+<section class="services-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?> background-color--color-one">
 
   <?php if (!empty($blockHeading)): ?>
-    <div class="services-block__block-heading">
+    <div class="services-block__block-heading vertical-slide-yes">
       <?php echo esc_html($blockHeading); ?>
     </div>
   <?php endif; ?>
