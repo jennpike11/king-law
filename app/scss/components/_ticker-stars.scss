@@ -1,5 +1,7 @@
 @use '../base/globals' as *;
 
+
+// Ticker
 * { box-sizing: border-box; }
 $duration: 30s;
 
@@ -39,7 +41,7 @@ $duration: 30s;
 
   .ticker {
     @include flex-center;
-    height: 200px;  
+    height: 40px;  
     white-space: nowrap;
     padding-right: 100%;
     box-sizing: content-box;
@@ -53,11 +55,15 @@ $duration: 30s;
     -webkit-animation-duration: $duration;
             animation-duration: $duration;
   }
+}
 
-  .ticker__text {
-    font-size: 225px;
-    font-family: $font-secondary;
-    text-transform: uppercase;
-    color: $white;
-  }
+
+// Stars
+.star-row {
+ width: 100%;
+ height: 24px;
+ padding: 2px 0;
+ background-image: url("https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/red-star-1.png");
+ background-repeat: repeat-x;
+ background-size: contain;
 }

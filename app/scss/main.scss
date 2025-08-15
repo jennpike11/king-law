@@ -3,7 +3,6 @@
 
 // Styles
 @use 'style/animation' as *;
-@use 'style/background' as *;
 @use 'style/buttons' as *;
 @use 'style/common' as *;
 @use 'style/error404' as *;
@@ -27,5 +26,5 @@
 @use 'components/stats-block' as *;
 @use 'components/sticky-cta-block' as *;
 @use 'components/three-column-block' as *;
-@use 'components/ticker' as *;
+@use 'components/ticker-stars' as *;
 @use 'components/two-column-block' as *;

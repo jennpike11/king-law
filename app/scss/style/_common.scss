@@ -128,9 +128,8 @@ img { max-width: 100%; }
   &--black { background-color: $black; }
   &--color-one { background-color: $colorOne; }
   &--color-two { background-color: $colorTwo; }
-
-  &--color-one-light { background-color: tint($colorOne, 80%); }
-  &--color-two-light { background-color: tint($colorTwo, 80%); }
+  &--color-three { background-color: $colorThree; }
+  &--color-four { background-color: $colorFour; }
 }
 
 // Font color options
@@ -139,9 +138,8 @@ img { max-width: 100%; }
   &--black { color: $black; }
   &--color-one { color: $colorOne; }
   &--color-two { color: $colorTwo; }
-
-  &--color-one-light { color: tint($colorOne, 80%); }
-  &--color-two-light { color: tint($colorTwo, 80%); }
+  &--color-three { background-color: $colorTwo; }
+  &--color-three { background-color: $colorTwo; }
 }
 
 .text-gradient {

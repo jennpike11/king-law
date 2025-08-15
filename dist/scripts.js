@@ -376,111 +376,115 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
     }
 
 
-// Home Page Heading Text Design
-(function ($) {
-  function init() {
-    var $h = $('.home-page-hero__heading').first();
-    if (!$h.length) { requestAnimationFrame(init); return; }
+// Stats Block Animation
+// Count-up that replays every time the stat scrolls back into view
+(function () {
+  const DEFAULT_DURATION = 1200;
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
 
-    var raw = ($h.text() || '').normalize();
-    if (!raw.trim()) return;
-
-    $h.attr('aria-label', raw).empty();
-
-    var cs = getComputedStyle($h[0]);
-
-    function numVar(name, def) {
-      var v = cs.getPropertyValue(name).trim();
-      var n = parseFloat(v);
-      return Number.isFinite(n) ? n : def;
-    }
-    function degVar(name){ var v = cs.getPropertyValue(name).trim(); return v.endsWith('deg') ? parseFloat(v) : 0; }
-    function pxVar(name){  var v = cs.getPropertyValue(name).trim(); return v.endsWith('px')  ? parseFloat(v) : 0; }
-
-    var edge   = numVar('--edge-scale', 1.40);
-    var mid    = numVar('--mid-scale',  0.78);
-    var curve  = numVar('--curve',      1.6);
-    var wd     = numVar('--width-dampen', 0.25); // 0..1
-
-    var jitter    = numVar('--jitter', 0.03);
-    var rotJ     = degVar('--rot-jitter');
-    var yJ       = pxVar('--y-jitter');
-
-    var chars = Array.from(raw);
-    var n = Math.max(1, chars.length);
-
-    for (var i = 0; i < chars.length; i++) {
-      var ch = chars[i];
-      var $span = $('<span/>', { 'class': 'char', text: ch });
-
-      // position across line
-      var t = n === 1 ? 0.5 : i / (n - 1);      // 0..1
-      var d = Math.abs(t - 0.5) * 2;            // 0 center → 1 edges
-
-      // Smooth cosine blend (0 at center → 1 at edges), then power-shape
-      var shaped = Math.pow((1 - Math.cos(d * Math.PI)) / 2, curve);
-
-      // Base vertical scale (edges→edge, center→mid)
-      var sy = mid + (edge - mid) * shaped;
-
-      // Dampen horizontal growth so spacing doesn’t blow out
-      var sx = 1 + (sy - 1) * wd;               // wd=0 => sx=1 (no width change)
-
-      // Optional grit
-      if (jitter) {
-        var j = (Math.random() - 0.5) * 2 * jitter;
-        sy += j;
-        sx += j * wd; // keep width jitter proportional
-      }
-      var rot = rotJ ? ((Math.random() - 0.5) * 2 * rotJ) : 0;
-      var y   = yJ   ? ((Math.random() - 0.5) * 2 * yJ)   : 0;
-
-      $span[0].style.setProperty('--sy', sy.toFixed(4));
-      $span[0].style.setProperty('--sx', sx.toFixed(4));
-      $span[0].style.setProperty('--rot', rot.toFixed(3) + 'deg');
-      $span[0].style.setProperty('--y',   y.toFixed(2)   + 'px');
-
-      $h.append($span);
-    }
+  function parseStat(text) {
+    const s = (text || '').trim();
+    const m = s.match(/^([^0-9\-+]*)(-?\d[\d,]*(?:\.\d+)?)([A-Za-z%+]*)/);
+    if (!m) return { prefix: '', target: 0, decimals: 0, suffix: '' };
+    const prefix   = m[1] || '';
+    const numStr   = (m[2] || '').replace(/,/g, '');
+    const suffix   = m[3] || '';
+    const decimals = (numStr.split('.')[1] || '').length;
+    const target   = parseFloat(numStr) || 0;
+    return { prefix, target, decimals, suffix };
   }
-  init();
-})(jQuery);
 
+  function formatNumber(value, decimals) {
+    return value.toLocaleString(undefined, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+  }
 
+  function prepare(el) {
+    if (el.dataset.prepared === '1') return;
+    const meta = parseStat(el.textContent);
+    el.dataset.prefix   = meta.prefix;
+    el.dataset.target   = String(meta.target);
+    el.dataset.decimals = String(meta.decimals);
+    el.dataset.suffix   = meta.suffix;
+    el.dataset.prepared = '1';
+  }
 
+  function reset(el) {
+    // show 0 with the same decimals/prefix/suffix
+    const decimals = +el.dataset.decimals || 0;
+    el.textContent = `${el.dataset.prefix || ''}${formatNumber(0, decimals)}${el.dataset.suffix || ''}`;
+    el.dataset.animating = '0';
+  }
 
-// Background Animation
-    (function () {
-      const $bg = $('.motion-gradient');
-      if (!$bg.length) return;
+  function animate(el) {
+    if (el.dataset.animating === '1') return; // don't double-start
+    el.dataset.animating = '1';
 
-      let mx = 0, my = 0;
-      let sx = 0, sy = 0;
-      let ang = 35;
-      let t = 0;
+    const prefix   = el.dataset.prefix || '';
+    const suffix   = el.dataset.suffix || '';
+    const target   = +(el.dataset.target || 0);
+    const decimals = +(el.dataset.decimals || 0);
+    const dur      = +(el.dataset.duration || DEFAULT_DURATION);
 
-      $(window).on('mousemove', function (e) {
-        const cx = window.innerWidth / 2;
-        const cy = window.innerHeight / 2;
-        mx = (e.clientX - cx) / cx;
-        my = (e.clientY - cy) / cy;
+    const t0 = performance.now();
+    function frame(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const v = target * easeOutCubic(p);
+      el.textContent = `${prefix}${formatNumber(v, decimals)}${suffix}`;
+      if (p < 1) requestAnimationFrame(frame);
+      else {
+        el.textContent = `${prefix}${formatNumber(target, decimals)}${suffix}`;
+        el.dataset.animating = '0';
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function init() {
+    const nodes = document.querySelectorAll('.stats-block__number');
+    if (!nodes.length) return;
+
+    // Prepare all numbers once
+    nodes.forEach(prepare);
+
+    // Replay on every entry; reset on exit
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          const el = e.target;
+          if (e.isIntersecting) {
+            animate(el);
+          } else {
+            reset(el);
+          }
+        });
+      }, {
+        threshold: 0.35,
+        // start a hair before fully above-the-fold:
+        rootMargin: '0px 0px -10% 0px'
       });
 
-      function tick() {
-        t += 0.01;
-        sx += ((mx * 15 + Math.sin(t) * 4) - sx) * 0.06;
-        sy += ((my * 12 + Math.cos(t * 0.8) * 4) - sy) * 0.06;
-        ang += Math.sin(t * 0.6) * 0.12;
+      nodes.forEach(n => {
+        // start from 0 until first entry
+        reset(n);
+        io.observe(n);
+      });
+    } else {
+      // Fallback: just animate once if IO not supported
+      nodes.forEach(animate);
+    }
+  }
 
-        const el = $bg[0].style;
-        el.setProperty('--shiftX', sx + '%');
-        el.setProperty('--shiftY', sy + '%');
-        el.setProperty('--ang', ang + 'deg');
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 
-        requestAnimationFrame(tick);
-      }
-      tick();
-    })();
+
 
   });
 })(jQuery);
