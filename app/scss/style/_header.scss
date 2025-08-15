@@ -19,13 +19,13 @@
         min-height: 100vh;
         padding-top: 96px;
         box-shadow: 0 0 30px 0 rgba(35, 35, 35, 0.05);
-        background: $black;
+        background: $colorOne;
         transition: left .2s linear;
 
         @include respond(large){
             position: fixed;
             top: -100%;
-            color: $colorThree;
+            color: $white;
         }
 
         &.sticky {
@@ -70,6 +70,7 @@
 
     &__title {
         font-family: $font-secondary;
+        text-transform: uppercase;
         font-size: 40px;
         color: $white;
 
@@ -123,29 +124,22 @@
 
 // Mobile Menu
 .menu-toggle {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 99;
-    background: 0;
-    border: 0;
-    font-size: 0;
-    background: 0;
-
-    @include respond(large){
-        display: none;
-    }
+    margin-left: 40px;
+    padding: 4px 24px;
+    border: 2px solid $white;
+    border-radius: 4px;
+    color: $white;
+    background: unset;
 }
 
 .menu-toggle {
     &:after {
-        content: '\f0c9';
+        content: 'MENU';
         position: relative;
         z-index: 999;
-        margin-top: 8vh;
-        font-family: fontawesome;
-        font-size: 30px;
-        color: $colorTwo;
+        font-family: $font-secondary;
+        font-size: 24px;
+        color: $white;
     }
 }
 
@@ -154,10 +148,9 @@
         content: '\f00d';
         position: relative;
         z-index: 999;
-        margin-top: 8vh;
         font-family: fontawesome;
         font-size: 30px;
-        color: $colorTwo;
+        color: $white;
     }
 }
 

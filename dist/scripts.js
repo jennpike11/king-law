@@ -264,6 +264,8 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
       });
     })();
 
+    
+
     // Slick Slider
     if ($('.slider-block').length && typeof $.fn.slick === 'function') {
       $('.slider-block').slick({

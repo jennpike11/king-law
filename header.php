@@ -25,7 +25,6 @@
 
 
 <div id="page" class="site">
-	<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'prc-theme' ); ?></button>
 	<header id="masthead" class="site-header__wrapper">
 		<div class="site-header">
 			<div class="site-header__logo">
@@ -50,5 +49,6 @@
 				);
 				?>
 			</nav><!-- #site-navigation -->
+			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( '', 'prc-theme' ); ?></button>
 		</div>	
 	</header><!-- #masthead -->

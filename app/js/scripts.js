@@ -203,6 +203,8 @@ require('../scss/main.scss');
       });
     })();
 
+    
+
     // Slick Slider
     if ($('.slider-block').length && typeof $.fn.slick === 'function') {
       $('.slider-block').slick({
