@@ -1,7 +1,67 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./app/scss/main.scss":
+/*!****************************!*\
+  !*** ./app/scss/main.scss ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
 /*!***************************!*\
   !*** ./app/js/scripts.js ***!
   \***************************/
+__webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss"); 
+
+
 (function ($) {
   $(function () {
     // Sticky menu
@@ -315,78 +375,81 @@
       return rect.top <= vh - revealPoint && rect.bottom >= revealPoint;
     }
 
-    // Home Page Heading Text Animation
-    (function () {
-      const SEL = '.home-page-hero__heading';
-      const MAX_LINES = 3;
 
-      function splitHeading($el, targetWidth) {
-        if (!$el.length) return;
-        const original = $el.data('orig') || $el.text().trim().replace(/\s+/g, ' ');
-        $el.data('orig', original);
+// Home Page Heading Text Design
+(function ($) {
+  function init() {
+    var $h = $('.home-page-hero__heading').first();
+    if (!$h.length) { requestAnimationFrame(init); return; }
 
-        const width = Math.round(targetWidth || $el.innerWidth() || 888);
+    var raw = ($h.text() || '').normalize();
+    if (!raw.trim()) return;
 
-        const cs = getComputedStyle($el[0]);
-        const $m = $('<span/>').css({
-          position: 'absolute',
-          left: '-9999px',
-          top: '-9999px',
-          visibility: 'hidden',
-          whiteSpace: 'nowrap',
-          fontFamily: cs.fontFamily,
-          fontSize: cs.fontSize,
-          fontWeight: cs.fontWeight,
-          fontStyle: cs.fontStyle,
-          letterSpacing: cs.letterSpacing,
-          textTransform: cs.textTransform,
-        }).appendTo(document.body);
+    $h.attr('aria-label', raw).empty();
 
-        const w = (txt) => { $m.text(txt); return $m[0].getBoundingClientRect().width; };
+    var cs = getComputedStyle($h[0]);
 
-        const words = original.split(' ');
-        const lines = [];
-        let i = 0;
+    function numVar(name, def) {
+      var v = cs.getPropertyValue(name).trim();
+      var n = parseFloat(v);
+      return Number.isFinite(n) ? n : def;
+    }
+    function degVar(name){ var v = cs.getPropertyValue(name).trim(); return v.endsWith('deg') ? parseFloat(v) : 0; }
+    function pxVar(name){  var v = cs.getPropertyValue(name).trim(); return v.endsWith('px')  ? parseFloat(v) : 0; }
 
-        for (let line = 0; line < MAX_LINES - 1; line++) {
-          let cur = '';
-          while (i < words.length) {
-            const candidate = cur ? cur + ' ' + words[i] : words[i];
-            if (w(candidate) <= width) { cur = candidate; i++; } else { break; }
-          }
-          if (!cur && i < words.length) { cur = words[i++]; }
-          lines.push(cur);
-        }
+    var edge   = numVar('--edge-scale', 1.40);
+    var mid    = numVar('--mid-scale',  0.78);
+    var curve  = numVar('--curve',      1.6);
+    var wd     = numVar('--width-dampen', 0.25); // 0..1
 
-        let rest = words.slice(i).join(' ');
-        while (rest && w(rest) > width && lines.length) {
-          const prev = lines[lines.length - 1].trim().split(' ');
-          if (prev.length > 1) {
-            const moved = prev.pop();
-            lines[lines.length - 1] = prev.join(' ');
-            rest = moved + ' ' + rest;
-          } else { break; }
-        }
-        lines.push(rest);
+    var jitter    = numVar('--jitter', 0.03);
+    var rotJ     = degVar('--rot-jitter');
+    var yJ       = pxVar('--y-jitter');
 
-        $m.remove();
-        $el.empty();
-        for (let li = 0; li < MAX_LINES; li++) {
-          $('<span/>', { class: 'line l' + (li + 1) }).text(lines[li] || '').appendTo($el);
-        }
+    var chars = Array.from(raw);
+    var n = Math.max(1, chars.length);
+
+    for (var i = 0; i < chars.length; i++) {
+      var ch = chars[i];
+      var $span = $('<span/>', { 'class': 'char', text: ch });
+
+      // position across line
+      var t = n === 1 ? 0.5 : i / (n - 1);      // 0..1
+      var d = Math.abs(t - 0.5) * 2;            // 0 center → 1 edges
+
+      // Smooth cosine blend (0 at center → 1 at edges), then power-shape
+      var shaped = Math.pow((1 - Math.cos(d * Math.PI)) / 2, curve);
+
+      // Base vertical scale (edges→edge, center→mid)
+      var sy = mid + (edge - mid) * shaped;
+
+      // Dampen horizontal growth so spacing doesn’t blow out
+      var sx = 1 + (sy - 1) * wd;               // wd=0 => sx=1 (no width change)
+
+      // Optional grit
+      if (jitter) {
+        var j = (Math.random() - 0.5) * 2 * jitter;
+        sy += j;
+        sx += j * wd; // keep width jitter proportional
       }
+      var rot = rotJ ? ((Math.random() - 0.5) * 2 * rotJ) : 0;
+      var y   = yJ   ? ((Math.random() - 0.5) * 2 * yJ)   : 0;
 
-      function run() {
-        const $el = $(SEL);
-        splitHeading($el, 888);
-      }
+      $span[0].style.setProperty('--sy', sy.toFixed(4));
+      $span[0].style.setProperty('--sx', sx.toFixed(4));
+      $span[0].style.setProperty('--rot', rot.toFixed(3) + 'deg');
+      $span[0].style.setProperty('--y',   y.toFixed(2)   + 'px');
 
-      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(run); } else { run(); }
-      let to;
-      $(window).on('resize', function () { clearTimeout(to); to = setTimeout(run, 120); });
-    })();
+      $h.append($span);
+    }
+  }
+  init();
+})(jQuery);
 
-    // Background Animation
+
+
+
+// Background Animation
     (function () {
       const $bg = $('.motion-gradient');
       if (!$bg.length) return;
@@ -421,6 +484,8 @@
 
   });
 })(jQuery);
+
+})();
 
 /******/ })()
 ;

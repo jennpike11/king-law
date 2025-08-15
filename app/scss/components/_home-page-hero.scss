@@ -2,41 +2,177 @@
 
 .home-page-hero {
   @include container; 
+  @include flex-center;
+  flex-direction: column;
   height: 100vh;
 
-  @include respond(small){
-    @include flex-center;
+  @include respond(large){
+    max-width: calc(100% - 120px);
   }
 
-  &__wrapper {
-    height: 100vh;
-  }
+&__wrapper {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
 
-  &__hero {
-    width: 50%;  
-  }
+  /* Fallback if gradients/animation aren’t supported */
+  background: radial-gradient(120% 120% at 50% 50%, $colorTwo 0%, $colorOne 55%, $colorThree 100%);
 
-  &__content {
-    width: 50%;
+  /* Knobs you can tweak */
+  --swirl-speed: 0s;       /* slower → more hypnotic */
+  --swirl-center-x: 50%;    /* move vortex horizontally */
+  --swirl-center-y: 50%;    /* move vortex vertically */
+}
+
+/* Soft “energy” swirl */
+&__wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -22%;                 /* overscan so rotation never shows edges */
+  transform-origin: center;
+  will-change: transform;
+  mix-blend-mode: screen;
+
+  /* two rotating conic rings + a subtle vignette */
+  background:
+    /* streaks */
+    repeating-conic-gradient(
+      from 0deg at var(--swirl-center-x) var(--swirl-center-y),
+      rgba($colorOne, 0.10) 0deg 10deg,
+      rgba($colorOne, 0.00) 10deg 22deg
+    ),
+    repeating-conic-gradient(
+      from 0deg at var(--swirl-center-x) var(--swirl-center-y),
+      rgba($colorThree, 0.08) 0deg 7deg,
+      rgba($colorThree, 0.00) 7deg 18deg
+    ),
+    /* base color wash */
+    conic-gradient(
+      from 0deg at var(--swirl-center-x) var(--swirl-center-y),
+      rgba($colorTwo, 0.25),
+      rgba($colorOne, 0.20),
+      rgba($colorThree, 0.22),
+      rgba($colorTwo, 0.25)
+    );
+
+  filter: blur(18px) saturate(1.1);
+  animation: swirl var(--swirl-speed) linear infinite;
+
+  /* fade edges + slightly narrow toward center so it feels like it’s collapsing inward */
+  -webkit-mask: radial-gradient(
+    closest-side at var(--swirl-center-x) var(--swirl-center-y),
+    rgba(0,0,0,0) 0 14%,
+    rgba(0,0,0,1) 40%,
+    rgba(0,0,0,1) 72%,
+    rgba(0,0,0,0) 100%
+  );
+          mask: radial-gradient(
+    closest-side at var(--swirl-center-x) var(--swirl-center-y),
+    rgba(0,0,0,0) 0 14%,
+    rgba(0,0,0,1) 40%,
+    rgba(0,0,0,1) 72%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+/* Contrast ring rotating the other way = stronger “toward center” illusion */
+&__wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  transform-origin: center;
+  will-change: transform;
+  mix-blend-mode: overlay;
+  opacity: .9;
+
+  background:
+    conic-gradient(
+      from 0deg at var(--swirl-center-x) var(--swirl-center-y),
+      rgba($colorTwo, 0.30) 0%,
+      rgba($colorOne, 0.18) 35%,
+      rgba($colorThree, 0.26) 70%,
+      rgba($colorTwo, 0.30) 100%
+    );
+
+  animation: swirl calc(var(--swirl-speed) * -1) linear infinite;
+
+  /* vignette that darkens the outskirts and brightens the middle */
+  -webkit-mask: radial-gradient(
+    farthest-side at var(--swirl-center-x) var(--swirl-center-y),
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,1) 55%,
+    rgba(0,0,0,0) 100%
+  );
+          mask: radial-gradient(
+    farthest-side at var(--swirl-center-x) var(--swirl-center-y),
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,1) 55%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+@keyframes swirl {
+  to { transform: rotate(1turn); }
+}
+
+/* Respect user motion prefs */
+@media (prefers-reduced-motion: reduce) {
+  .home-page-hero__wrapper::before,
+  .home-page-hero__wrapper::after {
+    animation: none;
   }
+}
 
   &__heading {
-    max-width: 960px;
-    font-size: 96px;
-    line-height: 104px;
-  }
+    font-size: 180px;
+    line-height: .8;
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    color: $colorFour;
+    white-space: pre;    
 
+    /* stronger edge vs. middle contrast */
+    --edge-scale: 1.2;   /* ends */
+    --mid-scale:  0.78;   /* center (lower = smaller middle) */
+    --curve:      1.4;    /* >1 = steeper falloff to middle */
+
+    /* keep widths from expanding too much (0..1) */
+    --width-dampen: 0.25; /* 0 = only scaleY; 1 = full XY scale */
+
+    .char {
+      display: inline-block;
+      transform-origin: top center; /* keep the “shorter at bottom” feel */
+      transform: translateY(var(--y,0)) scale(var(--sx,1), var(--sy,1)) rotate(var(--rot,0));
+      will-change: transform;
+    }
+  }
+  
   &__subheading {
-    font-size: 44px;
-    line-height: 54px;
+    font-size: 104px;
+    line-height: 1;
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    color: $colorFive;
   }
 
-  &__cta {
-    margin-top: 40px;
+  &__statement {
+    font-size: 240px;
+    color: tint($colorFour, 60%);
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    text-align: center;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  &__image { 
+    height: 600px;
+    margin-top: -40px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
 }
-
-
-.home-page-hero__heading .line { display:block; }
-.home-page-hero__heading { overflow-wrap:anywhere; hyphens:auto; }

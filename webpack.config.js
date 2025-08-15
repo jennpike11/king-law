@@ -1,27 +1,31 @@
-// webpack.config.js
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: {
-    main: './app/js/scripts.js',     // JS bundle → dist/main.js
-    styles: './app/scss/main.scss',  // CSS bundle → dist/styles.css
-  },
+  entry: './app/js/scripts.js',                 // JS imports SCSS
   output: {
-    filename: '[name].js',           // dist/main.js (no hash)
+    filename: 'scripts.js',                     // dist/scripts.js
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
   mode: 'development',
   devtool: 'source-map',
   stats: { errorDetails: true },
+  // bail: true, // uncomment while debugging to stop at the first error
   module: {
     rules: [
       {
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { sourceMap: true } },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 2,      // make sure postcss + sass run first
+              url: false,            // avoid resolving url(...) like your icon vars
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -58,7 +62,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].css',        // dist/styles.css
+      filename: 'style.css',                        // dist/style.css
     }),
   ],
   resolve: { extensions: ['.js', '.scss', '.css'] },
