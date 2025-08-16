@@ -33,7 +33,7 @@
   &__heading {
     margin-bottom: 24px;
     padding-bottom: 24px;
-    border-bottom: 1px solid $colorFour;
+    border-bottom: 2px solid $colorFour;
     font-family: $font-primary;
     font-size: 24px;
     line-height: 32px;
@@ -101,19 +101,16 @@
     .services-block__image {
       position: absolute;
       top: 0;
-      right: 0;
-      width: 560px;
-      max-width: 100%;
-      height: 800px;
+      right: 120px;
       opacity: 0;
       visibility: hidden;
       z-index: 0;
-      transition: opacity 0.4s ease, visibility 0.4s ease, z-index 0s linear 0.4s;
+      transition: opacity 0.6s ease-in, visibility 0.6s ease-in, z-index 0s ease-in 0.6s;
 
       img {
         display: block;
-        width: 100%;
-        height: 100%;
+        width: 500px;
+        max-height: 1000px;
         object-fit: contain;
       }
 
@@ -147,7 +144,7 @@
   .services-block__heading,
   .services-block__header {
     position: relative;
-    border-bottom: 1px solid $colorFour;
+    border-bottom: 2px solid $colorFour;
     transition: color 180ms ease, border-color 200ms ease; /* CHANGED: added border-color transition */
 
     /* Animated underline that changes color on hover/focus */
@@ -156,10 +153,10 @@
       position: absolute;
       left: 0;
       bottom: 0;                   /* CHANGED: align with the border */
-      height: 1px;
+      height: 2px;
       width: 0%;
-      background-color: $colorThree; /* the hover color */
-      transition: width 250ms ease, background-color 200ms ease;
+      background-color: $colorTwo; /* the hover color */
+      transition: width 1000ms ease-in, background-color 200ms ease-in;
     }
 
     &:hover,
@@ -195,20 +192,26 @@
   }
 }
 
+/* When hovering any service heading, hide the active image unless it's the hovered one */
+.services-block.is-hovering .services-block__image.is-active:not(.is-hover) {
+  opacity: 0;
+  visibility: hidden;
+}
+
 
 /* Progress line on the left of each description */
 .services-block {
   .services-block__description {
     position: relative;
-    --scroll-progress: 0%; /* JS updates this from 0%..100% */
+    --scroll-progress: 0%; 
 
     &.progress-active::before {
       content: "";
       position: absolute;
       left: 0; top: 0;
-      width: 3px;                    /* line thickness */
-      height: calc(120px + var(--scroll-progress)); /* you set 120px, kept */
-      background: $colorThree;       /* your yellow */
+      width: 3px;                    
+      height: calc(10px + var(--scroll-progress)); 
+      background: $colorTwo;      
       border-radius: 3px;
       transition: height .15s linear;
     }

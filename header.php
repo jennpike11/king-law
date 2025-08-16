@@ -49,6 +49,6 @@
 				);
 				?>
 			</nav><!-- #site-navigation -->
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( '', 'prc-theme' ); ?></button>
+			<button class="menu-toggle primary-button" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( '', 'prc-theme' ); ?></button>
 		</div>	
 	</header><!-- #masthead -->

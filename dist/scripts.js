@@ -167,7 +167,7 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
       e.preventDefault();
 
       const $heading = $(this);
-      const $root = $heading.closest('.services-block');
+      const $root = $heading.closest('.services-content');
 
       const $allHeadings = $root.find('.services-block__heading');
       const $allDescs = $root.find('.services-block__description');
@@ -217,21 +217,26 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
     });
 
     // swap images on hover
-    $(document)
-      .on('mouseenter', '.services-block__heading', function () {
-        const $block = $(this).closest('.services-block');
-        const $headings = $block.find('.services-block__heading');
-        const $images = $block.find('.services-block__images .services-block__image');
-        const idx = $headings.index(this);
-        if (idx < 0) return;
-        $images.removeClass('is-hover');
-        $images.eq(idx).addClass('is-hover');
-      })
-      .on('mouseleave', '.services-block__heading', function () {
-        const $block = $(this).closest('.services-block');
-        const $images = $block.find('.services-block__images .services-block__image');
-        $images.removeClass('is-hover');
-      });
+$(document)
+  .on('mouseenter', '.services-block__heading', function () {
+    const $block    = $(this).closest('.services-block');
+    const $headings = $block.find('.services-block__heading');
+    const $images   = $block.find('.services-block__images .services-block__image');
+    const idx = $headings.index(this);
+    if (idx < 0) return;
+
+    $block.addClass('is-hovering');               // enable the CSS rule
+    $images.removeClass('is-hover')
+           .eq(idx).addClass('is-hover');         // show only the hovered preview
+  })
+  .on('mouseleave', '.services-block', function () {
+    const $block  = $(this);
+    const $images = $block.find('.services-block__images .services-block__image');
+
+    $block.removeClass('is-hovering');            // restore original state
+    $images.removeClass('is-hover');              // active one reappears
+  });
+
 
     // Deep link to services headings by ID
     function findSvcHeadingById(id) {
@@ -264,7 +269,7 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
       });
     })();
 
-    
+
 
     // Slick Slider
     if ($('.slider-block').length && typeof $.fn.slick === 'function') {
@@ -485,6 +490,46 @@ __webpack_require__(/*! ../scss/main.scss */ "./app/scss/main.scss");
     init();
   }
 })();
+
+
+// Moving Background Gradient
+(function ($) {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  document.querySelectorAll('.motion-bg').forEach(el => {
+    let mx = 0, my = 0;   // target
+    let sx = 0, sy = 0;   // smoothed
+    let ang = 25;
+    let t = 0;
+
+    function onMove(e) {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top  + r.height / 2;
+      const strength = parseFloat(getComputedStyle(el).getPropertyValue('--motion-strength')) || 1;
+      // map mouse to ±8% shift scaled by strength
+      mx = ((e.clientX - cx) / (r.width / 2)) * (8 * strength);
+      my = ((e.clientY - cy) / (r.height / 2)) * (8 * strength);
+    }
+
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', () => { mx = 0; my = 0; });
+
+    (function tick(){
+      t += 0.012;
+      // smooth toward target + subtle idle “breathing”
+      sx += ((mx + Math.sin(t) * 1.4) - sx) * 0.06;
+      sy += ((my + Math.cos(t) * 1.1) - sy) * 0.06;
+      ang += Math.sin(t * 0.5) * 0.08;
+
+      el.style.setProperty('--motion-x', sx + '%');
+      el.style.setProperty('--motion-y', sy + '%');
+      el.style.setProperty('--motion-ang', ang + 'deg');
+
+      requestAnimationFrame(tick);
+    })();
+  });
+})(jQuery);
 
 
 

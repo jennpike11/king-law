@@ -1,32 +1,41 @@
 @use '../base/globals' as *;
 
 .site-footer {
-  @include container;
-
   &__wrapper {
-    color: $white;
+    color: $black;
   }
 
   &__cta {
+    @include container;
     padding: 64px 0;
   }
 
   &__heading {
-    margin-bottom: 56px;
-    font-size: clamp(28px, 4vw, 56px);
-    line-height: 1.4;
-    font-weight: 700;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto 56px;
+    font-size: 110px;
+    line-height: 1;
     font-family: $font-secondary;
+    text-transform: uppercase;
+
+    span:last-of-type {
+      display: block;
+      position: absolute;
+      bottom: -22px;
+      width: 98%;
+      text-align: right;
+      font-size: 36px;
+      color: $colorTwo;
+    }
+
   }
 
   &__contact-info {
-    margin-top: 40px;
+    @include container;
+    margin-top: 32px;
     padding-top: 64px;
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.1);
-
-    @include respond(small){
-      @include flex-between;
-    }
   }
 
   &__locations {
@@ -42,7 +51,7 @@
     margin-top: 16px;
 
     span {
-      color: $colorFour;
+      color: $colorTwo;
     }
   }
 
@@ -56,20 +65,19 @@
   }
 
   form {
-    @include respond(small){
-      width: 50%;
-    }
+    max-width: 800px;
+    margin: auto;
 
     input, textarea {
       width: 100%;
       margin: 0 0 20px;
       padding: 1rem;
-      border: 1px solid $white;
+      border: 1px solid $black;
       border-radius: 0.25rem;
       color: $white;
       font-size: 1rem;
       font-family: $font-primary !important;
-      background: unset;
+      background: tint($colorOne, 50%);
     }
 
     ::placeholder {
@@ -85,6 +93,10 @@
     p {
       margin: unset;
     }
+  }
+
+  .wpcf7-spinner {
+    display: none;
   }
 }
 
@@ -109,14 +121,14 @@
         width: 40px;
         height: 40px;
         margin-right: 20px;
-        border: 1px solid $colorFour;
+        border: 1px solid $colorTwo;
         border-radius: 50%;
         font-size: 24px;
-        color: $colorFour; 
+        color: $colorTwo; 
 
         &:hover {
           color: $white;
-          background-color: $colorFour;
+          background-color: $colorTwo;
           transition: all .2s;
         }
 

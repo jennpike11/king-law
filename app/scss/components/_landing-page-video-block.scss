@@ -43,9 +43,8 @@
   iframe {
     width: 100%;
   }
-}
 
-.background-color--color-one .primary-button {
+  .background-color--color-one .primary-button {
   border-color: $white;
   color: $colorOne;
   background-color: $white;
@@ -64,3 +63,5 @@
     background-color: $white;
   }
 }
+}
+

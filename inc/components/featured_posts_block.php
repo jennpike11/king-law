@@ -8,6 +8,7 @@ if (have_rows('featured_posts_block')):
     $cta             = get_sub_field('cta');
 ?>
 <section class="featured-posts-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
+
   <div class="featured-posts-block">
     <?php if ($heading): ?>
       <h2 class="featured-posts-block__heading"><?php echo esc_html($heading); ?></h2>
