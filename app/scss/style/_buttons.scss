@@ -1,0 +1,59 @@
+@use '../base/globals' as *;
+@use '../base/mixins' as *;
+
+
+.primary-button, .site-footer form input.wpcf7-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-width: 200px;
+    height: 48px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    color: $white !important;
+    font-family: $font-secondary;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: $colorTwo;
+    background-size: 200% 200%;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all .2s ease-in;
+
+    &:hover {
+        height: 56px;
+        font-size: 32px;
+    }
+}
+
+
+.site-footer form input.wpcf7-submit:hover {
+    color: $white;
+}
+
+// Read more buttons
+.read-more {
+    display: flex !important;
+    align-items: center;
+    margin-top: $spacer;
+    text-transform: uppercase;
+
+    &:hover {
+        display: flex !important;
+        align-items: center;
+        margin-top: $spacer;
+        text-transform: uppercase;
+    }
+
+    &:before, &:after {
+        content: '\f068';
+        margin-right: 8px;
+        font-family: fontawesome;
+        color: inherit;
+    }
+}

@@ -1,0 +1,80 @@
+@use '../base/globals' as *;
+
+.two-column-block {
+    @include container;
+
+    @include respond(small){
+        @include flex-between;
+    }
+
+    &.column-alignment--top {
+        align-items: flex-start;
+
+        .column {
+            align-items: flex-start;  
+        }
+    }
+
+    &.column-alignment--center {
+        .column {
+            @include respond(small){
+                width: 50%;
+            } 
+        }
+
+        .column__image {
+            width: fit-content;
+            height: 100%;
+            max-height: 640px;
+            margin: auto;
+        }
+    }
+
+    .column {
+        @include flex-center;
+        flex-direction: column;
+
+        @include respond(small){
+            width: calc(50% - 32px);
+        } 
+
+        &__image {
+            width: 100%;
+            height: 544px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &__heading {
+            margin: 16px 0;
+        }
+
+        &__description {
+            max-width: 560px;
+            a, a:hover {
+                color: $colorOne;
+            }
+        }
+
+        &:first-of-type {
+            margin-bottom: 40px;
+
+            @include respond(small){
+                margin-bottom: unset;
+            }
+        }
+    }
+
+    .primary-button {
+        margin-top: $spacer;
+    }
+
+    li {
+      margin-top: 8px;
+      list-style-type: disc;
+    }
+}

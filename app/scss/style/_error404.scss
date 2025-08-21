@@ -1,0 +1,9 @@
+@use '../base/globals' as *;
+
+.entry-content__main {
+  @include container;
+}
+
+.entry-content__search-form {
+  margin-top: $spacer;
+}

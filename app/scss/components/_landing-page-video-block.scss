@@ -1,0 +1,67 @@
+@use '../base/globals' as *;
+
+.landing-page-video-block {
+  @include container;
+
+  @include respond(small){
+    @include flex-between;
+    align-items: center;
+  }
+
+  &__info {
+    margin-bottom: $spacer;
+
+    @include respond(small){
+      width: fit-content;
+      max-width: calc(50% - 20px);
+      margin: 0 auto;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 24px;
+  }
+
+  &__description {
+    max-width: 480px;
+  }
+
+  .primary-button {
+    margin-top: 40px;
+  }
+
+  &__video {
+    @include respond(small){
+      width: calc(50% - 20px);
+    }
+  }
+
+  &.video-alignment--left {
+    flex-direction: row-reverse;
+  }
+
+  iframe {
+    width: 100%;
+  }
+
+  .background-color--color-one .primary-button {
+  border-color: $white;
+  color: $colorOne;
+  background-color: $white;
+
+  &:hover {
+    border-color: $colorTwo;
+    color: $white;
+    background-color: $colorTwo;
+  }
+}
+
+.background-color--color-two .primary-button {
+  &:hover {
+    border-color: $white;
+    color: $colorOne;
+    background-color: $white;
+  }
+}
+}
+

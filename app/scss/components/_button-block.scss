@@ -1,0 +1,29 @@
+@use '../base/globals' as *;
+
+.button-block {
+  @include container;
+  @include flex-center;
+  flex-direction: column;
+
+  &__wrapper {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__heading {
+    margin-bottom: 40px;
+    color: $white;
+  }
+
+  &__buttons {
+    @include flex-center;
+  }
+
+  .primary-button {
+    margin-left: 16px;
+  }
+}
+
+.background-color--white .cta-block__heading {
+  color: $black;
+}

@@ -1,0 +1,240 @@
+@use '../base/globals' as *;
+
+.site-footer {
+  &__cta-wrapper {
+    @include container;
+    @include flex-between;
+    align-items: center;
+    flex-direction: column;
+
+    @include respond-up(large){
+      flex-direction: row;
+    }
+  }
+
+  &__cta {
+    @include flex-center;
+
+    @include respond-up(large){
+      width: 50%;
+    }
+  }
+
+  &__heading {
+    position: relative;
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: .1rem;
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    color: $black;
+    text-align: center;
+    }
+
+  &__form {
+    @include respond-up(large){
+      width: 50%;
+    }
+  }
+
+  form {
+    width: 80%;
+    margin: auto;
+
+    input, textarea {
+      width: 100% !important;
+      margin: 0 0 20px;
+      padding: 1rem;
+      border: 1px solid $black;
+      color: $black;
+      font-size: 1rem;
+      font-family: $font-primary !important;
+      background: $white;
+    }
+
+    ::placeholder {
+      color: $black;
+      font-family: $font-primary !important;
+    }
+
+    textarea[name="your-message"] {
+      height: 7.5em; 
+      resize: vertical; 
+    }
+
+    .input.wpcf7-submit {
+      width: 100% !important;
+    }
+
+    p {
+      margin: unset;
+    }
+  }
+
+  &__contact-info {
+    @include container;
+    @include flex-between;
+
+    @include respond-up(large){
+      padding: 56px 0 32px;
+    }
+  }
+
+  &__locations {
+    @include container;
+    margin-top: 16px;
+    font-size: 20px;
+    line-height: 28px;
+    color: $black;
+
+    @include respond-down(small){
+      width: fit-content;
+    }
+
+    @include respond-up(small){
+      display: flex;
+      align-items: flex-start;
+      margin-top: unset;
+    }
+  }
+
+  &__phone {
+    margin-top: 16px;
+
+    span {
+      color: $colorTwo;
+    }
+  }
+
+  &__location-one, &__location-two {
+    @include respond(small){
+      width: 30%;
+    }
+  }
+
+  &__registration {
+    @include container;
+    @include flex-center;
+    padding: 8px 0;
+    border-top: 1px solid $black;
+    text-align: center;
+    font-size: 9px;
+    color: $black;
+  }
+
+  .wpcf7-spinner {
+    display: none;
+  }
+}
+
+.socials { 
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    margin: 32px auto 24px;
+    
+    @include respond(small){
+      flex-direction: row;
+      width: 40%;
+      margin:unset;
+    }
+
+    &__message {
+      max-width: 160px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      font-family: $font-secondary;
+      font-size: 28px;
+      line-height: 36px;
+      text-align: center;
+
+      @include respond-up(small){
+        margin-bottom: unset;
+        text-align: unset;
+      }
+    }
+
+    &__links {
+       @include flex-center;
+    }
+
+    a {
+        @include flex-center;
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: $white; 
+        background-color: $colorTwo;
+
+        &:hover {
+          color: $colorTwo;
+          border: 1px solid $colorTwo;
+          background-color: $white;
+          transition: all .2s;
+        }
+
+        &:last-of-type {
+            margin-right: unset;
+        }
+    } 
+}
+
+.linkedin:after {
+  content: '\f0e1';
+  font-family: fontawesome;
+}
+
+.instagram:after {
+  content: '\f16d';
+  font-family: fontawesome;
+}
+
+.facebook:after {
+  content: '\f39e';
+  font-family: fontawesome;
+}
+
+.pinterest:after {
+  content: '\f231';
+  font-family: fontawesome;
+}
+
+.email:after {
+  content: '\f0e0';
+  font-family: fontawesome;
+}
+
+.x:after {
+  content: '\e61b';
+  font-family: fontawesome;
+}
+
+.youtube:after {
+  content: '\f167';
+  font-family: fontawesome;
+}
+
+.google-reviews:after {
+  content: '\f1a0';
+  font-family: fontawesome;
+}
+
+.tiktok:after {
+  content: '\e07b';
+  font-family: fontawesome;
+}
+
+
+ // For sticky footer
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-footer__wrapper {
+   margin-top: auto;
+}

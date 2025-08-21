@@ -1,0 +1,44 @@
+@use '../base/globals' as *;
+
+.faq-block {
+  @include container;
+  max-width: 900px;
+
+  &__heading {
+    text-align: center;
+  }
+
+  &__item {
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.active {
+      .faq-block__title:after {
+        content: "\f106";
+      }
+    }
+  }
+
+  &__title {
+    @include flex-between;
+    align-items: center;
+    padding: 27px 60px 26px 30px;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:after {
+      content: "\f107";
+      font-size: 26px;
+      font-family: 'FontAwesome';
+      font-weight: 400;
+    }
+  }
+
+  &__details {
+    display: none;
+    padding: 0 30px 28px;
+  }
+}

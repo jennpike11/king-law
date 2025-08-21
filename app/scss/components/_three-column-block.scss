@@ -1,0 +1,40 @@
+@use '../base/globals' as *;
+
+.three-column-block {
+  @include container;
+  @include flex-between;
+  flex-wrap: wrap;
+  z-index: 3;
+
+  &__heading {
+    max-width: 800px;
+    margin: 0 auto 24px;
+  }
+
+  &__description {
+    max-width: 800px;
+    margin: 0 auto 32px;
+  }
+
+  &__items {
+    @include flex-between;
+  }
+
+  &__item {
+    width: calc(50% - 16px);
+    margin-bottom: 32px;
+    text-align: center;
+
+    @include respond(small){
+      flex: 1;
+      width: unset;
+      margin-bottom: unset;
+    }
+  }
+
+  &__item-description {
+    max-width: 80%;
+    margin: 16px auto 0;
+  }
+
+}

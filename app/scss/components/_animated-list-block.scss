@@ -1,0 +1,52 @@
+@use '../base/globals' as *;
+
+.animated-list-block {
+  &__items {
+    @include flex-center;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    @include flex-center;
+    width: 50%;
+    height: 240px;
+    border: 8px solid $black;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(25%);   
+    transition: all .25s ease;
+
+    @include respond(small){
+      width: 33.33%;
+    }
+
+    @include respond(large){
+      height: 320px;
+    }
+
+    @include respond(xlarge){
+      height: 400px;
+    }
+
+    &:hover {
+      filter: saturate(100%);
+      background-blend-mode: screen; 
+    }
+  }
+
+  &__heading {
+    margin-bottom: unset;
+    padding: 24px;
+    font-size: 24px;
+    text-align: center;
+    font-family: $font-secondary;
+    color: $white;
+
+    @include respond-up(large){
+      font-size: 36px;
+    }
+  }
+}
+
+

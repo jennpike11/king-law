@@ -1,0 +1,77 @@
+@use '../base/globals' as *;
+
+.sticky-cta-block {
+  width: 480px;
+  max-width: 100%;
+  color: $black;
+  text-align: center;
+  background-color: $black;
+
+  &__image {
+    img {
+      width: 100%;
+    }
+  }
+
+  &__heading {
+    margin-top: 32px;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  &__description {
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  &__phone {
+    margin: 24px auto 0;
+  }
+}
+
+
+// Page when sticky block is added
+.sticky-block-added {
+  &.landing-page__content__wrapper {
+    @include container;
+    position: relative;
+    padding-bottom: 8rem;
+  }
+
+  .landing-page__content {
+    @include respond(small){
+      width: 60%;
+    }
+  }
+
+  .landing-page__content > section > div:first-of-type:not(.sticky-cta-block) {
+    width: 100%;
+  }
+}
+
+
+.sticky-cta-block__wrapper {
+  width: fit-content;
+  margin: auto;
+
+  @include respond-down(small){
+    width: calc(100% - 64px);
+    padding: 32px;
+    border: 1px solid $black;
+    border-radius: 16px;
+  }
+
+  @include respond(small){
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 480px;
+    padding: 4rem 0;
+  }
+}
+
+.sticky-cta-block {
+  position: relative;
+  border-radius: 16px;
+}

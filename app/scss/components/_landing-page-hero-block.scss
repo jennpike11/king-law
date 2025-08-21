@@ -1,0 +1,313 @@
+@use '../base/globals' as *;
+
+.landing-page-hero-block--standard {
+  @include flex-center;
+  min-height: 656px;
+  padding: 56px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__content {
+    @include container;
+    max-width: 1200px;
+
+    @include respond(small){
+      @include flex-between;
+    }
+  }
+
+  &__info {
+    @include flex-center;
+    margin-bottom: 40px;
+
+    @include respond(small){
+      width: 50%;
+      margin-bottom: unset;
+    }
+
+    > div {
+      max-width: 88%;
+      margin: auto;
+      text-align: center;
+
+      @include respond(small){
+        max-width: 480px;
+      }
+    }
+  }
+
+  &__form {
+    @include flex-center;
+
+    @include respond(small){
+      width: 50%;
+    }
+
+    > div {
+
+      width: 88%;
+      padding: 24px 32px;
+      border-radius: 2px;
+
+      @include respond(small){
+        width: 80%;
+      }
+    }
+
+    form {
+      input, textarea {
+        width: 100%;
+        margin: 0 0 20px;
+        padding: 1rem;
+        border: 1px solid $white;
+        border-radius: 0.25rem;
+        color: $white;
+        font-size: 1rem;
+        font-family: $font-primary !important;
+        background: unset;
+      }
+
+      ::placeholder {
+        color: $white;
+        font-family: $font-primary !important;
+      }
+
+      textarea[name="your-message"] {
+        height: 7.5em; 
+        resize: vertical; 
+      }
+
+      p {
+        margin: unset;
+      }
+    }
+  }
+
+  &__heading {
+    margin-bottom: 24px;
+    font-size: 72px;
+    line-height: 1;
+    color: $white;
+    text-align: center;
+  }
+
+  &__subheading {
+    margin-bottom: 24px;
+    font-size: 32px;
+    line-height: 24px;
+    color: $white;
+    font-family: $font-secondary;
+  }
+
+  &__phone {
+    margin-bottom: 24px;
+    font-size: 32px;
+    line-height: 24px;
+    font-family: $font-secondary;
+    color: $white;
+
+    a {
+      display: block;
+      margin-top: 16px;
+      color: lighten($colorTwo, 30%);
+
+      &:hover {
+        color: $colorTwo;
+      }
+    }
+  }
+
+  .primary-button {
+    margin: auto;
+  }
+}
+
+
+.landing-page-hero-block--sliding-image {
+  @include flex-center;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  padding: 56px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+  }
+
+  &__content {
+    @include container;
+    z-index: 2;
+    max-width: 1200px;
+
+    @include respond(small){
+      @include flex-between;
+    }
+  }
+
+  &__info {
+    @include flex-center;
+    margin-bottom: 40px;
+
+    @include respond(small){
+      width: 50%;
+      margin-bottom: unset;
+    }
+
+    > div {
+      max-width: 352px;
+      margin: auto;
+      text-align: center;
+    }
+  }
+
+  &__form {
+    @include flex-center;
+
+    @include respond(small){
+      width: 50%;
+    }
+
+    > div {
+      width: 90%;
+      padding: 24px 32px;
+      border-radius: 2px;
+      background-color: $colorOne;
+    }
+
+    form {
+      input, textarea {
+        width: 100%;
+        margin: 0 0 20px;
+        padding: 1rem;
+        border: 1px solid $white;
+        border-radius: 0.25rem;
+        color: $white;
+        font-size: 1rem;
+        font-family: $font-primary !important;
+        background: unset;
+      }
+
+      ::placeholder {
+        color: $white;
+        font-family: $font-primary !important;
+      }
+
+      p {
+        margin: unset;
+      }
+
+      textarea[name="your-message"] {
+        height: 7.5em; 
+        resize: vertical; 
+      }
+    }
+  }
+
+  &__heading {
+    margin-bottom: 16px;
+    font-size: 72px;
+    line-height: 1;
+    color: $white;
+    text-align: center;
+  }
+
+  &__subheading {
+    margin-bottom: 32px;
+    font-size: 32px;
+    line-height: 24px;
+    color: $white;
+    font-family: $font-secondary;
+  }
+
+  &__phone {
+    margin-bottom: 32px;
+    font-size: 32px;
+    line-height: 24px;
+    font-family: $font-secondary;
+    color: $white;
+
+    a {
+      display: block;
+      margin-top: 16px;
+      color: $white;
+      font-size: 40px;
+    }
+  }
+
+  .primary-button {
+    margin: auto;
+  } 
+}
+
+.sliding-image {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 360px;
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+.sliding-image img {
+  position: absolute;
+  left: 100%; 
+  width: fit-content;
+  height: 280px;
+  object-fit: contain;
+  transform: translateX(0);
+  transition: left 1s ease-out, transform 1s ease-out;
+  opacity: 1;
+}
+
+.sliding-image.slide-in img {
+  left: 50%; 
+  transform: translateX(-50%);
+}
+
+.sliding-image.slide-out img {
+  left: -100%; 
+  transform: translateX(0);
+  transition: left 0.6s ease-in;
+}
+
+
+.credentials {
+  @include container;
+  @include flex-between;
+  flex-wrap: wrap;
+  z-index: 3;
+
+  &__item {
+    width: calc(50% - 16px);
+    margin-bottom: 32px;
+    text-align: center;
+
+    @include respond(small){
+      flex: 1;
+      width: unset;
+      margin-bottom: unset;
+    }
+  }
+
+  &__description {
+    max-width: 96%;
+    margin: 16px auto 0;
+    font-size: 24px;
+    line-height: 24px;
+    font-family: $font-secondary;
+
+    @include respond(small){
+      font-size: 32px;
+      line-height: 32px;
+    }
+  }
+}

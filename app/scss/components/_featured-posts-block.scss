@@ -1,0 +1,131 @@
+@use '../base/globals' as *;
+
+.featured-posts-block {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 40px;
+
+  @include respond-up(large){
+    padding-bottom: 80px;
+  }
+
+   &__heading {
+    @include container;
+    position: relative;
+    font-family: $font-secondary;
+    font-weight: bold;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: .3rem;
+
+    @include respond-up(small){
+      font-size: 72px;
+    }
+
+    &:before {
+      content: "";                
+      position: absolute;
+      top: -164px;
+      left: -72px;
+      z-index: -1;
+      width: 300px;
+      height: 420px;
+      display: block;
+      background-image: url('https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/burst-1.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;   
+      pointer-events: none;    
+      opacity: .6; 
+      
+      @include respond-up(large) {
+        opacity: .8; 
+      }
+    }
+  }
+
+  &__blocks {
+    .slick-arrow {
+      position: absolute;
+      top: -40px;
+      right: 120px;
+      z-index: 5;
+      border: unset;
+      color: $colorTwo;
+      font-family: $font-secondary;
+      text-transform: uppercase;
+      font-size: 16px;
+      background: unset;
+    }
+
+    .slick-prev {
+       &:before {
+        content: '\00AB';
+        margin: 0 4px 4px 0;
+      }
+    }
+
+    .slick-next {
+      right: 40px;
+
+      &:after {
+        content: '\00BB';
+        margin: 0 0 4px 4px;
+      }
+    }
+  }
+
+  &__block {
+    display: flex !important;
+    align-items: center;
+    position: relative;
+    height: 320px !important;
+    padding: 40px;
+    border: 12px solid $black;
+
+    @include respond-up(small){
+      height: 240px !important;
+    }
+
+    @include respond-up(xlarge){
+      height: 400px !important;
+    }
+
+    &:hover {
+      img {
+        filter: saturate(100%);
+        background-blend-mode: screen; 
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100vw;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(25%);   
+      transition: all .25s ease;
+    }
+
+    .primary-button {
+      min-width: unset;
+      height: 38px;
+      font-size: 14px;
+    }
+  }
+
+  &__title {
+    width: fit-content;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 4px solid $colorTwo;
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    font-size: clamp(20px, 4vw, 32px) !important;
+    line-height: 1;
+  }
+}
+

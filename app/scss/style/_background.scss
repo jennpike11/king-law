@@ -1,0 +1,93 @@
+@use '../base/globals' as *;
+@use '../base/mixins' as *;
+@use "sass:color";
+
+
+// assumes $colorOne is already defined in your globals
+// e.g. $colorOne: #03B1BF;
+// we'll also use $white
+$white: #ffffff !default;
+
+/* Apply to any block you want animated: <section class="motion-bg">… */
+.motion-bg {
+  position: relative;
+  isolation: isolate;            /* contain the background to this block */
+  border-radius: inherit;
+
+  /* Quick knobs (optional, can be overridden per element) */
+  --speed: 14s;                  /* rotation speed of main layer */
+  --speed2: 22s;                 /* rotation speed of highlight ring */
+  --shift: 22%;                  /* how far the light blobs drift */
+}
+
+.motion-bg::before,
+.motion-bg::after {
+  content: "";
+  position: absolute;
+  inset: -18%;                   /* overscan so edges never show while rotating */
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Main moving background — mostly $colorOne with white highlights */
+.motion-bg::before {
+  /* three layers: two white blobs that drift + a conic $colorOne bed that spins */
+  background:
+    radial-gradient(48% 36% at 30% 35%,
+      rgba($white, .25), transparent 60%),
+    radial-gradient(52% 42% at 70% 65%,
+      rgba($white, .18), transparent 65%),
+    conic-gradient(
+      from 0deg,
+      color.scale($colorOne, $lightness: -20%) 0 24%,
+      $colorOne 24% 58%,
+      color.scale($colorOne, $lightness: 8%) 58% 82%,
+      color.scale($colorOne, $lightness: -10%) 82% 100%
+    );
+
+  filter: saturate(1.2) contrast(1.05) blur(1px);
+  transform-origin: 50% 50%;
+  animation:
+    mbg-spin var(--speed) linear infinite,
+    mbg-drift 7s ease-in-out infinite alternate;
+}
+
+/* A soft white ring rotating opposite direction to punch the motion */
+.motion-bg::after {
+  background:
+    conic-gradient(
+      from 90deg,
+      rgba($white, .55) 0 8%,
+      rgba($white, 0)   8% 100%
+    );
+  mix-blend-mode: screen;
+  filter: blur(14px);
+  opacity: .7;
+  transform-origin: 50% 50%;
+  animation:
+    mbg-spin-rev var(--speed2) linear infinite,
+    mbg-breathe 6s ease-in-out infinite alternate;
+}
+
+/* Animations */
+@keyframes mbg-spin { to { transform: rotate(1turn); } }
+@keyframes mbg-spin-rev { to { transform: rotate(-1turn); } }
+
+@keyframes mbg-drift {
+  0%   { background-position: 0% 0%, 0% 0%, center; }
+  100% { background-position: var(--shift) var(--shift),
+                           calc(-1 * var(--shift)) calc(-1 * var(--shift)),
+                           center; }
+}
+
+@keyframes mbg-breathe {
+  0%   { opacity: .45; }
+  100% { opacity: .9;  }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .motion-bg::before,
+  .motion-bg::after { animation: none; }
+}

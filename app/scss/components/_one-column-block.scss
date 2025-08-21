@@ -1,0 +1,57 @@
+@use '../base/globals' as *;
+
+.one-column-block {
+  @include container;
+
+  &.content-width--small {
+    max-width: 800px;
+
+    .one-column-block__heading {
+      text-align: center;
+    }
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    font-family: $font-secondary;
+  }
+
+  &__subheading {
+    max-width: 700px;
+    margin: 32px 0 24px;
+    font-size: 20px;
+    line-height: 28px;
+
+    @include respond(small){
+      font-size: 22px;
+      line-height: 32px;
+    }
+  }
+
+  &__paragraph {
+    font-size: 20px;
+    line-height: 32px;
+
+    @include respond(small){
+      font-size: 22px;
+      line-height: 36px;
+    }
+
+    h3 {
+      margin: 32px 0 24px;
+      color: $black;
+    }
+  }
+
+  li {
+    margin-left: 16px;
+    list-style-type: disc;
+    font-size: 18px;
+  }
+
+  .primary-button {
+    min-width: 200px;
+    margin: 48px auto 0;
+  }
+
+}

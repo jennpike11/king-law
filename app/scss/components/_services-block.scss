@@ -1,0 +1,215 @@
+@use '../base/globals' as *;
+
+.services-block {
+  @include container;
+
+  @include respond(small) {
+    @include flex-between;
+    align-items: flex-start;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__block-heading {
+    @include container;
+    position: relative;
+    margin-bottom: 56px;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.4;
+    font-weight: 700;
+    font-family: $font-secondary;
+
+    /* size knobs */
+    --burst-w: 550px;
+    --burst-h: 250px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: -180px;
+      z-index: -1;
+      width: var(--burst-w);
+      height: var(--burst-h);
+      display: block;
+      background-image: url(https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/burst-1.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      pointer-events: none;
+      opacity: 0.6;
+
+      @include respond(large){
+        opacity: 0.8;
+      }
+    }
+  }
+
+  /* Text column */
+  &__services {
+    margin-bottom: 16px;
+
+    @include respond(small) {
+      width: 50%;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Individual service heading */
+  &__heading {
+    margin-bottom: 24px;
+    padding-bottom: 24px; /* keep spacing for underline */
+    font-family: $font-primary;
+    font-size: 20px;
+    line-height: 32px;
+    cursor: pointer;
+
+    @include respond-up(small){
+      font-size: 24px;
+    }
+
+    /* underline system, single line on mouse out */
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      pointer-events: none;
+    }
+
+    /* base line always visible */
+    &::before {
+      background-color: $colorTwo;
+    }
+
+    /* hover overlay that animates, never leaves a second line on mouse out */
+    &::after {
+      background-color: $colorOne;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 260ms ease;
+      will-change: transform;
+    }
+
+    &:hover::after,
+    &:focus-visible::after,
+    &.active::after {
+      transform: scaleX(1);
+    }
+
+    &.active + .services-block__description {
+      height: 800px;
+      overflow-y: scroll;
+    }
+  }
+
+  &__description {
+    display: none;
+    position: relative;
+    height: unset;
+    overflow-y: unset;
+    margin-bottom: 80px;
+    color: $black;
+
+    * {
+      line-height: 32px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 48px 0 24px;
+    }
+  }
+
+  /* Images column */
+  &__images {
+    display: none;
+    position: relative;
+
+    @include respond(small) {
+      display: block;
+      width: 50%;
+    }
+
+    .services-block__image {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;   
+      visibility: hidden;
+      z-index: 0;
+      transition:
+      opacity 0.6s ease-in,
+      visibility 0.6s ease-in,
+      z-index 0s ease-in 0.6s;
+
+      img {
+        display: block;
+        width: auto;
+        height: 800px;
+        object-fit: contain;
+      }
+
+      &.is-active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 1;
+        transition-delay: 0s;
+      }
+
+      &.is-hover {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;
+        transition-delay: 0s;
+      }
+    }
+  }
+
+  .primary-button {
+    margin: 40px 0;
+  }
+
+  #anchor {
+    padding-top: 96px;
+  }
+}
+
+/* Hide the active image while hovering a different heading, then restore cleanly on mouse out */
+.services-block.is-hovering .services-block__image.is-active:not(.is-hover) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Progressive reveal inside description */
+.services-block {
+  &__description {
+    // paragraphs default to visible, JS toggles classes as needed
+    p {
+      transition: opacity 300ms ease, transform 300ms ease;
+      will-change: opacity, transform;
+
+      &.is-hidden {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      &.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
