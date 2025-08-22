@@ -11,12 +11,10 @@ if( have_rows('two_column_block') ):
     $descriptionTwo = get_sub_field('column_two_description'); 
     $imageTwo = get_sub_field('column_two_image');
     $buttonTwo = get_sub_field('column_two_button');
-    $backgroundColor = get_sub_field('background_color');
-    $textColor = get_sub_field('text_color');
 ?>
 
-<section class="two-column-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?> background-color--<?php echo esc_attr($backgroundColor); ?>">
-  <div class="two-column-block column-alignment--<?php echo esc_attr($columnAlignment); ?>">   
+<section class="two-column-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
+  <div class="two-column-block">
     <div class="column column--one">
       <?php if( $imageOne ): ?>
         <div class="column__image">
@@ -27,13 +25,13 @@ if( have_rows('two_column_block') ):
       <?php if( $headingOne || $descriptionOne || $buttonOne ): ?>
         <div class="column__content">   
           <?php if( $headingOne ): ?>
-            <h2 class="column__heading color--<?php echo esc_attr($textColor); ?>">
+            <h2 class="column__heading">
               <?php echo esc_html($headingOne); ?>
             </h2>
           <?php endif; ?>
 
           <?php if( $descriptionOne ): ?>
-            <div class="column__description color--<?php echo esc_attr($textColor); ?>">
+            <div class="column__description">
               <?php echo wp_kses_post($descriptionOne); ?>
             </div>
           <?php endif; ?>
@@ -59,13 +57,13 @@ if( have_rows('two_column_block') ):
       <?php if( $headingTwo || $descriptionTwo || $buttonTwo ): ?>
         <div class="column__content">
           <?php if( $headingTwo ): ?>
-            <h2 class="column__headin color--<?php echo esc_attr($textColor); ?>">
+            <h2 class="column__heading>">
               <?php echo esc_html($headingTwo); ?>
             </h2>
           <?php endif; ?>
 
           <?php if( $descriptionTwo ): ?>
-            <div class="column__description color--<?php echo esc_attr($textColor); ?>">
+            <div class="column__description">
               <?php echo wp_kses_post($descriptionTwo); ?>
             </div>
           <?php endif; ?>

@@ -1,0 +1,156 @@
+@use '../base/globals' as *;
+
+.animated-two-column-block {
+  @include respond-up(small) { 
+    @include flex-between; 
+  }
+
+  &__image {
+    position: relative;
+    background: $white;
+
+    @include respond-up(small) { 
+      width: 50%; 
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      --edge-fade: 24%; 
+
+      /* Safari + Blink/WebKit */
+      -webkit-mask-image: linear-gradient(
+        to right,
+        #000 0%,
+        #000 calc(100% - var(--edge-fade)), 
+        rgba(0,0,0,0) 100%
+      );
+
+      /* Other modern browsers */
+      mask-image: linear-gradient(
+        to right,
+        #000 0%,
+        #000 calc(100% - var(--edge-fade)),
+        rgba(0,0,0,0) 100%
+      );
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    
+    @include respond-up(small) { 
+      width: 50%; 
+    }
+  }
+
+  &__heading {
+    margin: 24px 0 32px -112px;
+    font-size: clamp(40px, 55vw, 4vw);
+    color: $colorTwo;
+  }
+
+  &__description {
+    width: 80%;
+    margin: auto auto 0;
+    font-size: 18px;
+    line-height: 32px;
+  }
+
+  &.reverse--1 {
+    @include respond-up(small) { 
+      flex-direction: row-reverse; 
+    }
+
+    .animated-two-column-block__heading {
+      margin: 24px -112px 32px 0; 
+      text-align: right;          
+    }
+
+    .animated-two-column-block__description {
+      margin: 0 0 0 auto;
+      text-align: right;          
+    }
+
+    .primary-button {
+      margin-left: auto;
+    }
+
+    .animated-two-column-block__image img {
+    /* fade the LEFT edge instead of the right */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0,0,0,0) 0%,
+      #000 var(--edge-fade),
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      rgba(0,0,0,0) 0%,
+      #000 var(--edge-fade),
+      #000 100%
+    );
+  }
+
+  }
+
+  .primary-button {
+    margin-top: 40px;
+  }
+
+  li { 
+    margin-top: 8px; 
+    list-style-type: disc; 
+  }
+}
+
+
+// Animation
+/* Only hide/animate when JS is active */
+.js .animated-two-column-block {
+  &__heading,
+  &__description {
+    opacity: 0;
+    transform: translateX(4rem); /* from right */
+    transition:
+      transform 820ms cubic-bezier(.2,.7,.2,1),
+      opacity 800ms ease;
+    will-change: transform, opacity;
+  }
+
+  /* Stagger: heading first, then description */
+  &.is-in-view {
+    .animated-two-column-block__heading {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 400ms;
+    }
+    .animated-two-column-block__description {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 700ms;
+    }
+  }
+
+  &.reverse--1 {
+  .animated-two-column-block__heading,
+  .animated-two-column-block__description {
+    transform: translateX(-4rem); // was +4rem (from right)
+  }
+}
+
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated-two-column-block__heading,
+  .animated-two-column-block__description {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -438,6 +438,45 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
 })();
 
 
+// Animated Two Column Block 
+$(function () {
+  // Mark that JS is active so CSS can start hidden without FOUC
+  document.documentElement.classList.add('js');
+
+  var $win = $(window);
+  var $wrappers = $('.animated-two-column-block__wrapper');
+  if (!$wrappers.length) return;
+
+  var ticking = false;
+  function queueCheck() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(check);
+  }
+
+  function check() {
+    ticking = false;
+
+    var vh = window.innerHeight || $win.height();
+    var cutoff = vh - Math.round(vh * 0.20); // 80% down the viewport
+
+    $wrappers.each(function () {
+      var rect = this.getBoundingClientRect();
+      // “In view” within the viewport clipped by bottom 20vh:
+      var inView = (rect.top < cutoff) && (rect.bottom > 0);
+
+      // Toggle on the inner block so CSS can do the stagger
+      $(this).find('.animated-two-column-block').first()
+        .toggleClass('is-in-view', inView);
+    });
+  }
+
+  // Initial check + listeners
+  check();
+  $win.on('scroll resize', queueCheck);
+});
+
+
 
   });
 })(jQuery);
