@@ -1,11 +1,23 @@
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[0].use[3]!./app/scss/main.scss ***!
   \*******************************************************************************************************************************************************************************************************************************************/
-@import url(https://fonts.googleapis.com/css2?family=Allura&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sigmar&display=swap);
-/*!***********************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[0].use[3]!./app/scss/main.scss (1) ***!
-  \***********************************************************************************************************************************************************************************************************************************************/
 @charset "UTF-8";
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/king-law/app/font/Poppins-Regular.woff");
+}
+@font-face {
+  font-family: "Poppins-Black";
+  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/king-law/app/font/Poppins-Black.woff");
+}
+@font-face {
+  font-family: "LibreBaskerville-Regular";
+  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/king-law/app/font/LibreBaskerville-Regular.woff");
+}
+@font-face {
+  font-family: "LibreBaskerville-Bold";
+  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/king-law/app/font/LibraBaskerville-Bold.woff");
+}
 /* Sparkle Trail */
 .vertical-slide-yes {
   opacity: 0 !important;
@@ -55,7 +67,7 @@
   text-align: center;
   white-space: nowrap;
   color: #ffffff !important;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
@@ -184,7 +196,7 @@ html {
   max-width: 100%;
   overflow-x: hidden;
   color: #ffffff;
-  font-family: "Allura", cursive;
+  font-family: "LibreBaskerville-Regular", serif;
   font-size: 18px;
   line-height: 1;
   scroll-behavior: smooth;
@@ -204,7 +216,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 16px;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
 }
 
@@ -467,7 +479,7 @@ i.fa-solid:before {
   font-size: 38px;
   line-height: 1;
   letter-spacing: 0.1rem;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   color: #000000;
   text-align: center;
@@ -488,16 +500,16 @@ i.fa-solid:before {
   border: 1px solid #000000;
   color: #000000;
   font-size: 1rem;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
   background: #ffffff;
 }
 .site-footer form ::-moz-placeholder {
   color: #000000;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
 }
 .site-footer form ::placeholder {
   color: #000000;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
 }
 .site-footer form textarea[name=your-message] {
   height: 7.5em;
@@ -601,7 +613,7 @@ i.fa-solid:before {
   max-width: 160px;
   margin-bottom: 8px;
   text-transform: uppercase;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   font-size: 28px;
   line-height: 36px;
   text-align: center;
@@ -748,7 +760,7 @@ i.fa-solid:before {
   display: none;
 }
 .site-header__title {
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   font-size: 40px;
   color: #000000;
@@ -767,7 +779,7 @@ i.fa-solid:before {
   align-items: center;
   -moz-column-gap: 40px;
        column-gap: 40px;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   font-size: 14px;
 }
@@ -797,7 +809,7 @@ i.fa-solid:before {
   content: "MENU";
   position: relative;
   z-index: 999;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   font-size: 24px;
   color: #ffffff;
 }
@@ -858,7 +870,7 @@ i.fa-solid:before {
   padding: 24px;
   font-size: 24px;
   text-align: center;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   color: #ffffff;
 }
 @media (min-width: 64em) {
@@ -888,7 +900,7 @@ i.fa-solid:before {
 .awards-block__stat {
   font-size: 3em;
   line-height: 1;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   color: #be0002;
 }
@@ -911,7 +923,7 @@ i.fa-solid:before {
   margin-top: 8px;
   font-size: 24px;
   line-height: 1;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   color: #000000;
 }
@@ -1018,7 +1030,7 @@ i.fa-solid:before {
   padding-left: 32px;
   padding-right: 32px;
   position: relative;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   font-weight: bold;
   font-size: 56px;
   line-height: 1;
@@ -1057,7 +1069,7 @@ i.fa-solid:before {
   z-index: 5;
   border: unset;
   color: #be0002;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   font-size: 16px;
   background: unset;
@@ -1118,7 +1130,7 @@ i.fa-solid:before {
   margin-bottom: 40px;
   padding-bottom: 16px;
   border-bottom: 4px solid #be0002;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   font-size: clamp(20px, 4vw, 32px) !important;
   line-height: 1;
@@ -1184,7 +1196,7 @@ i.fa-solid:before {
 }
 .hero-block__heading {
   font-size: clamp(24px, 55vw, 10vw);
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   color: #000000;
   letter-spacing: 0.1rem;
@@ -1216,7 +1228,7 @@ i.fa-solid:before {
 .hero-block__subheading {
   margin-bottom: 120px;
   font-size: clamp(20px, 50vw, 4.6vw);
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
   color: #000000;
 }
@@ -1261,9 +1273,54 @@ i.fa-solid:before {
   margin-right: auto;
   padding-left: 32px;
   padding-right: 32px;
+  position: relative;
   max-width: 100%;
 }
+.heading-block__right {
+  position: absolute;
+  bottom: 8px;
+  font-size: 72px;
+  color: #000000;
+  text-align: center;
+  width: 100%;
+}
+.heading-block__left {
+  width: 100%;
+  text-align: center;
+}
+.heading-block__heading {
+  font-size: 180px;
+  color: rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+}
 
+.js .heading-block__left, .js .heading-block__right {
+  opacity: 0;
+  transform: translateX(var(--slide-x, 0));
+  transition: transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 400ms ease;
+  will-change: transform, opacity;
+}
+.js .heading-block__left {
+  --slide-x: -6rem;
+}
+.js .heading-block__right {
+  --slide-x: 6rem;
+}
+.js .heading-block.is-in-view .heading-block__left, .js .heading-block.is-in-view .heading-block__right {
+  opacity: 1;
+  transform: translateX(0);
+}
+.js .heading-block.is-in-view .heading-block__right {
+  transition-delay: 90ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heading-block__left, .heading-block__right {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 .landing-page-footer {
   box-sizing: border-box;
   width: 100%;
@@ -1284,7 +1341,7 @@ i.fa-solid:before {
   font-size: 72px;
   line-height: 1;
   text-align: center;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 .landing-page-footer__description {
   width: 640px;
@@ -1293,7 +1350,7 @@ i.fa-solid:before {
   font-size: 32px;
   line-height: 32px;
   text-align: center;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 .landing-page-footer__phone {
   width: 560px;
@@ -1302,7 +1359,7 @@ i.fa-solid:before {
   font-size: 32px;
   line-height: 32px;
   text-align: center;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 .landing-page-footer__credits__wrapper {
   display: flex;
@@ -1319,7 +1376,7 @@ i.fa-solid:before {
   margin: 0 0 32px;
   font-size: 28px;
   text-align: center;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
 }
 @media (min-width: 48em) {
@@ -1435,16 +1492,16 @@ i.fa-solid:before {
   border-radius: 0.25rem;
   color: #ffffff;
   font-size: 1rem;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
   background: unset;
 }
 .landing-page-hero-block--standard__form form ::-moz-placeholder {
   color: #ffffff;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
 }
 .landing-page-hero-block--standard__form form ::placeholder {
   color: #ffffff;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
 }
 .landing-page-hero-block--standard__form form textarea[name=your-message] {
   height: 7.5em;
@@ -1465,13 +1522,13 @@ i.fa-solid:before {
   font-size: 32px;
   line-height: 24px;
   color: #ffffff;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 .landing-page-hero-block--standard__phone {
   margin-bottom: 24px;
   font-size: 32px;
   line-height: 24px;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   color: #ffffff;
 }
 .landing-page-hero-block--standard__phone a {
@@ -1565,16 +1622,16 @@ i.fa-solid:before {
   border-radius: 0.25rem;
   color: #ffffff;
   font-size: 1rem;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
   background: unset;
 }
 .landing-page-hero-block--sliding-image__form form ::-moz-placeholder {
   color: #ffffff;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
 }
 .landing-page-hero-block--sliding-image__form form ::placeholder {
   color: #ffffff;
-  font-family: "Allura", cursive !important;
+  font-family: "LibreBaskerville-Regular", serif !important;
 }
 .landing-page-hero-block--sliding-image__form form p {
   margin: unset;
@@ -1595,13 +1652,13 @@ i.fa-solid:before {
   font-size: 32px;
   line-height: 24px;
   color: #ffffff;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 .landing-page-hero-block--sliding-image__phone {
   margin-bottom: 32px;
   font-size: 32px;
   line-height: 24px;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   color: #ffffff;
 }
 .landing-page-hero-block--sliding-image__phone a {
@@ -1677,7 +1734,7 @@ i.fa-solid:before {
   margin: 16px auto 0;
   font-size: 24px;
   line-height: 24px;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 @media (min-width: 48em) {
   .credentials__description {
@@ -1725,7 +1782,7 @@ i.fa-solid:before {
 }
 .one-column-block__heading {
   text-transform: uppercase;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
 }
 .one-column-block__subheading {
   max-width: 700px;
@@ -1798,7 +1855,7 @@ i.fa-solid:before {
   font-size: clamp(28px, 4vw, 56px);
   line-height: 1.4;
   font-weight: 700;
-  font-family: "Sigmar", sans-serif;
+  font-family: "Poppins-Black", sans-serif;
   /* size knobs */
   --burst-w: 550px;
   --burst-h: 250px;
@@ -1838,7 +1895,7 @@ i.fa-solid:before {
 .services-block__heading {
   margin-bottom: 24px;
   padding-bottom: 24px; /* keep spacing for underline */
-  font-family: "Allura", cursive;
+  font-family: "LibreBaskerville-Regular", serif;
   font-size: 20px;
   line-height: 32px;
   cursor: pointer;

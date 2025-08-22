@@ -411,6 +411,37 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
 }
 
 
+// Heading Block Animation
+(function () {
+  document.documentElement.classList.add('js');
+
+  var $win = $(window);
+  var $wrappers = $('.heading-block__wrapper');
+  if (!$wrappers.length) return;
+
+  var ticking = false;
+  function onScrollOrResize() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(check);
+  }
+
+  function check() {
+    ticking = false;
+    var vh = window.innerHeight || $win.height();
+    var cutoff = vh - Math.round(vh * 0.20);
+    $wrappers.each(function () {
+      var rect = this.getBoundingClientRect();
+      var inView = (rect.top < cutoff) && (rect.bottom > 0);
+      $(this).find('.heading-block').first().toggleClass('is-in-view', inView);
+    });
+  }
+
+  check();
+  $win.on('scroll resize', onScrollOrResize);
+})();
+
+
 
   });
 })(jQuery);
