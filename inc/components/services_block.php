@@ -12,7 +12,7 @@ if (have_rows('services_block')):
         $services[] = [
           'heading'     => get_sub_field('heading'),
           'description' => get_sub_field('description'),
-          'link'        => get_sub_field('link'),
+          'cta'        => get_sub_field('cta'),
           'anchor'       => get_sub_field('anchor'),
           'image'       => get_sub_field('image'),
         ];
@@ -44,25 +44,25 @@ if (have_rows('services_block')):
   ?>
     <div class="services-block__content">
       <?php if (!empty($svc['heading'])): ?>
-        <h2 id="<?php echo esc_attr($id); ?>" class="services-block__heading color--black">
+        <h2 id="<?php echo esc_attr($id); ?>" class="services-block__heading">
           <?php echo esc_html($svc['heading']); ?>
         </h2>
       <?php endif; ?>
 
-      <div class="services-block__description color--black">
-        <?php
-          if (!empty($svc['description'])) {
-            echo wp_kses_post($svc['description']);
-          }
-          if (!empty($svc['link']['url'])):
-        ?>
-          <div class="primary-button">
-            <a href="<?php echo esc_url($svc['link']['url']); ?>">
-              <?php echo esc_html($svc['link']['title'] ?? ''); ?>
-            </a>
-          </div>
-        <?php endif; ?>
-      </div>
+      <?php
+        if (!empty($svc['description'])) { ?>
+        <div class="services-block__description">
+          <?php echo wp_kses_post($svc['description']); ?>
+        </div>
+      <?php } ?>
+
+      <?php if (!empty($svc['cta']['url'])): ?>
+        <div class="primary-button">
+          <a href="<?php echo esc_url($svc['cta']['url']); ?>">
+            <?php echo esc_html($svc['cta']['title'] ?? ''); ?>
+          </a>
+        </div>
+      <?php endif; ?>
     </div>
   <?php endforeach; ?>
 </div>

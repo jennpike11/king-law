@@ -1855,28 +1855,21 @@ i.fa-solid:before {
   }
 }
 
-.parallax {
-  /* The image used */
-  background-image: url("img_parallax.jpg");
-  /* Full height */
-  height: 100%;
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.media-block {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
 }
-.parallax__wrapper {
-  height: 100vh;
-  overflow: hidden;
+.media-block__video, .media-block img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
 }
 
-/* Turn off parallax scrolling for tablets and phones. Increase the pixels if needed */
-@media only screen and (max-device-width: 1366px) {
-  .parallax {
-    background-attachment: scroll;
-  }
-}
 .one-column-block {
   box-sizing: border-box;
   width: 100%;
