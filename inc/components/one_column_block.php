@@ -3,39 +3,35 @@
 if( have_rows('one_column_block') ): 
   while( have_rows('one_column_block') ): the_row(); 
     $verticalPadding = get_sub_field('vertical_padding');
-    $contentWidth = get_sub_field('content_width');
-    $backgroundColor = get_sub_field('background_color');
-    $textColor = get_sub_field('text_color');
+    $maxWidth = get_sub_field('max_width');
     $heading = get_sub_field('heading'); 
-    $subheading = get_sub_field('subheading'); 
-    $paragraph = get_sub_field('paragraph');
+    $description = get_sub_field('description');
     $link = get_sub_field('link');
-    $verticalAnimation = get_sub_field('vertical_animation');
 ?>
 
-<section class="one-column-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?> background-color--<?php echo esc_attr($backgroundColor); ?>">
-  <div class="one-column-block content-width--<?php echo esc_attr($contentWidth); ?>">
+<section class="one-column-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
+  <div class="one-column-block content-width--<?php echo esc_attr($maxWidth); ?>">
     <?php if($heading): ?>
-      <h2 class="one-column-block__heading color--<?php echo esc_attr($textColor); ?> vertical-slide-<?php echo esc_attr($verticalAnimation); ?>">
+      <h2 class="one-column-block__heading">
         <?php echo esc_html($heading); ?>
       </h2>
     <?php endif; ?>  
 
     <?php if($subheading): ?>
-      <h3 class="one-column-block__subheading color--<?php echo esc_attr($textColor); ?> vertical-slide-<?php echo esc_attr($verticalAnimation); ?>">
+      <h3 class="one-column-block__subheading">
         <?php echo esc_html($subheading); ?>
       </h3>
     <?php endif; ?>  
 
-    <?php if($paragraph): ?>
-      <div class="one-column-block__paragraph color--<?php echo esc_attr($textColor); ?> vertical-slide-<?php echo esc_attr($verticalAnimation); ?>">
-        <?php echo wp_kses_post($paragraph); ?>
+    <?php if($description): ?>
+      <div class="one-column-block__description">
+        <?php echo wp_kses_post($description); ?>
       </div>
     <?php endif; ?>  
 
     <?php if($link): ?>
       <div class="primary-button">
-        <a href="<?php echo esc_url($link['url']); ?>" class="vertical-slide-<?php echo esc_attr($verticalAnimation); ?>">
+        <a href="<?php echo esc_url($link['url']); ?>">
           <?php echo esc_html($link['title']); ?>
         </a>
       </div>

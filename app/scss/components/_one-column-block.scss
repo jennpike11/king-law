@@ -4,7 +4,7 @@
   @include container;
 
   &.content-width--small {
-    max-width: 800px;
+    max-width: 960px;
 
     .one-column-block__heading {
       text-align: center;
@@ -16,31 +16,9 @@
     font-family: $font-secondary;
   }
 
-  &__subheading {
-    max-width: 700px;
-    margin: 32px 0 24px;
-    font-size: 20px;
+  &__description {
+    font-size: 16px;
     line-height: 28px;
-
-    @include respond(small){
-      font-size: 22px;
-      line-height: 32px;
-    }
-  }
-
-  &__paragraph {
-    font-size: 20px;
-    line-height: 32px;
-
-    @include respond(small){
-      font-size: 22px;
-      line-height: 36px;
-    }
-
-    h3 {
-      margin: 32px 0 24px;
-      color: $black;
-    }
   }
 
   li {

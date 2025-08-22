@@ -1887,7 +1887,7 @@ i.fa-solid:before {
   padding-right: 32px;
 }
 .one-column-block.content-width--small {
-  max-width: 800px;
+  max-width: 960px;
 }
 .one-column-block.content-width--small .one-column-block__heading {
   text-align: center;
@@ -1896,31 +1896,9 @@ i.fa-solid:before {
   text-transform: uppercase;
   font-family: "Poppins-Black", sans-serif;
 }
-.one-column-block__subheading {
-  max-width: 700px;
-  margin: 32px 0 24px;
-  font-size: 20px;
+.one-column-block__description {
+  font-size: 16px;
   line-height: 28px;
-}
-@media (min-width: 48em) {
-  .one-column-block__subheading {
-    font-size: 22px;
-    line-height: 32px;
-  }
-}
-.one-column-block__paragraph {
-  font-size: 20px;
-  line-height: 32px;
-}
-@media (min-width: 48em) {
-  .one-column-block__paragraph {
-    font-size: 22px;
-    line-height: 36px;
-  }
-}
-.one-column-block__paragraph h3 {
-  margin: 32px 0 24px;
-  color: #000000;
 }
 .one-column-block li {
   margin-left: 16px;
