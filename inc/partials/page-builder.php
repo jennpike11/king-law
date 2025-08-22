@@ -7,10 +7,4 @@ if ( have_rows('page_builder') ):
     endwhile; 
 endif;
 
-// Animated Mouse:
 ?>
-
-<div id="trail-container"></div>
-<div id="custom-star-cursor"></div>
-
-

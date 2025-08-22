@@ -1,6 +1,3 @@
-require('../scss/main.scss'); 
-
-
 (function ($) {
   $(function () {
     // Sticky menu
@@ -27,7 +24,7 @@ require('../scss/main.scss');
 
 // Services Block
 
-// Config: how many paragraphs to show up-front
+// Config: how many paragraphs to show up-front 
 const BASE_PARAS_MOBILE  = 2;
 const BASE_PARAS_DESKTOP = 3;
 const DESKTOP_BP = 768;

@@ -10,7 +10,6 @@
 @use 'style/footer' as *;
 @use 'style/forms' as *;
 @use 'style/header' as *; 
-@use 'style/landing-page' as *;
  
 // Components
 @use 'components/animated-list-block' as *;
@@ -18,9 +17,9 @@
 @use 'components/faq-block' as *;
 @use 'components/featured-posts-block' as *;
 @use 'components/hero-block' as *;
+@use 'components/heading-block' as *;
 @use 'components/landing-page-footer' as *;
 @use 'components/landing-page-hero-block' as *;
-@use 'components/landing-page-video-block' as *;
 @use 'components/media-block' as *;
 @use 'components/one-column-block' as *;
 @use 'components/reviews-block' as *; 

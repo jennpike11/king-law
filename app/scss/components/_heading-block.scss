@@ -1,0 +1,6 @@
+@use '../base/globals' as *;
+
+.heading-block {
+  @include container;
+  max-width: 100%;
+}

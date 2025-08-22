@@ -16,7 +16,7 @@ $hide_cta = is_singular($landing_cpt_slugs) || is_post_type_archive($landing_cpt
 
 		<div class="site-footer__cta-wrapper">
 			<div class="site-footer__cta">
-				<img src="https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/gringo_burst.png">
+				
 			</div>
 			<div class="site-footer__form">
 				<?php echo do_shortcode('[contact-form-7 id="ebe9ad7" title="Contact"]') ?>

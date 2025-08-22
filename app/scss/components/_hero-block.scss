@@ -30,10 +30,11 @@
   }
 
   &__video, &__image {
+    display:block;
     position: absolute;
     z-index: -1;
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     
     &:before {
@@ -114,79 +115,10 @@
     }
   }
 
-  &__burst {
-    position: absolute;
-    bottom: -56px;
-    left: 2vw;
-    z-index: 3;
-
-    @include respond-up(small){
-      bottom: -72px;
-      left: 0;
-    }
-
-    @include respond-up(xxlarge){
-      bottom: -120px;
-      left: 5vw;
-    }
-
-    img {
-      height: 18vh;
-
-      @include respond-up(small){
-        height: 32vh;
-      }
-
-      @include respond-up(large){
-        height: 50vh;
-      }
-    }
-  }
-
 }
 
 // Not Home Page
-.page-template-default:not(.home) .hero-block {
-  @include flex-center;
-  height: 100%;
-  padding-top: unset;
 
-  &__wrapper {
-    @include respond-up(small){
-      height: 60vh;
-    }
-
-    @include respond-up(large){
-      height: 60vh;
-    }
-  }
-
-  &__heading {
-    font-size: clamp(24px, 55vw, 5vw);
-  }
-
-  &__subheading {
-    font-size: clamp(20px, 50vw, 2.5vw);
-  }
-
-  &__burst {
-    img {
-      height: 8vh;
-
-    @include respond-up(small){
-      height: 22vh;
-    }
-
-    @include respond-up(large){
-      height: 32vh;
-    }
-    }
-  }
-
-  &__king {
-    display: none;
-  }
-}
 
 
 // Animation on load
