@@ -1,17 +1,18 @@
 @use '../base/globals' as *;
 
 .animated-two-column-block {
-  @include respond-up(small) { 
-    @include flex-between; 
+  /* default slide-in direction (from RIGHT) */
+  --slide-x: 4rem;
+
+  @include respond-up(small) {
+    @include flex-between;
   }
 
   &__image {
     position: relative;
     background: $white;
 
-    @include respond-up(small) { 
-      width: 50%; 
-    }
+    @include respond-up(small) { width: 50%; }
 
     img {
       display: block;
@@ -19,17 +20,15 @@
       height: 100%;
       object-fit: cover;
 
-      --edge-fade: 24%; 
+      /* fade the RIGHT edge into white */
+      --edge-fade: 24%;
 
-      /* Safari + Blink/WebKit */
       -webkit-mask-image: linear-gradient(
         to right,
         #000 0%,
-        #000 calc(100% - var(--edge-fade)), 
+        #000 calc(100% - var(--edge-fade)),
         rgba(0,0,0,0) 100%
       );
-
-      /* Other modern browsers */
       mask-image: linear-gradient(
         to right,
         #000 0%,
@@ -42,15 +41,13 @@
   &__content {
     position: relative;
     z-index: 2;
-    
-    @include respond-up(small) { 
-      width: 50%; 
-    }
+
+    @include respond-up(small) { width: 50%; }
   }
 
   &__heading {
     margin: 24px 0 32px -112px;
-    font-size: clamp(40px, 55vw, 4vw);
+    font-size: clamp(40px, 55vw, 4vw); /* keep your values */
     color: $colorTwo;
   }
 
@@ -61,61 +58,55 @@
     line-height: 32px;
   }
 
+  .primary-button { margin-top: 40px; }
+
+  li { margin-top: 8px; list-style-type: disc; }
+
+  /* ===== Reversed layout: image on RIGHT, text on LEFT ===== */
   &.reverse--1 {
-    @include respond-up(small) { 
-      flex-direction: row-reverse; 
-    }
+    /* flip layout on ≥ small */
+    @include respond-up(small) { flex-direction: row-reverse; }
+
+    /* flip slide direction (now from LEFT) */
+    --slide-x: -4rem;
 
     .animated-two-column-block__heading {
-      margin: 24px -112px 32px 0; 
-      text-align: right;          
+      margin: 24px -112px 32px 0;
+      text-align: right;
     }
 
     .animated-two-column-block__description {
       margin: 0 0 0 auto;
-      text-align: right;          
+      text-align: right;
     }
 
-    .primary-button {
-      margin-left: auto;
-    }
+    .primary-button { margin-left: auto; }
 
+    /* fade the LEFT edge when the image sits on the right */
     .animated-two-column-block__image img {
-    /* fade the LEFT edge instead of the right */
-    -webkit-mask-image: linear-gradient(
-      to right,
-      rgba(0,0,0,0) 0%,
-      #000 var(--edge-fade),
-      #000 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      rgba(0,0,0,0) 0%,
-      #000 var(--edge-fade),
-      #000 100%
-    );
-  }
-
-  }
-
-  .primary-button {
-    margin-top: 40px;
-  }
-
-  li { 
-    margin-top: 8px; 
-    list-style-type: disc; 
+      -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        #000 var(--edge-fade),
+        #000 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        #000 var(--edge-fade),
+        #000 100%
+      );
+    }
   }
 }
 
-
-// Animation
+/* ===== Animation (JS toggles .is-in-view on the inner block) ===== */
 /* Only hide/animate when JS is active */
 .js .animated-two-column-block {
   &__heading,
   &__description {
     opacity: 0;
-    transform: translateX(4rem); /* from right */
+    transform: translateX(var(--slide-x, 4rem)); /* direction set per block */
     transition:
       transform 820ms cubic-bezier(.2,.7,.2,1),
       opacity 800ms ease;
@@ -135,17 +126,9 @@
       transition-delay: 700ms;
     }
   }
-
-  &.reverse--1 {
-  .animated-two-column-block__heading,
-  .animated-two-column-block__description {
-    transform: translateX(-4rem); // was +4rem (from right)
-  }
 }
 
-}
-
-/* Respect users who prefer less motion */
+/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animated-two-column-block__heading,
   .animated-two-column-block__description {
