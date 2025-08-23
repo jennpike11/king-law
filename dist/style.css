@@ -1935,34 +1935,10 @@ i.fa-solid:before {
   padding-right: 32px;
   position: relative;
   margin-bottom: 56px;
-  font-size: clamp(28px, 4vw, 56px);
-  line-height: 1.4;
-  font-weight: 700;
+  font-size: clamp(28px, 4vw, 1vw);
+  line-height: 1;
   font-family: "Poppins-Black", sans-serif;
-  /* size knobs */
-  --burst-w: 550px;
-  --burst-h: 250px;
-}
-.services-block__block-heading:before {
-  content: "";
-  position: absolute;
-  top: -80px;
-  left: -180px;
-  z-index: -1;
-  width: var(--burst-w);
-  height: var(--burst-h);
-  display: block;
-  background-image: url(https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/burst-1.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  pointer-events: none;
-  opacity: 0.6;
-}
-@media (min-width: 64em) {
-  .services-block__block-heading:before {
-    opacity: 0.8;
-  }
+  text-transform: uppercase;
 }
 .services-block__services {
   margin-bottom: 16px;
