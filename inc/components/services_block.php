@@ -24,64 +24,63 @@ if (have_rows('services_block')):
       continue;
     }
 ?>
-<section class="services-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?> background-color--white">
-
-  <?php if (!empty($blockHeading)): ?>
-    <div class="services-block__block-heading vertical-slide-yes color--black">
-      <?php echo esc_html($blockHeading); ?>
-    </div>
-  <?php endif; ?>
-
+<section class="services-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
   <div class="services-block">
-  <!-- Left: headings + descriptions (accordion) -->
-<div class="services-block__services">
-  <?php foreach ($services as $i => $svc): 
-    // build a safe, unique id
-    $raw_anchor = isset($svc['anchor']) ? trim($svc['anchor']) : '';
-    $base_id    = $raw_anchor !== '' ? $raw_anchor : ($svc['heading'] ?? '');
-    $id         = sanitize_title($base_id);
-    if ($id === '') { $id = 'svc-' . ($i + 1); } // fallback
-  ?>
-    <div class="services-block__content">
-      <?php if (!empty($svc['heading'])): ?>
-        <h2 id="<?php echo esc_attr($id); ?>" class="services-block__heading">
-          <?php echo esc_html($svc['heading']); ?>
-        </h2>
-      <?php endif; ?>
+    <?php if (!empty($blockHeading)): ?>
+      <div class="services-block__block-heading">
+        <?php echo esc_html($blockHeading); ?>
+      </div>
+    <?php endif; ?>
 
-      <?php
-        if (!empty($svc['description'])) { ?>
-        <div class="services-block__description">
-          <?php echo wp_kses_post($svc['description']); ?>
-        </div>
-      <?php } ?>
+    <div class="services-block__items">
+  
+      <div class="services-block__services">
+        <?php foreach ($services as $i => $svc): 
+          // build a safe, unique id
+          $raw_anchor = isset($svc['anchor']) ? trim($svc['anchor']) : '';
+          $base_id    = $raw_anchor !== '' ? $raw_anchor : ($svc['heading'] ?? '');
+          $id         = sanitize_title($base_id);
+          if ($id === '') { $id = 'svc-' . ($i + 1); } // fallback
+        ?>
+          <div class="services-block__content">
+            <?php if (!empty($svc['heading'])): ?>
+              <h2 id="<?php echo esc_attr($id); ?>" class="services-block__heading">
+                <?php echo esc_html($svc['heading']); ?>
+              </h2>
+            <?php endif; ?>
 
-      <?php if (!empty($svc['cta']['url'])): ?>
-        <div class="primary-button">
-          <a href="<?php echo esc_url($svc['cta']['url']); ?>">
-            <?php echo esc_html($svc['cta']['title'] ?? ''); ?>
-          </a>
-        </div>
-      <?php endif; ?>
-    </div>
-  <?php endforeach; ?>
-</div>
+            <?php
+              if (!empty($svc['description'])) { ?>
+              <div class="services-block__description">
+                <?php echo wp_kses_post($svc['description']); ?>
+                <?php if (!empty($svc['cta']['url'])): ?>
+              <div class="primary-button">
+                <a href="<?php echo esc_url($svc['cta']['url']); ?>">
+                  <?php echo esc_html($svc['cta']['title'] ?? ''); ?>
+                </a>
+              </div>
+            <?php endif; ?>
+              </div>
+            <?php } ?>
 
+          </div>
+        <?php endforeach; ?>
+      </div>
 
-    <!-- Right: stacked images (same order as headings) -->
-    <div class="services-block__images">
-      <?php foreach ($services as $svc): ?>
-        <div class="services-block__image">
-          <?php if (!empty($svc['image']['url'])): ?>
-            <img
-              src="<?php echo esc_url($svc['image']['url']); ?>"
-              alt="<?php echo esc_attr($svc['image']['alt'] ?? ''); ?>"
-              loading="lazy"
-              decoding="async"
-            />
-          <?php endif; ?>
-        </div>
-      <?php endforeach; ?>
+      <div class="services-block__images">
+        <?php foreach ($services as $svc): ?>
+          <div class="services-block__image">
+            <?php if (!empty($svc['image']['url'])): ?>
+              <img
+                src="<?php echo esc_url($svc['image']['url']); ?>"
+                alt="<?php echo esc_attr($svc['image']['alt'] ?? ''); ?>"
+                loading="lazy"
+                decoding="async"
+              />
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
     </div>
   </div>
 </section>

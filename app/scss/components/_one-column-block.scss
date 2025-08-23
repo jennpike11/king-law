@@ -14,11 +14,13 @@
   &__heading {
     text-transform: uppercase;
     font-family: $font-secondary;
+    color: $colorTwo;
   }
 
   &__description {
     font-size: 16px;
     line-height: 28px;
+    color: $white;
   }
 
   li {

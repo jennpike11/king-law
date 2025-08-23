@@ -36,14 +36,14 @@
 
         &__heading {
             margin: 16px 0;
-            color: $black;
+            color: $colorTwo;
         }
 
         &__description {
-            color: $black;
+            color: $white;
 
             a, a:hover {
-                color: $colorOne;
+                color: $colorTwo;
             }
         }
 
