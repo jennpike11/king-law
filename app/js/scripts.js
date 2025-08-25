@@ -224,10 +224,27 @@ $(document)
     }
 
 
-// Awards Block Animation
+// Credentials Block Animation
 (function () {
   const DEFAULT_DURATION = 1200;
   const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+  // Find the related description element for a given stat node
+  function findDesc(el) {
+    // common patterns: next sibling, within parent, or inside a nearby item wrapper
+    const next = el.nextElementSibling;
+    if (next && next.classList && next.classList.contains('credentials-block__stat-description')) return next;
+    if (el.parentElement) {
+      const withinParent = el.parentElement.querySelector('.credentials-block__stat-description');
+      if (withinParent) return withinParent;
+    }
+    const item = el.closest && el.closest('.credentials-block__item');
+    if (item) {
+      const withinItem = item.querySelector('.credentials-block__stat-description');
+      if (withinItem) return withinItem;
+    }
+    return null;
+  }
 
   function parseStat(text) {
     const s = (text || '').trim();
@@ -259,15 +276,23 @@ $(document)
   }
 
   function reset(el) {
-    // show 0 with the same decimals/prefix/suffix
+    // show 0 with the same decimals, prefix, suffix
     const decimals = +el.dataset.decimals || 0;
     el.textContent = `${el.dataset.prefix || ''}${formatNumber(0, decimals)}${el.dataset.suffix || ''}`;
     el.dataset.animating = '0';
+
+    // hide the related description until we animate again
+    const desc = findDesc(el);
+    if (desc) desc.hidden = true;
   }
 
   function animate(el) {
-    if (el.dataset.animating === '1') return; // don't double-start
+    if (el.dataset.animating === '1') return; // do not double start
     el.dataset.animating = '1';
+
+    // hide the related description while animating
+    const desc = findDesc(el);
+    if (desc) desc.hidden = true;
 
     const prefix   = el.dataset.prefix || '';
     const suffix   = el.dataset.suffix || '';
@@ -280,23 +305,26 @@ $(document)
       const p = Math.min(1, (now - t0) / dur);
       const v = target * easeOutCubic(p);
       el.textContent = `${prefix}${formatNumber(v, decimals)}${suffix}`;
-      if (p < 1) requestAnimationFrame(frame);
-      else {
+      if (p < 1) {
+        requestAnimationFrame(frame);
+      } else {
         el.textContent = `${prefix}${formatNumber(target, decimals)}${suffix}`;
         el.dataset.animating = '0';
+        // reveal description now that the stat is finished
+        if (desc) desc.hidden = false;
       }
     }
     requestAnimationFrame(frame);
   }
 
   function init() {
-    const nodes = document.querySelectorAll('.awards-block__stat');
+    const nodes = document.querySelectorAll('.credentials-block__stat');
     if (!nodes.length) return;
 
     // Prepare all numbers once
     nodes.forEach(prepare);
 
-    // Replay on every entry; reset on exit
+    // Replay on every entry, reset on exit
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
@@ -309,17 +337,17 @@ $(document)
         });
       }, {
         threshold: 0.35,
-        // start a hair before fully above-the-fold:
+        // start a hair before fully above the fold
         rootMargin: '0px 0px -10% 0px'
       });
 
       nodes.forEach(n => {
-        // start from 0 until first entry
+        // start from 0 until first entry and ensure description is hidden
         reset(n);
         io.observe(n);
       });
     } else {
-      // Fallback: just animate once if IO not supported
+      // Fallback, just animate once if IO not supported
       nodes.forEach(animate);
     }
   }
@@ -330,6 +358,7 @@ $(document)
     init();
   }
 })();
+
 
 
 // Featured Posts Block Slider
