@@ -1897,6 +1897,8 @@ i.fa-solid:before {
   margin-bottom: 0;
 }
 .services-block__heading {
+  display: flex;
+  justify-content: space-between;
   position: relative;
   z-index: 3;
   width: 50%;
@@ -1910,10 +1912,23 @@ i.fa-solid:before {
   color: #ffffff;
   background-color: rgba(19, 29, 56, 0.8);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.4s ease;
+}
+.services-block__heading:after {
+  content: "\f13a";
+  font-size: 40px;
+  font-family: fontawesome;
+  color: rgb(196.5, 25.5, 27.3);
+  transition: all 0.4s ease;
 }
 .services-block__heading:hover {
+  padding-left: 40px;
   background-color: #131D38;
+  transition: all 0.4s ease-in-out;
+}
+.services-block__heading:hover:after {
+  transform: rotate(180deg);
+  transition: transform 0.4s;
 }
 .services-block__heading .active {
   width: 100%;

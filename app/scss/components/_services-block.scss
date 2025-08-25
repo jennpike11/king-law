@@ -58,6 +58,7 @@
   }
 
   &__heading {
+    @include flex-between;
     position: relative;
     z-index: 3;
     width: 50%;
@@ -71,10 +72,25 @@
     color: $white;
     background-color: rgba($colorOne, .8);
     cursor: pointer;
-    transition: all .2s ease;
+    transition: all .4s ease;
+
+    &:after {
+      content: '\f13a';
+      font-size: 40px;
+      font-family: fontawesome;
+      color: tint($colorTwo, 10%);
+      transition: all .4s ease;
+    }
 
     &:hover {
+      padding-left: 40px;
       background-color: $colorOne;
+      transition: all .4s ease-in-out;
+    }
+
+    &:hover:after {
+      transform: rotate(180deg);
+      transition: transform .4s;
     }
 
     .active {
