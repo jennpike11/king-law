@@ -394,18 +394,18 @@ if ($fpb.length && !$fpb.hasClass('slick-initialized')) {
 }
 
 
-// Reviews Block Slider, use a different selector
-const $reviews = $('.reviews-block__items'); // update to your real reviews selector
+// Reviews Block Slider
+const $reviews = $('.reviews-block__slides'); 
 if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
   $reviews.slick({
     dots: false,
+    arrows: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    fade: true,
     cssEase: 'linear'
   });
 }

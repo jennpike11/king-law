@@ -6,10 +6,10 @@ if (have_rows('awards_block')):
     $stat       = get_sub_field('stat');
     $statComment         = get_sub_field('stat_comment');
 ?>
-<section class="awards-block__wrapper padding--<?php echo ($verticalPadding); ?> background-color--white">
+<section class="awards-block__wrapper padding--<?php echo ($verticalPadding); ?>">
   <div class="awards-block">
     <?php if ($heading): ?>
-      <h2 class="awards-block__heading vertical-slide-yes color--black"><?php echo ($heading); ?></h2>
+      <h2 class="awards-block__heading"><?php echo ($heading); ?></h2>
     <?php endif; ?>
 
     <?php if ($stat): ?>
@@ -27,7 +27,7 @@ if (have_rows('awards_block')):
         ?>
           <div class="awards-block__award">
             <div class="awards-block__image"><img src="<?php echo ($image['url']); ?>"></div>
-            <div class="awards-block__description color--black"><?php echo ($description); ?></div>
+            <div class="awards-block__description"><?php echo ($description); ?></div>
           </div>
         <?php endwhile; ?>
       </div>

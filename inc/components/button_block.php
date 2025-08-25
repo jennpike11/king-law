@@ -3,7 +3,6 @@
 if (have_rows('button_block')): 
   while (have_rows('button_block')): the_row(); 
     $verticalPadding = get_sub_field('vertical_padding'); 
-    $backgroundColor = get_sub_field('background_color');
     $backgroundImage = get_sub_field('background_image');
     $heading = get_sub_field('heading');
     $buttonColor = get_sub_field('button_color');
@@ -11,7 +10,7 @@ if (have_rows('button_block')):
     $buttonTwo = get_sub_field('button_two');
 ?>
 
-<section class="button-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?> background-color--<?php echo esc_attr($backgroundColor); ?>" style="background-image: url('<?php echo esc_attr($backgroundImage['url']) ?>');">
+<section class="button-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>" style="background-image: url('<?php echo esc_attr($backgroundImage['url']) ?>');">
   <div class="button-block">
 
     <?php if (!empty($heading)): ?>

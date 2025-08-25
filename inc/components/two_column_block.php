@@ -15,7 +15,7 @@ if( have_rows('two_column_block') ):
 
 <section class="two-column-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
   <div class="two-column-block">
-    <div class="column column--one">
+    <div class="column">
       <?php if( $imageOne ): ?>
         <div class="column__image">
           <img src="<?php echo esc_url($imageOne['url']); ?>" alt="<?php echo esc_attr($imageOne['alt']); ?>">
@@ -47,7 +47,7 @@ if( have_rows('two_column_block') ):
       <?php endif; ?>
     </div>
 
-    <div class="column column--two">
+    <div class="column">
       <?php if( $imageTwo ): ?>
         <div class="column__image">
           <img src="<?php echo esc_url($imageTwo['url']); ?>" alt="<?php echo esc_attr($imageTwo['alt']); ?>">
@@ -57,7 +57,7 @@ if( have_rows('two_column_block') ):
       <?php if( $headingTwo || $descriptionTwo || $buttonTwo ): ?>
         <div class="column__content">
           <?php if( $headingTwo ): ?>
-            <h2 class="column__heading>">
+            <h2 class="column__heading">
               <?php echo esc_html($headingTwo); ?>
             </h2>
           <?php endif; ?>

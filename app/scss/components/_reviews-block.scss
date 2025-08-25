@@ -1,1 +1,81 @@
 @use '../base/globals' as *;
+
+.reviews-block {
+  @include container;
+  
+  &__wrapper {
+    @include flex-center;
+    min-height: 816px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__content {
+  
+  }
+
+  &__heading {
+    position: relative;
+    text-align: center;
+    margin: unset;
+    color: rgba(255, 255, 255, .2);
+
+    span {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 3;
+      width: 100%;
+      font-size: 44px;
+      color: $colorTwo;
+    
+    }
+  }
+
+  &__slides {
+  
+  }
+
+  &__quote {
+    font-size: 20px;
+  }
+
+  &__author {
+    margin-top: 32px;
+  }
+
+  .slick-slider {
+ 
+  }
+
+  .slick-slide {
+  
+  }
+
+  .slick-arrow {
+    position: absolute;
+    top: -16px;
+    left: -132px;
+    border: unset;
+    font-size: 0;
+    background-color: unset;
+
+    &:after {
+      content: '\f137';
+      font-size: 88px;
+      font-family: fontawesome;
+      color: $white;
+    }
+  }
+
+  .slick-next {
+    position: absolute;
+    right: -132px;
+    left: unset;
+
+    &:after {
+      content: '\f138';
+    }
+  }
+}
