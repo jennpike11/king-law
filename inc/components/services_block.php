@@ -31,8 +31,6 @@ if (have_rows('services_block')):
         <?php echo esc_html($blockHeading); ?>
       </div>
     <?php endif; ?>
-
-    <div class="services-block__items">
   
       <div class="services-block__services">
         <?php foreach ($services as $i => $svc): 
@@ -43,6 +41,16 @@ if (have_rows('services_block')):
           if ($id === '') { $id = 'svc-' . ($i + 1); } // fallback
         ?>
           <div class="services-block__content">
+            <div class="services-block__image">
+              <?php if (!empty($svc['image']['url'])): ?>
+                <img
+                  src="<?php echo esc_url($svc['image']['url']); ?>"
+                  alt="<?php echo esc_attr($svc['image']['alt'] ?? ''); ?>"
+                  loading="lazy"
+                  decoding="async"
+                />
+              <?php endif; ?>
+            </div>  
             <?php if (!empty($svc['heading'])): ?>
               <h2 id="<?php echo esc_attr($id); ?>" class="services-block__heading">
                 <?php echo esc_html($svc['heading']); ?>
@@ -67,21 +75,6 @@ if (have_rows('services_block')):
         <?php endforeach; ?>
       </div>
 
-      <div class="services-block__images">
-        <?php foreach ($services as $svc): ?>
-          <div class="services-block__image">
-            <?php if (!empty($svc['image']['url'])): ?>
-              <img
-                src="<?php echo esc_url($svc['image']['url']); ?>"
-                alt="<?php echo esc_attr($svc['image']['alt'] ?? ''); ?>"
-                loading="lazy"
-                decoding="async"
-              />
-            <?php endif; ?>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
   </div>
 </section>
 <?php

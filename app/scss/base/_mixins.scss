@@ -1,42 +1,46 @@
 // breakpoints.scss
+
+// Breakpoints map
+// Values use em so they scale with root font size.
+// Comments show approximate pixel values for reference.
 $breakpoints: (
-  small: 48em,    // 768
-  large: 64em,    // 1024
-  xlarge: 80em,   // 1280
-  xxlarge: 100em  // 1600
+  small:   48em,   // 768
+  large:   64em,   // 1024
+  xlarge:  80em,   // 1280
+  xxlarge: 100em,  // 1600
+  ultra:   120em   // 1920
 );
 
+// Lookup helper
 @function bp($name) {
   @if map-has-key($breakpoints, $name) { @return map-get($breakpoints, $name); }
   @error "Unknown breakpoint `#{$name}`. Valid keys: #{map-keys($breakpoints)}";
 }
 
-// keep your old API
+// Legacy API kept for compatibility
 @mixin respond($breakpoint) { @media (min-width: bp($breakpoint)) { @content; } }
 
-// new helpers
+// Preferred helpers
 @mixin respond-up($breakpoint)    { @media (min-width: bp($breakpoint)) { @content; } }
 @mixin respond-down($breakpoint)  { @media (max-width: calc(bp($breakpoint) - 0.02em)) { @content; } }
 @mixin respond-between($from, $until) {
   @media (min-width: bp($from)) and (max-width: calc(bp($until) - 0.02em)) { @content; }
 }
 
-
 // Container
-$container-max: 1440px !default;
+$container-max: 1600px !default; 
 $container-pad: 32px !default;
 
 @mixin container($max: $container-max, $pad: $container-pad) {
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - 64px);
   max-width: $max;
   margin-left: auto;
   margin-right: auto;
-  padding-left: $pad;
-  padding-right: $pad;
 }
 
-@mixin flex-center{
+// Flex utilities
+@mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,8 +51,15 @@ $container-pad: 32px !default;
   justify-content: space-between;
 }
 
-
-@mixin btn-border-drawing($color: $white, $hover: black, $width: 1px, $vertical: top, $horizontal: left, $duration: 0.25s) {
+// Button border drawing
+@mixin btn-border-drawing(
+  $color: $white,
+  $hover: black,
+  $width: 1px,
+  $vertical: top,
+  $horizontal: left,
+  $duration: 0.25s
+) {
   box-shadow: inset 0 0 0 $width $color;
   color: $color;
   transition: color $duration $duration/3;
@@ -63,21 +74,18 @@ $container-pad: 32px !default;
     position: absolute;
     width: 0;
     height: 0;
-
     #{$vertical}: 0;
     #{$horizontal}: 0;
   }
 
   &::before {
-    $h-side: if($horizontal =='left', 'right', 'left');
-
+    $h-side: if($horizontal == 'left', 'right', 'left');
     border-#{$vertical}-width: $width;
     border-#{$h-side}-width: $width;
   }
 
   &::after {
-    $v-side: if($vertical =='top', 'bottom', 'top');
-
+    $v-side: if($vertical == 'top', 'bottom', 'top');
     border-#{$v-side}-width: $width;
     border-#{$horizontal}-width: $width;
   }
@@ -93,12 +101,7 @@ $container-pad: 32px !default;
       height: 100%;
     }
 
-    &::before {
-      transition-delay: 0s, 0s, $duration;
-    }
-
-    &::after {
-      transition-delay: 0s, $duration, 0s;
-    }
+    &::before { transition-delay: 0s, 0s, $duration; }
+    &::after  { transition-delay: 0s, $duration, 0s; }
   }
 }

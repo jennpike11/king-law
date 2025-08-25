@@ -23,145 +23,105 @@
 
 
 // Services Block
-
-// Config: how many paragraphs to show up-front 
-const BASE_PARAS_MOBILE  = 2;
-const BASE_PARAS_DESKTOP = 3;
-const DESKTOP_BP = 768;
-
-// Track observers so we can disconnect on close
-const descObservers = new WeakMap();
-
-function visibleBaseCount() {
-  return window.innerWidth >= DESKTOP_BP ? BASE_PARAS_DESKTOP : BASE_PARAS_MOBILE;
+// Helper: set active image using normal CSS transitions
+function setActiveImage($images, idx) {
+  $images.removeClass('is-hover'); // clear preview
+  $images.removeClass('is-active').eq(idx).addClass('is-active'); // CSS handles cross-fade
 }
 
-function teardownReveal($desc) {
-  const el = $desc[0];
-  const obs = descObservers.get(el);
-  if (obs) {
-    obs.disconnect();
-    descObservers.delete(el);
-  }
-  // Remove reveal classes so the block is "clean" if reopened
-  $desc.find('p').removeClass('is-hidden is-visible');
-}
-
-function setupReveal($desc) {
-  const el = $desc[0];
-  teardownReveal($desc);
-
-  const $paras = $desc.find('p');
-  if (!$paras.length) return;
-
-  const base = visibleBaseCount();
-
-  // Set initial state: first N visible, rest hidden
-  $paras.each(function (i) {
-    if (i < base) {
-      $(this).addClass('is-visible').removeClass('is-hidden');
-    } else {
-      $(this).addClass('is-hidden').removeClass('is-visible');
-    }
-  });
-
-  // Observe hidden paragraphs and reveal them as they enter viewport
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const p = entry.target;
-        p.classList.add('is-visible');
-        p.classList.remove('is-hidden');
-        io.unobserve(p); // reveal once
-      });
-    }, {
-      threshold: 0.25,         // start the fade when ~25% visible
-      rootMargin: '0px 0px -5% 0px'
-    });
-
-    $paras.slice(base).each(function () { io.observe(this); });
-    descObservers.set(el, io);
-  } else {
-    // Fallback: if IO unsupported, just show all
-    $paras.removeClass('is-hidden').addClass('is-visible');
-  }
-}
-
-// ensure first image shows on load per block
+// Ensure first image shows on load per block
 $('.services-block').each(function () {
-  const $images = $(this).find('.services-block__images .services-block__image');
-  $images.removeClass('is-active').eq(0).addClass('is-active');
+  const $images = $(this).find('.services-block__image');
+  setActiveImage($images, 0);
 });
 
-// Main click: on heading only (open/close + sync image + smooth scroll)
+// Reset a block to default state, keep current active image
+function closeBlock($block) {
+  const $headings = $block.find('.services-block__heading');
+  const $descs    = $block.find('.services-block__description');
+
+  // show all headings again and reset width to base
+  $headings.show().removeClass('active').css('width', '');
+
+  // close any open description
+  $descs.stop(true, true).slideUp(150);
+
+  // clear block states
+  $block.removeClass('only-active is-hovering');
+}
+
+// Click to open or close, and hide or show other headings
 $(document).on('click', '.services-block__heading', function (e) {
   e.preventDefault();
 
-  const $heading = $(this);
-  const $root = $heading.closest('.services-content');
-
-  const $allHeadings = $root.find('.services-block__heading');
-  const $allDescs = $root.find('.services-block__description');
-  const $images = $root.find('.services-block__images .services-block__image');
-
-  const $desc = $heading.next('.services-block__description');
-  const isOpen = $heading.hasClass('active');
+  const $heading     = $(this);
+  const $block       = $heading.closest('.services-block');
+  const $desc        = $heading.next('.services-block__description');
+  const $images      = $block.find('.services-block__image');
+  const $allHeadings = $block.find('.services-block__heading');
+  const isOpen       = $heading.hasClass('active');
 
   if (isOpen) {
-    $heading.removeClass('active');
-    // tear down reveal and close
-    teardownReveal($desc);
-    $desc.stop(true, true).slideUp(150);
-    $images.removeClass('is-active').eq(0).addClass('is-active');
+    // second click, close and restore headings
+    closeBlock($block);
     return;
   }
 
-  // close others
-  $allHeadings.not($heading).removeClass('active');
-  $allDescs.not($desc).each(function () {
-    teardownReveal($(this));
-  }).stop(true, true).slideUp(0);
+  // first click on this heading, close others
+  $allHeadings.removeClass('active').css('width', '');
+  $block.find('.services-block__description').not($desc).stop(true, true).slideUp(0);
 
-  // image index maps to heading index
+  // kill hover state before swapping so the new active is not hidden
+  $block.removeClass('is-hovering');
+  $images.removeClass('is-hover');
+
+  // map image index to heading index and show it smoothly
   const idx = $allHeadings.index($heading);
-  if (idx >= 0 && $images.length) {
-    const safeIdx = Math.min(idx, $images.length - 1);
-    $images.removeClass('is-active').eq(safeIdx).addClass('is-active');
-  }
+  if (idx >= 0 && $images.length) setActiveImage($images, Math.min(idx, $images.length - 1));
 
-  // open this one
-  $heading.addClass('active');
-  $desc.stop(true, true).slideDown(150, () => {
-    // initialize progressive reveal inside this description
-    setupReveal($desc);
+  // open this one, expand to 100%
+  $heading.addClass('active').css('width', '100%');
+  $desc.stop(true, true).slideDown(150);
 
-    // smooth scroll to place the opened heading nicely under the top bar
-    const TOP_OFFSET = 120;
-    const targetY = Math.max(0, $heading.offset().top - TOP_OFFSET);
-    $('html, body').stop(true, true).animate({ scrollTop: targetY }, 350, 'swing');
+  // hide other headings while open
+  $allHeadings.not($heading).hide();
+  $block.addClass('only-active');
+});
+
+// Click outside the block to restore headings and close description
+$(document).on('mousedown', function (e) {
+  const $target = $(e.target);
+  $('.services-block.only-active').each(function () {
+    const $block = $(this);
+    if ($block.has($target).length === 0) {
+      closeBlock($block);
+    }
   });
 });
 
-// swap images on hover
+// Hover preview, ignore hover on the active heading
 $(document)
   .on('mouseenter', '.services-block__heading', function () {
-    const $block    = $(this).closest('.services-block');
+    const $heading  = $(this);
+    const $block    = $heading.closest('.services-block');
     const $headings = $block.find('.services-block__heading');
-    const $images   = $block.find('.services-block__images .services-block__image');
-    const idx = $headings.index(this);
+    const $images   = $block.find('.services-block__image');
+
+    // no preview during only-active mode, or on the active heading itself
+    if ($heading.hasClass('active') || $block.hasClass('only-active')) return;
+
+    const idx = $headings.index($heading);
     if (idx < 0) return;
 
     $block.addClass('is-hovering');
-    $images.removeClass('is-hover')
-           .eq(idx).addClass('is-hover');
+    $images.removeClass('is-hover').eq(idx).addClass('is-hover');
   })
   .on('mouseleave', '.services-block', function () {
     const $block  = $(this);
-    const $images = $block.find('.services-block__images .services-block__image');
+    const $images = $block.find('.services-block__image');
 
     $block.removeClass('is-hovering');
-    $images.removeClass('is-hover'); // active one reappears
+    $images.removeClass('is-hover'); // reveal whichever is .is-active
   });
 
 
