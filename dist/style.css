@@ -1976,6 +1976,7 @@ form p {
   display: none;
   position: relative;
   z-index: 3;
+  max-width: 900px;
   height: unset;
   overflow-y: unset;
   margin-bottom: 80px;
