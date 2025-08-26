@@ -396,13 +396,18 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
 }
 
 
-// Heading Block Animation
+// Heading Block & Reviews Block Heading Animation
+// Heading + Reviews text animation: earlier in and earlier out
 (function () {
   document.documentElement.classList.add('js');
 
   var $win = $(window);
-  var $wrappers = $('.heading-block__wrapper');
+  var $wrappers = $('.heading-block__wrapper, .reviews-block__wrapper');
   if (!$wrappers.length) return;
+
+  // tune these two numbers if you want it even earlier/later
+  var ENTER_FRAC = 0.20; 
+  var EXIT_FRAC  = 0.80; 
 
   var ticking = false;
   function onScrollOrResize() {
@@ -414,11 +419,20 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
   function check() {
     ticking = false;
     var vh = window.innerHeight || $win.height();
-    var cutoff = vh - Math.round(vh * 0.20);
+    var bandTop = Math.round(vh * ENTER_FRAC);
+    var bandBot = Math.round(vh * EXIT_FRAC);
+
     $wrappers.each(function () {
-      var rect = this.getBoundingClientRect();
-      var inView = (rect.top < cutoff) && (rect.bottom > 0);
-      $(this).find('.heading-block').first().toggleClass('is-in-view', inView);
+      var rect   = this.getBoundingClientRect();
+      var center = rect.top + rect.height / 2;
+      var onScreen = rect.bottom > 0 && rect.top < vh;
+
+      // If your CSS targets .reviews-block instead of .reviews-block-text, swap selector below
+      var $target = $(this).find('.heading-block, .reviews-block-text').first();
+
+      // earlier in and earlier out
+      var inBand = onScreen && center >= bandTop && center <= bandBot;
+      $target.toggleClass('is-in-view', inBand);
     });
   }
 

@@ -8,12 +8,8 @@
 
 <section class="heading-block__wrapper padding--<?php echo ($verticalPadding) ?>">
   <div class="heading-block">
-    <div class="heading-block__left">
-      <h2 class="heading-block__heading"><?php echo $heading ?></h2>  
-    </div>
-    <div class="heading-block__right">
-      <div class="heading-block__subheading"><?php echo $subheading ?></div> 
-    </div>
+    <h2 class="heading-block__heading"><?php echo $heading ?></h2>  
+    <div class="heading-block__subheading"><?php echo $subheading ?></div> 
   </div>
 </section>
  

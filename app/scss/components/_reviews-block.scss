@@ -1,62 +1,35 @@
 @use '../base/globals' as *;
 
-.reviews-block {
-  @include container;
-  
-  &__wrapper {
-    @include flex-center;
-    min-height: 816px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-
-  &__content {
-  
-  }
+.reviews-block-text {
+  position: relative;
+  max-width: 100%;
 
   &__heading {
-    position: relative;
+    width: 100%;
     text-align: center;
-    margin: unset;
-    color: rgba(255, 255, 255, .2);
-
-    span {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      z-index: 3;
-      width: 100%;
-      font-size: 44px;
-      color: $colorTwo;
-    
-    }
+    font-size: 8vw;
+    color: rgba(255,255,255, 0.08);
+    white-space: nowrap;
   }
 
-  &__slides {
+    &__subheading {
+    position: absolute;
+    bottom: 8px;
+    text-align: center;
+    width: 100%;
+    color: $colorTwo;
+    font-size: 72px;
+  }
+}
+
+.reviews-block {  
+  @include container;
+  overflow: hidden;
   
-  }
-
-  &__quote {
-    font-size: 20px;
-  }
-
-  &__author {
-    margin-top: 32px;
-  }
-
-  .slick-slider {
- 
-  }
-
-  .slick-slide {
-  
-  }
-
   .slick-arrow {
     position: absolute;
     top: -16px;
-    left: -132px;
+    left: 0;
     border: unset;
     font-size: 0;
     background-color: unset;
@@ -71,7 +44,7 @@
 
   .slick-next {
     position: absolute;
-    right: -132px;
+    right: 0;
     left: unset;
 
     &:after {

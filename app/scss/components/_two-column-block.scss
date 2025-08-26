@@ -23,6 +23,11 @@
             width: calc(50% - 32px);
         } 
 
+        &__content {
+            max-width: 560px;
+            margin: auto;
+        }
+
         &__image {
             width: 100%;
             height: 544px;
