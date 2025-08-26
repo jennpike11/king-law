@@ -5,6 +5,10 @@
   position: relative;
   max-width: 100%;
 
+  &__wrapper {
+    background: unset;
+  }
+
   &__heading {
     width: 100%;
     text-align: center;

@@ -38,6 +38,7 @@ $duration: 30s;
   overflow: hidden;
   padding-left: 100%;
   box-sizing: content-box;
+  background: unset;
 
   .ticker {
     @include flex-center;

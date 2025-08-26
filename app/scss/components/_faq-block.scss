@@ -4,6 +4,10 @@
   @include container;
   max-width: 900px;
 
+  &__wrapper {
+    background: unset;
+  }
+
   &__heading {
     text-align: center;
   }

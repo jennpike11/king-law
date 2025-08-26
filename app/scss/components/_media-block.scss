@@ -3,9 +3,13 @@
 .media-block {
     @include container;
 
-    &__video, img {
-      width: 100%;
-      height: auto;
-      border-radius: 24px;
-    }
+  &__wrapper {
+    background: unset;
+  }
+
+  &__video, img {
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+  }
 }

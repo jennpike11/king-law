@@ -8,11 +8,11 @@
     width: 100%;
     text-align: center;
     font-size: 8vw;
-    color: rgba(255,255,255, 0.08);
+    color: rgba(255,255,255,0.08);
     white-space: nowrap;
   }
 
-    &__subheading {
+  &__subheading {
     position: absolute;
     bottom: 8px;
     text-align: center;
@@ -22,33 +22,89 @@
   }
 }
 
-.reviews-block {  
+.reviews-block {
   @include container;
-  overflow: hidden;
-  
+  position: relative;
+  min-height: 580px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  &__wrapper {
+    margin: 80px auto;
+    padding-bottom: 216px;
+    background: unset;
+  }
+
+  &__slides {
+   position: absolute;
+   bottom: -260px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: auto;
+    padding: 48px;
+    background: $white;
+    border-radius: 24px;
+  }
+
+  &__stars { 
+    margin-bottom: 32px; 
+  }
+
+  &__quote {
+    font-size: 20px;
+    line-height: 32px;
+    color: $black;
+  }
+
+  &__author {
+    margin-top: auto;
+    padding-top: 32px;
+    color: $black;
+  }
+
+  .slick-list {
+    position: static;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .slick-track {
+    display: flex !important;
+    align-items: stretch;
+  }
+
+  .slick-slide {
+    display: flex !important;
+    height: auto;
+    min-height: 460px;
+    margin: 0 16px;
+  }
+
   .slick-arrow {
     position: absolute;
-    top: -16px;
-    left: 0;
-    border: unset;
+    bottom: -72px;
+    left: 46%;
+    border: none;
     font-size: 0;
-    background-color: unset;
+    background: none;
 
     &:after {
       content: '\f137';
-      font-size: 88px;
+      font-size: 40px;
       font-family: fontawesome;
       color: $white;
     }
   }
 
   .slick-next {
-    position: absolute;
-    right: 0;
-    left: unset;
+    right: 46%;
+    left: auto;
 
-    &:after {
-      content: '\f138';
-    }
+    &:after { content: '\f138'; }
   }
 }

@@ -21,7 +21,7 @@
 .js .heading-block__heading, .js .heading-block__subheading, .js .reviews-block-text__heading, .js .reviews-block-text__subheading {
   opacity: 0;
   transform: translateX(var(--slide-x, 0));
-  transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 700ms ease;
+  transition: transform 1000ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 900ms ease;
   will-change: transform, opacity;
 }
 .js .heading-block__heading, .js .reviews-block-text__heading {
@@ -861,6 +861,9 @@ i.fa-solid:before {
     justify-content: space-between;
   }
 }
+.animated-two-column-block__wrapper {
+  background: unset;
+}
 .animated-two-column-block__image {
   position: relative;
   background: #ffffff;
@@ -974,6 +977,9 @@ i.fa-solid:before {
   margin-left: auto;
   margin-right: auto;
 }
+.credentials-block__wrapper {
+  background: unset;
+}
 .credentials-block__stats {
   width: -moz-fit-content;
   width: fit-content;
@@ -1044,6 +1050,9 @@ i.fa-solid:before {
   margin-right: auto;
   max-width: 900px;
 }
+.faq-block__wrapper {
+  background: unset;
+}
 .faq-block__heading {
   text-align: center;
 }
@@ -1084,6 +1093,9 @@ i.fa-solid:before {
   .featured-posts-block {
     padding-bottom: 80px;
   }
+}
+.featured-posts-block__wrapper {
+  background: unset;
 }
 .featured-posts-block__heading {
   box-sizing: border-box;
@@ -1223,6 +1235,7 @@ i.fa-solid:before {
 .hero-block__wrapper {
   position: relative;
   height: 320px;
+  background: unset;
 }
 @media (min-width: 48em) {
   .hero-block__wrapper {
@@ -1333,6 +1346,9 @@ i.fa-solid:before {
   margin-right: auto;
   position: relative;
   max-width: 100%;
+}
+.heading-block__wrapper {
+  background: unset;
 }
 .heading-block__heading {
   width: 100%;
@@ -1771,6 +1787,9 @@ i.fa-solid:before {
   margin-left: auto;
   margin-right: auto;
 }
+.media-block__wrapper {
+  background: unset;
+}
 .media-block__video, .media-block img {
   width: 100%;
   height: auto;
@@ -1789,6 +1808,9 @@ i.fa-solid:before {
 }
 .one-column-block.content-width--small .one-column-block__heading {
   text-align: center;
+}
+.one-column-block__wrapper {
+  background: unset;
 }
 .one-column-block__heading {
   text-transform: uppercase;
@@ -1839,6 +1861,7 @@ i.fa-solid:before {
 }
 .services-block__wrapper {
   position: relative;
+  background: unset;
 }
 .services-block__items {
   box-sizing: border-box;
@@ -2008,26 +2031,75 @@ i.fa-solid:before {
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
-  overflow: hidden;
+  position: relative;
+  min-height: 580px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.reviews-block__wrapper {
+  margin: 80px auto;
+  padding-bottom: 216px;
+  background: unset;
+}
+.reviews-block__slides {
+  position: absolute;
+  bottom: -260px;
+}
+.reviews-block__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: auto;
+  padding: 48px;
+  background: #ffffff;
+  border-radius: 24px;
+}
+.reviews-block__stars {
+  margin-bottom: 32px;
+}
+.reviews-block__quote {
+  font-size: 20px;
+  line-height: 32px;
+  color: #000000;
+}
+.reviews-block__author {
+  margin-top: auto;
+  padding-top: 32px;
+  color: #000000;
+}
+.reviews-block .slick-list {
+  position: static;
+  width: 80%;
+  margin: 0 auto;
+}
+.reviews-block .slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+.reviews-block .slick-slide {
+  display: flex !important;
+  height: auto;
+  min-height: 460px;
+  margin: 0 16px;
 }
 .reviews-block .slick-arrow {
   position: absolute;
-  top: -16px;
-  left: 0;
-  border: unset;
+  bottom: -72px;
+  left: 46%;
+  border: none;
   font-size: 0;
-  background-color: unset;
+  background: none;
 }
 .reviews-block .slick-arrow:after {
   content: "\f137";
-  font-size: 88px;
+  font-size: 40px;
   font-family: fontawesome;
   color: #ffffff;
 }
 .reviews-block .slick-next {
-  position: absolute;
-  right: 0;
-  left: unset;
+  right: 46%;
+  left: auto;
 }
 .reviews-block .slick-next:after {
   content: "\f138";
@@ -2114,6 +2186,9 @@ i.fa-solid:before {
   flex-wrap: wrap;
   z-index: 3;
 }
+.three-column-block__wrapper {
+  background: unset;
+}
 .three-column-block__heading {
   max-width: 800px;
   margin: 0 auto 24px;
@@ -2162,6 +2237,7 @@ i.fa-solid:before {
   overflow: hidden;
   padding-left: 100%;
   box-sizing: content-box;
+  background: unset;
 }
 .ticker__wrapper .ticker {
   display: flex;
@@ -2198,6 +2274,9 @@ i.fa-solid:before {
     display: flex;
     justify-content: space-between;
   }
+}
+.two-column-block__wrapper {
+  background: unset;
 }
 .two-column-block.column-alignment--top {
   align-items: flex-start;

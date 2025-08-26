@@ -11,6 +11,10 @@
     }
   }
 
+  &__wrapper {
+    background: unset;
+  }
+
   &__heading {
     text-transform: uppercase;
     font-family: $font-secondary;

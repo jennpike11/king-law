@@ -6,6 +6,10 @@
   flex-wrap: wrap;
   z-index: 3;
 
+  &__wrapper {
+    background: unset;
+  }
+
   &__heading {
     max-width: 800px;
     margin: 0 auto 24px;

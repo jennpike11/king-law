@@ -9,6 +9,10 @@
     padding-bottom: 80px;
   }
 
+  &__wrapper {
+    background: unset;
+  }
+
    &__heading {
     @include container;
     position: relative;

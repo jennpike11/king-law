@@ -391,7 +391,7 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
     arrows: true,
     infinite: true,
     speed: 1000,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -410,8 +410,8 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
   if (!$wrappers.length) return;
 
   // tune these two numbers if you want it even earlier/later
-  var ENTER_FRAC = 0.20; 
-  var EXIT_FRAC  = 0.80; 
+  var ENTER_FRAC = 0.10; 
+  var EXIT_FRAC  = 0.90; 
 
   var ticking = false;
   function onScrollOrResize() {

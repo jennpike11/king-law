@@ -8,6 +8,10 @@
     @include flex-between;
   }
 
+  &__wrapper {
+    background: unset;
+  }
+
   &__image {
     position: relative;
     background: $white;

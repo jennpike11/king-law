@@ -7,6 +7,10 @@
         @include flex-between;
     }
 
+    &__wrapper {
+        background: unset;
+    }
+
     &.column-alignment--top {
         align-items: flex-start;
 
