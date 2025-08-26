@@ -1977,8 +1977,8 @@ form p {
   position: relative;
   z-index: 3;
   max-width: 900px;
-  height: unset;
-  overflow-y: unset;
+  height: 1000px;
+  overflow-y: scroll;
   margin-bottom: 80px;
   color: #ffffff;
 }
