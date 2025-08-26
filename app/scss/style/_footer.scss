@@ -1,25 +1,6 @@
 @use '../base/globals' as *;
 
 .site-footer {
-  &__cta-wrapper {
-    @include container;
-    @include flex-between;
-    align-items: center;
-    flex-direction: column;
-
-    @include respond-up(large){
-      flex-direction: row;
-    }
-  }
-
-  &__cta {
-    @include flex-center;
-
-    @include respond-up(large){
-      width: 50%;
-    }
-  }
-
   &__heading {
     position: relative;
     font-size: 38px;
@@ -29,46 +10,29 @@
     text-transform: uppercase;
     color: $white;
     text-align: center;
-    }
+  }
 
-  &__form {
-    @include respond-up(large){
-      width: 50%;
+  &__map {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+    margin-top: 32px;  
+    aspect-ratio: 4 / 3;     
+    overflow: hidden;  
+      
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
   }
 
-  form {
-    width: 80%;
-    margin: auto;
-
-    input, textarea {
-      width: 100% !important;
-      margin: 0 0 20px;
-      padding: 1rem;
-      border: 1px solid $black;
-      color: $black;
-      font-size: 1rem;
-      font-family: $font-primary !important;
-      background: $white;
-    }
-
-    ::placeholder {
-      color: $black;
-      font-family: $font-primary !important;
-    }
-
-    textarea[name="your-message"] {
-      height: 7.5em; 
-      resize: vertical; 
-    }
-
-    .input.wpcf7-submit {
-      width: 100% !important;
-    }
-
-    p {
-      margin: unset;
-    }
+  &__form {
+    @include container;
   }
 
   &__contact-info {
@@ -124,6 +88,24 @@
 
   .wpcf7-spinner {
     display: none;
+  }
+}
+
+.site-footer-form {
+  &__headings {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  &__heading {
+    font-size: clamp(40px, 55vw, 4vw);
+    color: $white;
+  }
+
+  &__subheading {
+    margin-bottom: 16px;
+    font-size: 24px;
+    color: $colorTwo;
   }
 }
 

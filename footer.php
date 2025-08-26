@@ -14,12 +14,22 @@ $hide_cta = is_singular($landing_cpt_slugs) || is_post_type_archive($landing_cpt
 	
   <div class="site-footer">
 
-		<div class="site-footer__cta-wrapper">
-			<div class="site-footer__cta">
-				
+		<div class="site-footer-form">
+			<div class="site-footer-form__headings">
+				<div class="site-footer-form__subheading">Contact us today</div>
+				<h2 class="site-footer-form__heading">Get a free consultation</h2>
 			</div>
-			<div class="site-footer__form">
+			<div class="site-footer-form__form">
 				<?php echo do_shortcode('[contact-form-7 id="ebe9ad7" title="Contact"]') ?>
+			</div>
+			<div class="site-footer__map">
+				<iframe
+					src="https://www.google.com/maps?q=13365+Oak+Crest+Drive%2C+Suite+240+Westlake+Village%2C+CA+91361&output=embed"
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					allowfullscreen
+					aria-label="Map to 13365 Oak Crest Drive, Suite 240, Westlake Village, CA 91361">
+				</iframe>
 			</div>
 		</div>
 

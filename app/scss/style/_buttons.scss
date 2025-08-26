@@ -2,8 +2,7 @@
 @use '../base/mixins' as *;
 
 
-.primary-button,
-.site-footer form input.wpcf7-submit {
+.primary-button, .site-footer form input.wpcf7-submit {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +11,6 @@
   height: 48px;
   padding: 0 24px;
   border: 0;
-  border-radius: 24px;
   text-align: center;
   white-space: nowrap;
   color: $white !important;
@@ -42,10 +40,11 @@
   100% { transform: scale(1);   box-shadow: 0 1px 4px rgba(0,0,0,.3), inset 0 0 0 0 rgba(255,255,255,0); }
 }
 
-
-
-.site-footer form input.wpcf7-submit:hover {
-    color: $white;
+.site-footer form input.wpcf7-submit {
+  min-width: 400px;
+  height: 72px;
+  margin: auto;
+  font-size: 32px;
 }
 
 // Read more buttons
