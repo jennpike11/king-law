@@ -20,12 +20,6 @@
     });
 
 
-  // Home Page Hero Animation
-    jQuery(window).on('load', function () {
-        $('.hero-block').addClass('ready'); 
-  });
-
-
 // Services Block
 // Helper: set active image using normal CSS transitions
 function setActiveImage($images, idx) {
@@ -395,6 +389,65 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
   });
 }
 
+// Hero Block Animation
+(function ($) {
+  $(function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    $('.hero-block__heading').each(function () {
+      const $h = $(this);
+      if ($h.data('pulsified')) return;
+      $h.data('pulsified', true);
+
+      let i = 0; // global index for stagger delays
+      const frag = document.createDocumentFragment();
+
+      function addWord(wordText, strong) {
+        const word = document.createElement('span');
+        word.className = 'word' + (strong ? ' pulse-strong' : '');
+        for (const ch of wordText) {
+          const c = document.createElement('span');
+          c.className = 'char';
+          c.style.setProperty('--i', i++);
+          c.textContent = ch;
+          word.appendChild(c);
+        }
+        frag.appendChild(word);
+      }
+
+      function processText(text, strong) {
+        // Split into words and whitespace, preserve spaces as real spaces
+        const parts = text.split(/(\s+)/);
+        parts.forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            addWord(part, strong);
+          }
+        });
+      }
+
+      // Rebuild while preserving <br> etc.; <span> means "pulse stronger"
+      Array.from(this.childNodes).forEach(node => {
+        if (node.nodeType === 3) {
+          processText(node.nodeValue, false);
+        } else if (node.nodeType === 1 && node.tagName === 'SPAN') {
+          Array.from(node.childNodes).forEach(child => {
+            if (child.nodeType === 3) processText(child.nodeValue, true);
+            else frag.appendChild(child.cloneNode(true));
+          });
+        } else {
+          frag.appendChild(node.cloneNode(true));
+        }
+      });
+
+      this.replaceChildren(frag);
+    });
+  });
+})(jQuery);
+
+
 
 // Heading Block & Reviews Block Heading Animation
 // Heading + Reviews text animation: earlier in and earlier out
@@ -406,7 +459,7 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
   if (!$wrappers.length) return;
 
   // tune these two numbers if you want it even earlier/later
-  var ENTER_FRAC = 0.10; 
+  var ENTER_FRAC = 0.20; 
   var EXIT_FRAC  = 0.90; 
 
   var ticking = false;

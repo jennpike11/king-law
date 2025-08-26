@@ -3,14 +3,10 @@
 .hero-block {
   @include container; 
   display: flex;
+  align-items: center;
   position: relative;
   z-index: 2;
   height: 100%;
-  padding-top: 12vh;
-
-  @include respond-up(small){
-    padding-top: 20vh;
-  }
 
   @include respond-up(xlarge){
     max-width: calc(100% - 10vw);
@@ -35,7 +31,7 @@
     position: absolute;
     z-index: -1;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     
     &:before {
@@ -51,53 +47,25 @@
     }
   }
 
-  &__heading {
-    font-size: clamp(24px, 55vw, 10vw);
-    font-family: $font-secondary;
-    text-transform: uppercase;
-    color: $black;
-    letter-spacing: .1rem;
-
-    @include respond-up(large){
-      letter-spacing: .4rem;
-    }
-
-    &:after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 4px;
-      margin: 4px 0;
-      background: $colorTwo;
-      transition: width 1.5s linear;
-
-      @include respond-up(small){
-        margin: 8px 0;
-      }
-
-      @include respond-up(large){
-        margin: 16px 0;
-      }
+  &__text {
+    @include respond-up(small){
+      width: 75%;
     }
   }
 
-  &__subheading {
-    margin-bottom: 120px;
-    font-size: clamp(20px, 50vw, 4.6vw);
+  &__heading {
+    font-size: clamp(24px, 55vw, 11vw);
+    line-height: .9;
     font-family: $font-secondary;
     text-transform: uppercase;
-    color: $black;
-    
-    @include respond-up(xlarge){
-      letter-spacing: .32rem;
-    };
+    color: rgba(0,0,0,.8);
   }
 
   &__king {
     position: absolute;
     bottom: 0;
     right: 0;
-    
+    line-height: 0;
 
     @include respond-up(large){
       right: 2vw;
@@ -118,14 +86,39 @@
 
 }
 
-// Not Home Page
-
-
-
-// Animation on load
-.ready {
-  .hero-block__heading:after {
-    width: 100%;
-  }
-
+// Animation
+.hero-block__heading {
+  position: relative;
+  display: inline-block;                
+  --pulse-accent: color-mix(in srgb, currentColor 85%, #ffffff 15%);
+  --pulse-scale: 1.06;                   
 }
+
+.hero-block__heading .word {
+  display: inline-block;     
+  white-space: nowrap;      
+}
+
+.hero-block__heading .char {
+  display: inline-block;
+  transform-origin: 50% 60%;
+  animation: heroCharPulse 1.8s ease-in-out 1 both;
+  animation-delay: calc(var(--i) * 0.08s);
+  will-change: transform, color;
+}
+
+.hero-block__heading .pulse-strong .char {
+  --pulse-scale: 1.12;
+  --pulse-accent: color-mix(in srgb, currentColor 70%, #ffffff 30%);
+  animation-duration: 2s;
+}
+
+@keyframes heroCharPulse {
+  0%, 100% { transform: scale(1);          color: currentColor; }
+  50%      { transform: scale(var(--pulse-scale)); color: var(--pulse-accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-block__heading .char { animation: none !important; }
+}
+
