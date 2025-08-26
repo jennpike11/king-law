@@ -2,34 +2,46 @@
 @use '../base/mixins' as *;
 
 
-.primary-button, .site-footer form input.wpcf7-submit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    min-width: 200px;
-    height: 48px;
-    padding: 0 24px;
-    border: 0;
-    border-radius: 24px;
-    text-align: center;
-    white-space: nowrap;
-    color: $white !important;
-    font-family: $font-secondary;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    background: $colorTwo;
-    background-size: 200% 200%;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: all .2s ease-in;
+.primary-button,
+.site-footer form input.wpcf7-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 200px;
+  height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 24px;
+  text-align: center;
+  white-space: nowrap;
+  color: $white !important;
+  font-family: $font-secondary !important;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: $colorTwo;
+  background-size: 200% 200%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;                // lets the inner pulse stay inside
+  transition: box-shadow .25s ease;
+  will-change: transform, box-shadow;
 
-    &:hover {
-        height: 56px;
-        font-size: 32px;
-    }
+  // remove the size changes that cause layout shift
+  &:hover {
+    animation: btnPulse 650ms ease-out; // “inside” pulse, no reflow
+  }
 }
+
+// keyframes: brief inner glow + micro scale that doesn't change layout box
+@keyframes btnPulse {
+  0%   { transform: scale(1);   box-shadow: 0 1px 4px rgba(0,0,0,.3), inset 0 0 0 0 rgba(255,255,255,0); }
+  50%  { transform: scale(1.02); box-shadow: 0 6px 18px rgba(0,0,0,.25), inset 0 0 0 9999px rgba(255,255,255,.06); }
+  100% { transform: scale(1);   box-shadow: 0 1px 4px rgba(0,0,0,.3), inset 0 0 0 0 rgba(255,255,255,0); }
+}
+
 
 
 .site-footer form input.wpcf7-submit:hover {
