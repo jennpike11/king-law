@@ -231,7 +231,6 @@ $(document)
 
   // Find the related description element for a given stat node
   function findDesc(el) {
-    // common patterns: next sibling, within parent, or inside a nearby item wrapper
     const next = el.nextElementSibling;
     if (next && next.classList && next.classList.contains('credentials-block__stat-description')) return next;
     if (el.parentElement) {
@@ -281,18 +280,18 @@ $(document)
     el.textContent = `${el.dataset.prefix || ''}${formatNumber(0, decimals)}${el.dataset.suffix || ''}`;
     el.dataset.animating = '0';
 
-    // hide the related description until we animate again
+    // hide the related description until we animate again (class only)
     const desc = findDesc(el);
-    if (desc) desc.hidden = true;
+    if (desc) desc.classList.remove('stat-is-visible');
   }
 
   function animate(el) {
     if (el.dataset.animating === '1') return; // do not double start
     el.dataset.animating = '1';
 
-    // hide the related description while animating
+    // ensure description is hidden while animating (class only)
     const desc = findDesc(el);
-    if (desc) desc.hidden = true;
+    if (desc) desc.classList.remove('stat-is-visible');
 
     const prefix   = el.dataset.prefix || '';
     const suffix   = el.dataset.suffix || '';
@@ -310,8 +309,8 @@ $(document)
       } else {
         el.textContent = `${prefix}${formatNumber(target, decimals)}${suffix}`;
         el.dataset.animating = '0';
-        // reveal description now that the stat is finished
-        if (desc) desc.hidden = false;
+        // reveal description now that the stat is finished (fade handled by CSS)
+        if (desc) desc.classList.add('stat-is-visible');
       }
     }
     requestAnimationFrame(frame);
@@ -337,17 +336,15 @@ $(document)
         });
       }, {
         threshold: 0.35,
-        // start a hair before fully above the fold
         rootMargin: '0px 0px -10% 0px'
       });
 
       nodes.forEach(n => {
-        // start from 0 until first entry and ensure description is hidden
-        reset(n);
+        reset(n);       // ensure descriptions start hidden
         io.observe(n);
       });
     } else {
-      // Fallback, just animate once if IO not supported
+      // Fallback: animate once if IO not supported
       nodes.forEach(animate);
     }
   }
@@ -358,7 +355,6 @@ $(document)
     init();
   }
 })();
-
 
 
 // Featured Posts Block Slider
