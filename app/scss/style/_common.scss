@@ -54,7 +54,7 @@ h2 {
 }
 
 h3 { 
-  font-size: clamp(18px, 55vw, 2vw);
+  font-size: clamp(18px, 55vw, 1.6vw);
  }
 
 p {
@@ -70,6 +70,11 @@ li {
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;
+}
+
+strong {
+  font-family: 'LibreBaskerville-Bold', serif;
+  font-weight: 900;
 }
 
 img { max-width: 100%; }

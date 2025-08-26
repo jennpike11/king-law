@@ -16,7 +16,7 @@
 }
 @font-face {
   font-family: "LibreBaskerville-Bold";
-  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/king-law/app/font/LibraBaskerville-Bold.woff");
+  src: url("https://kinglawstaging.wpenginepowered.com/wp-content/themes/king-law/app/font/LibreBaskerville-Bold.woff");
 }
 .js .heading-block__heading, .js .heading-block__subheading, .js .reviews-block-text__heading, .js .reviews-block-text__subheading {
   opacity: 0;
@@ -242,7 +242,7 @@ h2 {
 }
 
 h3 {
-  font-size: clamp(18px, 55vw, 2vw);
+  font-size: clamp(18px, 55vw, 1.6vw);
 }
 
 p {
@@ -263,6 +263,11 @@ li {
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;
+}
+
+strong {
+  font-family: "LibreBaskerville-Bold", serif;
+  font-weight: 900;
 }
 
 img {
