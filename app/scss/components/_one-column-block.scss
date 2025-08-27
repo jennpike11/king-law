@@ -3,6 +3,10 @@
 .one-column-block {
   @include container;
 
+  &.content-width--medium {
+    max-width: 1200px;
+  }
+
   &.content-width--small {
     max-width: 960px;
 

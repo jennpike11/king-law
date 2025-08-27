@@ -45,6 +45,9 @@ if ( have_rows('hero_block') ) :
       <?php if ($heading) : ?>
         <h1 class="hero-block__heading"><?php echo $heading; ?></h1>
       <?php endif; ?>
+      <?php if ($subheading) : ?>
+        <div class="hero-block__subheading"><?php echo $subheading; ?></div>
+      <?php endif; ?>
     </div>
 
     <div class="hero-block__king">

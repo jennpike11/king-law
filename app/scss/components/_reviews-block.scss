@@ -3,6 +3,7 @@
 .reviews-block-text {
   position: relative;
   max-width: 100%;
+  margin-bottom: 24px;
 
   &__heading {
     width: 100%;
@@ -25,7 +26,7 @@
 .reviews-block {
   @include container;
   position: relative;
-  min-height: 580px;
+  min-height: 560px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -38,7 +39,7 @@
 
   &__slides {
    position: absolute;
-   bottom: -260px;
+   bottom: -200px;
   }
 
   &__content {

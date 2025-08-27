@@ -413,7 +413,8 @@ $(document)
 const $fpb = $('.featured-posts-block__blocks');
 if ($fpb.length && !$fpb.hasClass('slick-initialized')) {
   $fpb.slick({
-    dots: false,
+    dots: true,
+    arrows: false,
     infinite: true,
     speed: 300,
     slidesToShow: 4,

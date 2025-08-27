@@ -24,6 +24,17 @@
     @include respond-up(large){
       height: 98vh;
     }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.4);
+    }
   }
 
   &__video, &__image {
@@ -48,6 +59,9 @@
   }
 
   &__text {
+    position: relative;
+    z-index: 2;
+
     @include respond-up(small){
       width: 75%;
     }
@@ -58,13 +72,22 @@
     line-height: .9;
     font-family: $font-secondary;
     text-transform: uppercase;
-    color: rgba(0,0,0,.8);
+    color: rgba(255,255,255,.99);
+  }
+
+  &__subheading {
+    font-size: clamp(24px, 55vw, 1.6vw);
+    line-height: .9;
+    font-family: 'Poppins-Regular', sans-serif;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.99);
   }
 
   &__king {
     position: absolute;
     bottom: 0;
     right: 0;
+    z-index: 2;
     line-height: 0;
 
     @include respond-up(large){
@@ -83,14 +106,55 @@
       }
     }
   }
+}
 
+// Pages that are not home page
+.page-template-default:not(.home) .hero-block {
+  &__wrapper {
+    @include respond-up(small){
+      height: 500px;
+    }
+
+    @include respond-up(large){
+      height: 560px;
+    }
+  }
+
+  &__heading {
+    width: fit-content;
+
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      margin: 4px 0;
+      background-color: $white;
+    }
+  }
+
+  &__king {
+    height: 90%;
+
+    img {
+      height: 100%;
+
+      @include respond-up(small){
+        height: 100%;
+      }
+
+      @include respond-up(large){
+        height: 100%;
+      }
+    }
+  }
 }
 
 // Animation
 .hero-block__heading {
   position: relative;
   display: inline-block;                
-  --pulse-accent: color-mix(in srgb, currentColor 85%, #ffffff 15%);
+  --pulse-accent: color-mix(in srgb, currentColor 85%, #000000 15%);
   --pulse-scale: 1.06;                   
 }
 
@@ -109,7 +173,7 @@
 
 .hero-block__heading .pulse-strong .char {
   --pulse-scale: 1.12;
-  --pulse-accent: color-mix(in srgb, currentColor 70%, #ffffff 30%);
+  --pulse-accent: color-mix(in srgb, currentColor 70%, #000000 30%);
   animation-duration: 2s;
 }
 
