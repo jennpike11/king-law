@@ -26,8 +26,14 @@ if (have_rows('credentials_block')):
           $description = get_sub_field('description');
         ?>
           <div class="credentials-block__credential">
+            <?php if($image): ?>
             <div class="credentials-block__image"><img src="<?php echo ($image['url']); ?>"></div>
+            <?php endif; ?>
+
+            <?php if($description): ?>
             <div class="credentials-block__description"><?php echo ($description); ?></div>
+            <?php endif; ?>
+
           </div>
         <?php endwhile; ?>
       </div>

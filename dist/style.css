@@ -21,7 +21,7 @@
 .js .heading-block__heading, .js .heading-block__subheading, .js .reviews-block-text__heading, .js .reviews-block-text__subheading {
   opacity: 0;
   transform: translateX(var(--slide-x, 0));
-  transition: transform 2s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 1s ease;
+  transition: transform 1.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 1s ease;
   will-change: transform, opacity;
 }
 .js .heading-block__heading, .js .reviews-block-text__heading {
@@ -320,24 +320,24 @@ img {
 }
 
 .padding--large {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 @media (min-width: 48em) {
   .padding--large {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 104px;
+    padding-bottom: 104px;
   }
 }
 
 .padding--xlarge {
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: 104px;
+  padding-bottom: 104px;
 }
 @media (min-width: 48em) {
   .padding--xlarge {
-    padding-top: 120px;
-    padding-bottom: 120px;
+    padding-top: 160px;
+    padding-bottom: 160px;
   }
 }
 
@@ -848,12 +848,16 @@ form p {
 .animated-list-block__items {
   display: flex;
   height: 35rem;
-  background-color: #131D38;
 }
 .animated-list-block__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   flex: 1 1 0;
   position: relative;
   min-width: 0;
+  height: 100%;
   min-height: 0;
   overflow: hidden;
   border-right: 4px solid #be0002;
@@ -862,6 +866,7 @@ form p {
   background-size: cover;
   background-position: center;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 .animated-list-block__item:after {
   content: "";
@@ -890,6 +895,7 @@ form p {
   display: block;
   transform: rotate(-90deg);
   white-space: nowrap;
+  transition: all 0.2s ease-in-out;
 }
 .animated-list-block__description {
   display: none;
@@ -927,7 +933,6 @@ form p {
   margin: auto;
   padding: 0 72px;
   background-image: unset !important;
-  transition: all 0.3s ease-in-out;
 }
 .animated-list-block__item.item-clicked:after {
   background-color: unset;
@@ -939,7 +944,6 @@ form p {
 .animated-list-block__item.item-clicked .animated-list-block__heading span {
   border-bottom: 2px solid #be0002;
   transform: rotate(0deg);
-  transition: all 0.22s ease-in-out;
 }
 .animated-list-block__item.item-clicked .animated-list-block__description {
   display: block;
@@ -2146,7 +2150,7 @@ form p {
   background-position: center;
 }
 .reviews-block__wrapper {
-  margin: 80px auto;
+  margin: auto;
   padding-bottom: 216px;
   background: unset;
 }

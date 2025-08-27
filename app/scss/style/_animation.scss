@@ -5,7 +5,7 @@
   &__heading, &__subheading {
     opacity: 0;
     transform: translateX(var(--slide-x, 0));
-    transition: transform 2s cubic-bezier(.2,.7,.2,1), opacity 1s ease;
+    transition: transform 1.5s cubic-bezier(.2,.7,.2,1), opacity 1s ease;
     will-change: transform, opacity;
   }
   &__heading  { --slide-x: -6rem; } // from left
