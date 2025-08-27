@@ -127,7 +127,7 @@
 }
 .site-footer form input.wpcf7-submit {
   min-width: 400px;
-  height: 72px;
+  height: 56px;
   margin: auto;
   font-size: 32px;
 }
@@ -456,6 +456,9 @@ i.fa-solid:before {
   margin-top: 32px;
 }
 
+.site-footer__wrapper {
+  padding-top: 32px;
+}
 .site-footer__heading {
   position: relative;
   font-size: 38px;
@@ -511,8 +514,8 @@ i.fa-solid:before {
   margin-left: auto;
   margin-right: auto;
   margin-top: 16px;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 24px;
   color: #ffffff;
 }
 @media (max-width: 47.98em) {
@@ -984,6 +987,7 @@ form p {
   position: relative;
   z-index: 2;
   min-height: 0;
+  padding-bottom: 40px;
 }
 @media (min-width: 48em) {
   .animated-two-column-block__content {
