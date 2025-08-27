@@ -898,6 +898,7 @@ form p {
   .animated-two-column-block {
     display: flex;
     justify-content: space-between;
+    align-items: stretch;
   }
 }
 .animated-two-column-block__wrapper {
@@ -905,7 +906,8 @@ form p {
 }
 .animated-two-column-block__image {
   position: relative;
-  background: #ffffff;
+  overflow: hidden;
+  min-height: 0;
 }
 @media (min-width: 48em) {
   .animated-two-column-block__image {
@@ -913,19 +915,22 @@ form p {
   }
 }
 .animated-two-column-block__image img {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  display: block;
   /* fade the RIGHT edge into white */
-  --edge-fade: 24%;
+  --edge-fade: 28%;
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - var(--edge-fade)), rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - var(--edge-fade)), rgba(0, 0, 0, 0) 100%);
 }
 .animated-two-column-block__content {
   position: relative;
   z-index: 2;
+  min-height: 0;
 }
 @media (min-width: 48em) {
   .animated-two-column-block__content {
@@ -934,7 +939,7 @@ form p {
 }
 .animated-two-column-block__heading {
   margin: 24px 0 32px -112px;
-  font-size: clamp(40px, 55vw, 4vw); /* keep your values */
+  font-size: clamp(40px, 55vw, 4vw);
   color: #be0002;
 }
 .animated-two-column-block__description {
@@ -979,7 +984,6 @@ form p {
 }
 
 /* ===== Animation (JS toggles .is-in-view on the inner block) ===== */
-/* Only hide/animate when JS is active */
 .js .animated-two-column-block {
   /* Stagger: heading first, then description */
 }

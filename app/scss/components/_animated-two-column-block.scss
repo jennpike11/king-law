@@ -6,6 +6,7 @@
 
   @include respond-up(small) {
     @include flex-between;
+    align-items: stretch;
   }
 
   &__wrapper {
@@ -13,19 +14,24 @@
   }
 
   &__image {
-    position: relative;
-    background: $white;
+    position: relative;    
+    overflow: hidden; 
+    min-height: 0;    
 
-    @include respond-up(small) { width: 50%; }
+    @include respond-up(small) { 
+      width: 50%; 
+    }
 
     img {
-      display: block;
-      width: 100%;
+      position: absolute;    
+      inset: 0;              
+      width: 100%;           
       height: 100%;
-      object-fit: cover;
+      object-fit: cover;    
+      display: block;
 
       /* fade the RIGHT edge into white */
-      --edge-fade: 24%;
+      --edge-fade: 28%;
 
       -webkit-mask-image: linear-gradient(
         to right,
@@ -45,13 +51,16 @@
   &__content {
     position: relative;
     z-index: 2;
+    min-height: 0;
 
-    @include respond-up(small) { width: 50%; }
+    @include respond-up(small) { 
+      width: 50%; 
+    }
   }
 
   &__heading {
     margin: 24px 0 32px -112px;
-    font-size: clamp(40px, 55vw, 4vw); /* keep your values */
+    font-size: clamp(40px, 55vw, 4vw); 
     color: $colorTwo;
   }
 
@@ -85,7 +94,9 @@
       text-align: right;
     }
 
-    .primary-button { margin-left: auto; }
+    .primary-button { 
+      margin-left: auto; 
+    }
 
     /* fade the LEFT edge when the image sits on the right */
     .animated-two-column-block__image img {
@@ -106,7 +117,6 @@
 }
 
 /* ===== Animation (JS toggles .is-in-view on the inner block) ===== */
-/* Only hide/animate when JS is active */
 .js .animated-two-column-block {
   &__heading,
   &__description {

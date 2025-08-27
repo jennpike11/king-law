@@ -4,7 +4,7 @@
   \***************************/
 (function ($) {
   $(function () {
-    // Sticky menu
+// Sticky menu
     $(window).on('scroll', function () {
       if ($(window).scrollTop() >= 100) {
         $('.site-header__wrapper').addClass('sticky');
@@ -21,7 +21,6 @@
 
 
 // Services Block
-// Helper: set active image using normal CSS transitions
 function setActiveImage($images, idx) {
   $images.removeClass('is-hover'); // clear preview
   $images.removeClass('is-active').eq(idx).addClass('is-active'); // CSS handles cross-fade
@@ -123,7 +122,7 @@ $(document)
   });
 
 
-    // Sticky CTA Block
+// Sticky CTA Block
     const $inner = $('.sticky-cta-block__inner');
     const $wrapper = $('.sticky-cta-block__wrapper');
     const $content = $('.landing-page__content');
@@ -180,7 +179,7 @@ $(document)
     }
 
 
-    // Car animation
+// Car animation
     let carHasDrivenOff = false;
     $(window).on('load', function () {
       $('.sliding-image').addClass('slide-in');
@@ -200,7 +199,7 @@ $(document)
     });
 
 
-    // Vertical Sliding Animation
+// Vertical Sliding Animation
     const raf = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 1000 / 60); };
     const elementsToShow = document.querySelectorAll('.vertical-slide-yes');
 
@@ -389,6 +388,7 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
   });
 }
 
+
 // Hero Block Animation
 (function ($) {
   $(function () {
@@ -448,9 +448,7 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
 })(jQuery);
 
 
-
 // Heading Block & Reviews Block Heading Animation
-// Heading + Reviews text animation: earlier in and earlier out
 (function () {
   document.documentElement.classList.add('js');
 
