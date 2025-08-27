@@ -2,9 +2,9 @@
 @use '../base/mixins' as *;
 @use "sass:color";
 
-/* Moving gradient: pan */
+/* Moving gradient pan with seamless loop using alternate direction */
 body {
-  /* base + analogous tints around #131D38 */
+  /* base plus analogous tints around #131D38 */
   --c0: #131D38;
   --c1: #1b2750;
   --c2: #0e142b;
@@ -21,23 +21,32 @@ body {
     var(--c0) 100%
   );
   background-size: 300% 300%;
-  animation: mg-pan var(--speed) ease-in-out infinite;
+  animation: mg-pan var(--speed) linear infinite;
+  animation-direction: alternate;
 }
 
 @keyframes mg-pan {
-  0%   { background-position:   0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position:   0% 50%; }
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
-/* add a tiny noise veil to avoid banding (optional) */
+/* optional noise veil to reduce banding */
 body::after {
   content: "";
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   pointer-events: none;
   background-image:
     radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.02) 0, transparent 100%),
     radial-gradient(1px 1px at 80% 70%, rgba(0,0,0,.02) 0, transparent 100%);
   mix-blend-mode: overlay;
   opacity: .35;
+}
+
+/* accessibility guard for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }
