@@ -74,9 +74,14 @@
     color: $white;
   }
 
-  .primary-button { margin-top: 40px; }
+  .primary-button { 
+    margin-top: 40px; 
+  }
 
-  li { margin-top: 8px; list-style-type: disc; }
+  li { 
+    margin-top: 16px; 
+    list-style-type: disc; 
+  }
 
   /* ===== Reversed layout: image on RIGHT, text on LEFT ===== */
   &.reverse--1 {

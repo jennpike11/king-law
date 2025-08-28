@@ -121,3 +121,104 @@ add_filter('use_block_editor_for_post_type', function($use_block_editor, $post_t
     }
     return $use_block_editor;
 }, 10, 2);
+
+
+
+// Add thumbnail field to category (ADD form)
+function add_category_thumbnail_field($taxonomy = null) { // accept arg to match hook
+    ?>
+    <div class="form-field">
+        <label for="category_thumbnail"><?php _e('Category Thumbnail', 'text-domain'); ?></label>
+        <input type="text" name="category_thumbnail" id="category_thumbnail" value="" />
+        <button class="upload_image_button button"><?php _e('Upload Image', 'text-domain'); ?></button>
+    </div>
+    <script type="text/javascript">
+      // no document-ready wrapper (per your preference)
+      (function(){
+        document.addEventListener('click', function(e){
+          var btn = e.target.closest('.upload_image_button');
+          if (!btn) return;
+          e.preventDefault();
+
+          if (typeof wp === 'undefined' || !wp.media) return; // guard if media not enqueued
+          var frame = wp.media({
+            title: '<?php echo esc_js( __( 'Choose Image', 'text-domain' ) ); ?>',
+            button: { text: '<?php echo esc_js( __( 'Use Image', 'text-domain' ) ); ?>' },
+            multiple: false
+          });
+          frame.on('select', function(){
+            var att = frame.state().get('selection').first().toJSON();
+            var input = document.getElementById('category_thumbnail');
+            if (input) input.value = att.url;
+          });
+          frame.open();
+        }, {passive:false});
+      })();
+    </script>
+    <?php
+}
+add_action('category_add_form_fields', 'add_category_thumbnail_field', 10, 1); // accept 1 arg
+
+// Save category thumbnail (CREATE)
+function save_category_thumbnail($term_id, $tt_id) { // accept both args
+    if (isset($_POST['category_thumbnail'])) {
+        update_term_meta($term_id, 'category_thumbnail', sanitize_text_field($_POST['category_thumbnail']));
+    }
+}
+add_action('created_category', 'save_category_thumbnail', 10, 2);
+
+// Edit thumbnail field for existing categories (EDIT form)
+function edit_category_thumbnail_field($term /* , $taxonomy not passed here */) {
+    $thumbnail = get_term_meta($term->term_id, 'category_thumbnail', true);
+    ?>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+            <label for="category_thumbnail"><?php _e('Category Thumbnail', 'text-domain'); ?></label>
+        </th>
+        <td>
+            <input type="text" name="category_thumbnail" id="category_thumbnail" value="<?php echo esc_attr($thumbnail); ?>" />
+            <button class="upload_image_button button"><?php _e('Upload Image', 'text-domain'); ?></button>
+        </td>
+    </tr>
+    <script type="text/javascript">
+      // no document-ready wrapper (per your preference)
+      (function(){
+        document.addEventListener('click', function(e){
+          var btn = e.target.closest('.upload_image_button');
+          if (!btn) return;
+          e.preventDefault();
+
+          if (typeof wp === 'undefined' || !wp.media) return;
+          var frame = wp.media({
+            title: '<?php echo esc_js( __( 'Choose Image', 'text-domain' ) ); ?>',
+            button: { text: '<?php echo esc_js( __( 'Use Image', 'text-domain' ) ); ?>' },
+            multiple: false
+          });
+          frame.on('select', function(){
+            var att = frame.state().get('selection').first().toJSON();
+            var input = document.getElementById('category_thumbnail');
+            if (input) input.value = att.url;
+          });
+          frame.open();
+        }, {passive:false});
+      })();
+    </script>
+    <?php
+}
+add_action('category_edit_form_fields', 'edit_category_thumbnail_field', 10, 1); // only 1 arg
+
+// Save thumbnail for existing categories (UPDATE)
+function update_category_thumbnail($term_id, $tt_id) { // accept both args
+    if (isset($_POST['category_thumbnail'])) {
+        update_term_meta($term_id, 'category_thumbnail', sanitize_text_field($_POST['category_thumbnail']));
+    }
+}
+add_action('edited_category', 'update_category_thumbnail', 10, 2);
+
+// Ensure media modal is available on category screens
+add_action('admin_enqueue_scripts', function(){
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if ($screen && $screen->taxonomy === 'category') {
+        wp_enqueue_media();
+    }
+});

@@ -79,6 +79,12 @@
 })(jQuery);
 
 
+// Hero Block Line Animation
+  jQuery(window).on('load', function () {
+    $('.hero-block').addClass('ready'); 
+  });
+
+
 // Services Block
 function setActiveImage($images, idx) {
   $images.removeClass('is-hover'); // clear preview

@@ -14,7 +14,7 @@ if( have_rows('two_column_block') ):
 ?>
 
 <section class="two-column-block__wrapper padding--<?php echo esc_attr($verticalPadding); ?>">
-  <div class="two-column-block">
+  <div class="two-column-block column-alignment--<?php echo $columnAlignment ?>">
     <div class="column">
       <?php if( $imageOne ): ?>
         <div class="column__image">
