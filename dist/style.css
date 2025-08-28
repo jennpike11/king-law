@@ -1219,6 +1219,7 @@ form p {
   line-height: 26px;
   color: #000000;
   font-family: "Poppins-Regular";
+  text-transform: unset;
 }
 .featured-posts-block__link {
   display: block;
