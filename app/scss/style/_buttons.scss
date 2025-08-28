@@ -2,7 +2,8 @@
 @use '../base/mixins' as *;
 
 
-.primary-button, .site-footer form input.wpcf7-submit {
+.primary-button, .site-footer form input.wpcf7-submit,
+#searchsubmit {
   display: flex;
   align-items: center;
   justify-content: center;

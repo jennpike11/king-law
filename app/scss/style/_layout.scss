@@ -1,0 +1,125 @@
+@use '../base/globals' as *;
+
+.post-template-default {
+
+
+.content-post {
+  &__header {
+    @include flex-center;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;              
+    height: 100%;
+    text-align: center;
+    isolation: isolate;
+
+  /* banner sizing */
+  min-height: clamp(320px, 46vw, 800px);
+  margin-bottom: clamp(24px, 5vw, 64px);
+
+  /* one mask to rule them all */
+  --fade-start: 60%;
+  --fade-end: 100%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 var(--fade-start),
+    rgba(0,0,0,0) var(--fade-end)
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 var(--fade-start),
+    rgba(0,0,0,0) var(--fade-end)
+  );
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+
+  /* overlay sits above the image, below the text */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45); /* tune darkness */
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;               
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    /* remove the mask from the image itself */
+    -webkit-mask: none;
+            mask: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }        
+  }
+
+  &__title {
+    @include container;
+    z-index: 2;
+    width: 100%;
+    font-size: 10vw;
+    color: $white;
+  }
+
+  &__date {
+    @include container;
+    z-index: 2;
+    color: $colorTwo;
+    font-size: 32px;
+    font-family: $font-tertiary;
+  }
+
+  &__content {
+    @include container;  
+    max-width: 960px;
+
+      h1, h2, h3, h4, h5, h6 {
+          margin: 40px 0 24px;
+      }
+
+      h2 {
+          font-size: 28px;
+          line-height: 38px;
+
+          @include respond(small){
+              font-size: 32px;
+              line-height: 42px;
+          }
+      }
+
+      ul {
+          margin-bottom: 40px;
+      }
+
+      ul li {
+          margin-bottom: 16px;
+          list-style-type: disc;
+          list-style-position: inside;
+      }
+
+      ol li {
+          margin-bottom: 16px;
+          list-style-type: unset;
+          list-style-position: inside;
+      }
+
+      .wp-block-image {
+        margin: 16px auto 32px;
+      }
+    }
+  } 
+}

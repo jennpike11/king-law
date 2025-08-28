@@ -111,13 +111,7 @@
 // Pages that are not home page
 .page-template-default:not(.home) .hero-block {
   &__wrapper {
-    @include respond-up(small){
-      height: 500px;
-    }
-
-    @include respond-up(large){
-      height: 560px;
-    }
+    height: clamp(320px, 46vw, 680px);
   }
 
   &__heading {
@@ -126,7 +120,7 @@
     &:after {
       content: '';
       display: block;
-      width: 0;
+      width: 0; 
       height: 2px;
       margin: 4px 0;
       background-color: $white;
