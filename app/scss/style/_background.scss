@@ -2,38 +2,77 @@
 @use '../base/mixins' as *;
 @use "sass:color";
 
-/* Moving gradient pan with seamless loop using alternate direction */
-body {
-  /* base plus analogous tints around #131D38 */
-  --c0: #131D38;
+/* palette at root */
+:root {
+ --c0: #131D38;
   --c1: #1b2750;
   --c2: #0e142b;
   --c3: #22336a;
-  --speed: 22s;
+  --accent: #1E4F8F; 
+  --speed: 36s; 
+}
 
+html, body { min-height: 100%; }
+html { background-color: var(--c0); }
+
+body {
   position: relative;
-  background: linear-gradient(
-    120deg,
-    var(--c0) 0%,
-    var(--c1) 25%,
-    var(--c2) 50%,
-    var(--c3) 75%,
-    var(--c0) 100%
-  );
-  background-size: 300% 300%;
-  animation: mg-pan var(--speed) linear infinite;
+  isolation: isolate;
+  background: transparent;
+}
+
+/* diagonal motion layer behind everything */
+/* diagonal base + soft highlight, no visible midline */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* 1) Base palette exactly as you have it */
+  /* 2) Separate soft highlight with low-alpha accent */
+  background-image:
+    linear-gradient(
+      120deg,
+      var(--c0) 0%,
+      var(--c1) 18%,
+      var(--c2) 36%,
+      var(--c3) 64%,
+      var(--c2) 82%,
+      var(--c0) 100%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(30,79,143,0) 35%,   /* transparent lead-in */
+      rgba(30,79,143,0.06) 47%,
+      rgba(30,79,143,0.12) 50%, /* peak of the blur */
+      rgba(30,79,143,0.06) 53%,
+      rgba(30,79,143,0) 65%    /* transparent tail-out */
+    ); /* accent = #1E4F8F */
+
+  background-size: 300% 300%, 300% 300%;
+  background-position: 0% 0%, 0% 0%;
+  background-repeat: no-repeat, no-repeat;
+
+  animation: mg-pan-diag var(--speed, 36s) linear infinite;
   animation-direction: alternate;
+
+  will-change: background-position;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-@keyframes mg-pan {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+@keyframes mg-pan-diag {
+  0%   { background-position: 0% 0%, 0% 0%; }
+  100% { background-position: 100% 100%, 100% 100%; }
 }
 
-/* optional noise veil to reduce banding */
+
+/* subtle noise on top to reduce banding */
 body::after {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   background-image:
@@ -43,9 +82,9 @@ body::after {
   opacity: .35;
 }
 
-/* accessibility guard for users who prefer reduced motion */
+/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  body {
+  body::before {
     animation: none;
     background-position: 50% 50%;
   }
