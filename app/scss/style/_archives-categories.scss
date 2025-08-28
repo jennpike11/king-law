@@ -1,3 +1,74 @@
-.archive, .category {
-  
+@use '../base/globals' as *;
+
+.category-header {
+  @include flex-center;
+    position: relative;            /* anchor abs children */
+    isolation: isolate;            /* clean stacking context */
+
+    /* parent controls the banner height */
+    min-height: clamp(320px, 46vw, 680px);
+    margin-bottom: clamp(24px, 5vw, 64px);
+
+    /* mask controls for the image fade */
+    --fade-start: 70%;
+    --fade-end: 100%;
+
+    &__image {
+      position: absolute;
+      inset: 0;                      /* top/right/bottom/left: 0 */
+      z-index: 0;                  
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 var(--fade-start),
+        rgba(0,0,0,0) var(--fade-end)
+      );
+          mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 var(--fade-start),
+        rgba(0,0,0,0) var(--fade-end)
+      );
+      -webkit-mask-size: 100% 100%;
+              mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      }
+
+      &__title {
+        @include flex-center;
+        position: relative;
+        z-index: 1;                   
+        height: 100%;                  
+        padding-bottom: clamp(56px, 8vw, 112px);
+      }
+
+      &__heading {
+        width: 100%;
+        font-size: 10vw;
+        color: rgba(255,255,255,0.2);
+        white-space: nowrap;
+      }
+
+      &__subheading {
+        position: absolute;
+        left: 0; right: 0; bottom: 8px;
+        color: $colorTwo;
+        font-size: 72px;
+        font-family: $font-tertiary;
+      }
+}
+
+.category-content {
+  @include container;
+
+  @include respond(small){
+    @include flex-between;
+    flex-wrap: wrap;
+  }
+
 }

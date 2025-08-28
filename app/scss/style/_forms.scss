@@ -1,48 +1,50 @@
 @use '../base/globals' as *;
 
 // Contact Form
-form {
-    width: 64%;
-    margin: auto;
+.site-footer-form {
+  form {
+      width: 64%;
+      margin: auto;
 
-    input:not(.wpcf7-submit), textarea {
-      width: 100% !important;
-      margin: 0 0 20px;
-      height: 80px;
-      padding: 1rem;
-      border: 1px solid $black;
-      color: $black;
-      font-size: 1rem;
-      font-family: $font-primary !important;
-      background: $white;
+      input:not(.wpcf7-submit), textarea {
+        width: 100% !important;
+        margin: 0 0 20px;
+        height: 80px;
+        padding: 1rem;
+        border: 1px solid $black;
+        color: $black;
+        font-size: 1rem;
+        font-family: $font-primary !important;
+        background: $white;
+      }
+
+      ::placeholder {
+        color: $black;
+        font-family: $font-primary !important;
+      }
+
+      textarea[name="your-message"] {
+        height: 7.5em; 
+        resize: vertical; 
+      }
+
+      .input.wpcf7-submit {
+        width: 100% !important;
+      }
+
+      p {
+        margin: unset;
+      }
     }
 
-    ::placeholder {
-      color: $black;
-      font-family: $font-primary !important;
-    }
+  .form-row {
+    > p {
+    @include flex-between;
 
-    textarea[name="your-message"] {
-      height: 7.5em; 
-      resize: vertical; 
-    }
-
-    .input.wpcf7-submit {
-      width: 100% !important;
-    }
-
-    p {
-      margin: unset;
-    }
-  }
-
-.form-row {
-  > p {
-  @include flex-between;
-
-    > span {
-      display: block;
-      width: calc(50% - 8px);
+      > span {
+        display: block;
+        width: calc(50% - 8px);
+      }
     }
   }
 }

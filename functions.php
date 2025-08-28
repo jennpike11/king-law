@@ -222,3 +222,35 @@ add_action('admin_enqueue_scripts', function(){
         wp_enqueue_media();
     }
 });
+
+// Front-end helper: output category image from either ID or URL
+if ( ! function_exists('get_category_thumbnail') ) {
+  function get_category_thumbnail($term_id) {
+    // First try an attachment ID (if you ever store one under 'category_image_id')
+    $img_id = (int) get_term_meta($term_id, 'category_image_id', true);
+    if ($img_id) {
+      $term = get_term($term_id);
+      return wp_get_attachment_image(
+        $img_id,
+        'large',
+        false,
+        [
+          'class'    => 'category-header__image',
+          'alt'      => $term && ! is_wp_error($term) ? esc_attr($term->name) : '',
+          'loading'  => 'lazy',
+          'decoding' => 'async',
+        ]
+      );
+    }
+
+    // Fallback to the URL you are currently saving under 'category_thumbnail'
+    $url = trim((string) get_term_meta($term_id, 'category_thumbnail', true));
+    if ($url !== '') {
+      $term = get_term($term_id);
+      $alt  = $term && ! is_wp_error($term) ? $term->name : '';
+      return '<img class="category-header__image" src="' . esc_url($url) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async">';
+    }
+
+    return '';
+  }
+}

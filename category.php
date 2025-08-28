@@ -11,12 +11,11 @@ get_header(); ?>
         <?php if (function_exists('get_category_thumbnail')) {
           echo get_category_thumbnail(get_queried_object_id());
         } ?>
-        <div class="category-header__title-wrapper">
-          <h2 class="category-header__title"><?php single_cat_title('', true); ?></h2>
-          <div class="category-header__description"><?php echo category_description(); ?></div>
+        <div class="category-header__title">
+          <h2 class="category-header__heading"><?php single_cat_title('', true); ?></h2>
+          <div class="category-header__subheading"><?php echo category_description(); ?></div>
         </div>
       </div>
-
       <div class="category-content__search-form">
         <?php get_search_form(); ?>
       </div>

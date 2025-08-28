@@ -80,6 +80,74 @@
   will-change: transform;
 }
 
+.category-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* anchor abs children */
+  isolation: isolate; /* clean stacking context */
+  /* parent controls the banner height */
+  min-height: clamp(320px, 46vw, 680px);
+  margin-bottom: clamp(24px, 5vw, 64px);
+  /* mask controls for the image fade */
+  --fade-start: 70%;
+  --fade-end: 100%;
+}
+.category-header__image {
+  position: absolute;
+  inset: 0; /* top/right/bottom/left: 0 */
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-start), rgba(0, 0, 0, 0) var(--fade-end));
+  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-start), rgba(0, 0, 0, 0) var(--fade-end));
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.category-header__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding-bottom: clamp(56px, 8vw, 112px);
+}
+.category-header__heading {
+  width: 100%;
+  font-size: 10vw;
+  color: rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+.category-header__subheading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  color: #be0002;
+  font-size: 72px;
+  font-family: "LibreBaskerville-Regular", serif;
+}
+
+.category-content {
+  box-sizing: border-box;
+  width: calc(100% - 64px);
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 48em) {
+  .category-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
 .primary-button, .site-footer form input.wpcf7-submit {
   display: flex;
   align-items: center;
@@ -720,11 +788,11 @@ i.fa-solid:before {
   margin-top: auto;
 }
 
-form {
+.site-footer-form form {
   width: 64%;
   margin: auto;
 }
-form input:not(.wpcf7-submit), form textarea {
+.site-footer-form form input:not(.wpcf7-submit), .site-footer-form form textarea {
   width: 100% !important;
   margin: 0 0 20px;
   height: 80px;
@@ -735,30 +803,29 @@ form input:not(.wpcf7-submit), form textarea {
   font-family: "Poppins-Regular", sans-serif !important;
   background: #ffffff;
 }
-form ::-moz-placeholder {
+.site-footer-form form ::-moz-placeholder {
   color: #000000;
   font-family: "Poppins-Regular", sans-serif !important;
 }
-form ::placeholder {
+.site-footer-form form ::placeholder {
   color: #000000;
   font-family: "Poppins-Regular", sans-serif !important;
 }
-form textarea[name=your-message] {
+.site-footer-form form textarea[name=your-message] {
   height: 7.5em;
   resize: vertical;
 }
-form .input.wpcf7-submit {
+.site-footer-form form .input.wpcf7-submit {
   width: 100% !important;
 }
-form p {
+.site-footer-form form p {
   margin: unset;
 }
-
-.form-row > p {
+.site-footer-form .form-row > p {
   display: flex;
   justify-content: space-between;
 }
-.form-row > p > span {
+.site-footer-form .form-row > p > span {
   display: block;
   width: calc(50% - 8px);
 }
