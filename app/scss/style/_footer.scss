@@ -17,6 +17,10 @@
     text-align: center;
   }
 
+  &__subheading {
+    font-family: $font-tertiary;
+  }
+
   &__map {
     position: relative;
     width: 100%;

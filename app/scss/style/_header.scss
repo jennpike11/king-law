@@ -46,10 +46,11 @@
     }
 
     &__title {
-        font-family: $font-secondary;
+        font-family: $font-tertiary;
         text-transform: uppercase;
-        font-size: 40px;
+        font-size: 24px;
         color: $white;
+        font-weight: bold;
 
         &:hover {
             color: $white;
@@ -67,7 +68,7 @@
             column-gap: 40px;
             font-family: $font-secondary;
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 16px;
 
             @include respond(large){
                 margin: 0 32px 0 auto;

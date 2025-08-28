@@ -209,7 +209,7 @@ html {
   max-width: 100%;
   overflow-x: hidden;
   color: #ffffff;
-  font-family: "LibreBaskerville-Regular", serif;
+  font-family: "Poppins-Regular", sans-serif;
   font-size: 18px;
   line-height: 28px;
   scroll-behavior: smooth;
@@ -470,6 +470,9 @@ i.fa-solid:before {
   color: #ffffff;
   text-align: center;
 }
+.site-footer__subheading {
+  font-family: "LibreBaskerville-Regular", serif;
+}
 .site-footer__map {
   position: relative;
   width: 100%;
@@ -699,16 +702,16 @@ form input:not(.wpcf7-submit), form textarea {
   border: 1px solid #000000;
   color: #000000;
   font-size: 1rem;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
   background: #ffffff;
 }
 form ::-moz-placeholder {
   color: #000000;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
 }
 form ::placeholder {
   color: #000000;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
 }
 form textarea[name=your-message] {
   height: 7.5em;
@@ -779,10 +782,11 @@ form p {
   display: flex;
 }
 .site-header__title {
-  font-family: "Poppins-Black", sans-serif;
+  font-family: "LibreBaskerville-Regular", serif;
   text-transform: uppercase;
-  font-size: 40px;
+  font-size: 24px;
   color: #ffffff;
+  font-weight: bold;
 }
 .site-header__title:hover {
   color: #ffffff;
@@ -800,7 +804,7 @@ form p {
        column-gap: 40px;
   font-family: "Poppins-Black", sans-serif;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 16px;
 }
 @media (min-width: 64em) {
   .site-header .main-navigation ul {
@@ -1109,6 +1113,7 @@ form p {
   font-size: 28px;
   line-height: 1;
   color: #ffffff;
+  font-family: "LibreBaskerville-Regular", serif;
   text-align: right;
   opacity: 0;
   transition: opacity 900ms ease;
@@ -1478,6 +1483,7 @@ form p {
   width: 100%;
   color: #be0002;
   font-size: 72px;
+  font-family: "LibreBaskerville-Regular", serif;
 }
 
 .landing-page-footer {
@@ -1647,16 +1653,16 @@ form p {
   border-radius: 0.25rem;
   color: #ffffff;
   font-size: 1rem;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
   background: unset;
 }
 .landing-page-hero-block--standard__form form ::-moz-placeholder {
   color: #ffffff;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
 }
 .landing-page-hero-block--standard__form form ::placeholder {
   color: #ffffff;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
 }
 .landing-page-hero-block--standard__form form textarea[name=your-message] {
   height: 7.5em;
@@ -1775,16 +1781,16 @@ form p {
   border-radius: 0.25rem;
   color: #ffffff;
   font-size: 1rem;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
   background: unset;
 }
 .landing-page-hero-block--sliding-image__form form ::-moz-placeholder {
   color: #ffffff;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
 }
 .landing-page-hero-block--sliding-image__form form ::placeholder {
   color: #ffffff;
-  font-family: "LibreBaskerville-Regular", serif !important;
+  font-family: "Poppins-Regular", sans-serif !important;
 }
 .landing-page-hero-block--sliding-image__form form p {
   margin: unset;
@@ -2021,7 +2027,7 @@ form p {
   padding: 24px;
   border: 1px solid #ffffff;
   border-radius: 32px;
-  font-family: "LibreBaskerville-Regular", serif;
+  font-family: "Poppins-Regular", sans-serif;
   font-size: 20px;
   line-height: 32px;
   color: #ffffff;
@@ -2142,6 +2148,7 @@ form p {
   width: 100%;
   color: #be0002;
   font-size: 72px;
+  font-family: "LibreBaskerville-Regular", serif;
 }
 
 .reviews-block {
