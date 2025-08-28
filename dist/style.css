@@ -1400,7 +1400,7 @@ i.fa-solid:before {
 }
 @media (min-width: 64em) {
   .credentials-block__stat {
-    font-size: 14vw;
+    font-size: 12vw;
   }
 }
 .credentials-block__stat-description {
@@ -1635,9 +1635,9 @@ i.fa-solid:before {
   color: rgba(255, 255, 255, 0.99);
 }
 .hero-block__subheading {
-  font-size: clamp(24px, 55vw, 1.6vw);
+  font-size: clamp(24px, 55vw, 2.4vw);
   line-height: 0.9;
-  font-family: "Poppins-Regular", sans-serif;
+  font-family: "LibreBaskerville-Regular", serif;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.99);
 }
@@ -1682,6 +1682,10 @@ i.fa-solid:before {
   margin: 4px 0;
   background-color: #ffffff;
   transition: width 1s linear;
+}
+.page-template-default:not(.home) .hero-block__subheading {
+  font-size: clamp(24px, 55vw, 1.6vw);
+  font-family: "Poppins-Regular", sans-serif;
 }
 .page-template-default:not(.home) .hero-block__king {
   height: 90%;

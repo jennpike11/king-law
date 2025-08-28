@@ -41,14 +41,25 @@ if ( have_rows('hero_block') ) :
   <?php endif; ?>
 
   <div class="hero-block">
-    <div class="hero-block__text">
-      <?php if ($heading) : ?>
-        <h1 class="hero-block__heading"><?php echo $heading; ?></h1>
-      <?php endif; ?>
-      <?php if ($subheading) : ?>
-        <div class="hero-block__subheading"><?php echo $subheading; ?></div>
-      <?php endif; ?>
-    </div>
+    <?php if ( is_front_page() ) : ?>
+      <div class="hero-block__text">
+        <?php if ($subheading) : ?>
+          <div class="hero-block__subheading"><?php echo $subheading; ?></div>
+        <?php endif; ?>
+        <?php if ($heading) : ?>
+          <h1 class="hero-block__heading"><?php echo $heading; ?></h1>
+        <?php endif; ?>
+      </div>
+    <?php else : ?>
+      <div class="hero-block__text">
+        <?php if ($heading) : ?>
+          <h1 class="hero-block__heading"><?php echo $heading; ?></h1>
+        <?php endif; ?>
+        <?php if ($subheading) : ?>
+          <div class="hero-block__subheading"><?php echo $subheading; ?></div>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
 
     <div class="hero-block__king">
       <img src="https://kinglawstaging.wpenginepowered.com/wp-content/uploads/2025/08/arms_crossed_half_body.png" alt="">

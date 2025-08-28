@@ -548,6 +548,13 @@ $(document).on('click', '.animated-list-block__item', function (e) {
   }
 });
 
+$(document).on('click', function(e) {
+  if (!$(e.target).closest('.animated-list-block').length) {
+    $('.animated-list-block__item').removeClass('item-clicked');
+  }
+});
+
+
 
 
 
