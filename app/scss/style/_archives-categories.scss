@@ -184,15 +184,31 @@
 }
 
 .nav-previous {
+  margin-bottom: 16px;
+  color: $colorTwo;
+  
+  @include respond-up(small){
+    max-width: 400px;
+    margin-bottom: unset;
+  }
+
   &:before {
-    content: '\f061';
+    content: '\f060';
+    margin-right: 4px;
     font-family: fontawesome;
   }
 }
 
 .nav-next {
+  color: $colorTwo;
+
+  @include respond-up(small){
+    max-width: 400px;
+  }
+
  &:after {
   content: '\f061';
+  margin-left: 4px;
   font-family: fontawesome;
   }
 }

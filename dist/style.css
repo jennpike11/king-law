@@ -252,13 +252,33 @@
   display: none;
 }
 
+.nav-previous {
+  margin-bottom: 16px;
+  color: #be0002;
+}
+@media (min-width: 48em) {
+  .nav-previous {
+    max-width: 400px;
+    margin-bottom: unset;
+  }
+}
 .nav-previous:before {
-  content: "\f061";
+  content: "\f060";
+  margin-right: 4px;
   font-family: fontawesome;
 }
 
+.nav-next {
+  color: #be0002;
+}
+@media (min-width: 48em) {
+  .nav-next {
+    max-width: 400px;
+  }
+}
 .nav-next:after {
   content: "\f061";
+  margin-left: 4px;
   font-family: fontawesome;
 }
 
