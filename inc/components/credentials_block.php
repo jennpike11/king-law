@@ -24,17 +24,27 @@ if (have_rows('credentials_block')):
         <?php while (have_rows('credentials')): the_row();
           $image      = get_sub_field('image');
           $description = get_sub_field('description');
+          $link      = get_sub_field('link');
         ?>
+        <?php if ( !empty($link) ) { ?>
+          <a class="credentials-block__credential" href="<?php echo $link['url'] ?>" target="<?php echo $link['target'] ?>">
+        <?php } else { ?>  
           <div class="credentials-block__credential">
-            <?php if($image): ?>
+        <?php } ?>
+
+          <?php if($image): ?>
             <div class="credentials-block__image"><img src="<?php echo ($image['url']); ?>"></div>
-            <?php endif; ?>
+          <?php endif; ?>
 
-            <?php if($description): ?>
+          <?php if($description): ?>
             <div class="credentials-block__description"><?php echo ($description); ?></div>
-            <?php endif; ?>
+          <?php endif; ?>
 
-          </div>
+          <?php if ( !empty($link) ) { ?>
+            </a>
+          <?php } else { ?>  
+            </div>
+          <?php } ?>  
         <?php endwhile; ?>
       </div>
     <?php endif; ?>

@@ -61,22 +61,27 @@
   &__text {
     position: relative;
     z-index: 2;
+    max-width: 320px;
 
     @include respond-up(small){
-      width: 75%;
+      max-width: 1080px;
     }
   }
 
   &__heading {
-    font-size: clamp(24px, 55vw, 11vw);
+    font-size: clamp(24px, 55vw, 8.8vw);
     line-height: .9;
     font-family: $font-secondary;
     text-transform: uppercase;
     color: rgba(255,255,255,.99);
+
+    @include respond-up(small){
+      font-size: clamp(24px, 55vw, 11vw);
+    }
   }
 
   &__subheading {
-    font-size: clamp(24px, 55vw, 2.4vw);
+    font-size: clamp(20px, 55vw, 2.4vw);
     line-height: .9;
     font-family: $font-tertiary;
     text-transform: uppercase;
@@ -86,16 +91,20 @@
   &__king {
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: -32px;
     z-index: 2;
     line-height: 0;
+
+    @include respond-up(large){
+      right: 0;
+    }
 
     @include respond-up(large){
       right: 2vw;
     }
 
     img {
-      height: 40vh;
+      height: 30vh;
 
       @include respond-up(small){
         height: 64vh;

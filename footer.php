@@ -10,7 +10,7 @@ $landing_cpt_slugs = ['landing_page', 'landing-page']; // use your actual CPT ke
 $hide_cta = is_singular($landing_cpt_slugs) || is_post_type_archive($landing_cpt_slugs);
 ?>
 
-<footer class="site-footer__wrapper">
+<footer class="site-footer__wrapper" id="contact-us">
 	
   <div class="site-footer">
 

@@ -61,9 +61,13 @@
   }
 
   &__heading {
-    margin: 24px 0 32px -112px;
+    margin: 24px 24px 32px 24px;
     font-size: clamp(40px, 55vw, 4vw); 
     color: $colorTwo;
+
+    @include respond-up(small){
+      margin: 24px 0 32px -112px;
+    }
   }
 
   &__description {
@@ -92,8 +96,12 @@
     --slide-x: -4rem;
 
     .animated-two-column-block__heading {
-      margin: 24px -112px 32px 0;
+      margin: 24px 24px 32px;
       text-align: right;
+
+      @include respond-up(small){
+        margin: 24px -112px 32px 0;
+      }
     }
 
     .animated-two-column-block__description {

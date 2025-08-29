@@ -87,18 +87,28 @@ img { max-width: 100%; }
 }
 
 .padding--xsmall { 
-  padding-top: 24px; 
-  padding-bottom: 24px; 
+  padding-top: 16px; 
+  padding-bottom: 16px; 
+
+  @include respond(small) {
+    padding-top: 24px; 
+    padding-bottom: 24px;
+  }
 }
 
 .padding--small { 
-  padding-top: 40px; 
-  padding-bottom: 40px; 
+  padding-top: 24px; 
+  padding-bottom: 24px; 
+
+  @include respond(small) {
+    padding-top: 40px; 
+    padding-bottom: 40px;
+  }
 }
 
 .padding--medium {
-  padding-top: 48px; 
-  padding-bottom: 48px;
+  padding-top: 40px; 
+  padding-bottom: 40px;
 
   @include respond(small) {
     padding-top: 72px; 
@@ -107,8 +117,8 @@ img { max-width: 100%; }
 }
 
 .padding--large {
-  padding-top: 88px; 
-  padding-bottom: 88px;
+  padding-top: 72px; 
+  padding-bottom: 72px;
 
   @include respond(small){
     padding-top: 112px; 
@@ -117,8 +127,8 @@ img { max-width: 100%; }
 }
 
 .padding--xlarge {
-  padding-top: 112px; 
-  padding-bottom: 112px;
+  padding-top: 96px; 
+  padding-bottom: 96px;
 
   @include respond(small) {
     padding-top: 168px; 
