@@ -542,18 +542,30 @@ $(function () {
 // Animated Two Column Block Animation
 $(document).on('click', '.animated-list-block__item', function (e) {
   var $it = $(this);
+  var $parent = $it.closest('.animated-list-block');
+
   if (!$it.hasClass('item-clicked')) {
     e.preventDefault();
     $it.addClass('item-clicked')
        .siblings('.animated-list-block__item').removeClass('item-clicked');
+
+    // mark parent as active so SCSS can hide borders
+    $parent.addClass('has-clicked');
+  } else {
+    // if clicked again, unselect and reset parent state
+    $it.removeClass('item-clicked');
+    $parent.removeClass('has-clicked');
   }
 });
 
+// Click anywhere outside block → reset everything
 $(document).on('click', function(e) {
   if (!$(e.target).closest('.animated-list-block').length) {
     $('.animated-list-block__item').removeClass('item-clicked');
+    $('.animated-list-block').removeClass('has-clicked');
   }
 });
+
 
 
 

@@ -18,12 +18,17 @@ html {
   overflow-x: hidden;
   color: $white;
   font-family: $font-primary;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 24px;
   scroll-behavior: smooth;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   z-index: 0;
+
+  @include respond-up(small){
+    font-size: 18px;
+    line-height: 28px;
+  }
 
   &.active { overflow-y: hidden; }
 }

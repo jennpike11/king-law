@@ -125,6 +125,7 @@
 
   &__heading {
     width: fit-content;
+    margin-bottom: unset;
 
     &:after {
       content: '';
@@ -138,8 +139,13 @@
   }
 
   &__subheading {
-    font-size: clamp(24px, 55vw, 1.6vw);
+    max-width: 75%;
+    font-size: clamp(16px, 55vw, 1.6vw);
     font-family: $font-primary;
+
+    @include respond-up(small){
+      max-width: 100%;
+    }
   }
 
   &__king {
