@@ -13,39 +13,42 @@
     background: unset;
   }
 
-  &__image {
-    position: relative;    
-    overflow: hidden; 
-    min-height: 0;    
-
+  &__image {   
     @include respond-up(large) { 
+      position: relative;    
+      overflow: hidden; 
       width: 50%; 
+      min-height: 0; 
     }
 
     img {
       display: block;
-      position: absolute;    
-      inset: 0;              
       width: 100%;           
-      height: 100%;
-      object-fit: cover;    
-      object-position: top;
+      height: 320px;
+      object-fit: cover; 
 
-      /* fade the RIGHT edge into white */
-      --edge-fade: 28%;
+      @include respond-up(large){
+        position: absolute;    
+        inset: 0;                 
+        object-position: top;
+        height: 100%;
 
-      -webkit-mask-image: linear-gradient(
-        to right,
-        #000 0%,
-        #000 calc(100% - var(--edge-fade)),
-        rgba(0,0,0,0) 100%
-      );
-      mask-image: linear-gradient(
-        to right,
-        #000 0%,
-        #000 calc(100% - var(--edge-fade)),
-        rgba(0,0,0,0) 100%
-      );
+        /* fade the RIGHT edge into white */
+        --edge-fade: 28%;
+
+        -webkit-mask-image: linear-gradient(
+          to right,
+          #000 0%,
+          #000 calc(100% - var(--edge-fade)),
+          rgba(0,0,0,0) 100%
+        );
+        mask-image: linear-gradient(
+          to right,
+          #000 0%,
+          #000 calc(100% - var(--edge-fade)),
+          rgba(0,0,0,0) 100%
+        );
+      }
     }
   }
 

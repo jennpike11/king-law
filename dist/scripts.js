@@ -430,8 +430,8 @@ if ($fpb.length && !$fpb.hasClass('slick-initialized')) {
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-      { breakpoint: 600,  settings: { slidesToShow: 3, slidesToScroll: 1 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 768,  settings: { slidesToShow: 2, slidesToScroll: 1 } },
       { breakpoint: 480,  settings: { slidesToShow: 1, slidesToScroll: 1 } }
     ]
   });
@@ -452,8 +452,8 @@ if ($reviews.length && !$reviews.hasClass('slick-initialized')) {
     autoplaySpeed: 2000,
     cssEase: 'linear',
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-      { breakpoint: 600,  settings: { slidesToShow: 1, slidesToScroll: 1 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 768,  settings: { slidesToShow: 2, slidesToScroll: 1 } },
       { breakpoint: 480,  settings: { slidesToShow: 1, slidesToScroll: 1 } }
     ]
   });

@@ -17,7 +17,7 @@
     height: 320px;
     background: unset;
 
-    @include respond-up(large){
+    @include respond-up(small){
       height: 72vh;
     }
 
@@ -95,7 +95,7 @@
     z-index: 2;
     line-height: 0;
 
-    @include respond-up(large){
+    @include respond-up(small){
       right: 0;
     }
 
@@ -106,7 +106,7 @@
     img {
       height: 30vh;
 
-      @include respond-up(large){
+      @include respond-up(small){
         height: 64vh;
       }
 
@@ -148,7 +148,7 @@
     img {
       height: 100%;
 
-      @include respond-up(large){
+      @include respond-up(small){
         height: 100%;
       }
 

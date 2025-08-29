@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 64px;
 
-  @include respond(large){
+  @include respond(small){
     font-size: 96px;
   }
 }
@@ -83,24 +83,24 @@ img { max-width: 100%; }
 .container { @include container; }
 
 .show-on-mobile {
-  @include respond(large){ display: none; }
+  @include respond(small){ display: none; }
 }
 
-.padding--xlarge { 
+.padding--xsmall { 
   padding-top: 16px; 
   padding-bottom: 16px; 
 
-  @include respond(large) {
+  @include respond(small) {
     padding-top: 24px; 
     padding-bottom: 24px;
   }
 }
 
-.padding--large { 
+.padding--small { 
   padding-top: 24px; 
   padding-bottom: 24px; 
 
-  @include respond(large) {
+  @include respond(small) {
     padding-top: 40px; 
     padding-bottom: 40px;
   }
@@ -110,7 +110,7 @@ img { max-width: 100%; }
   padding-top: 40px; 
   padding-bottom: 40px;
 
-  @include respond(large) {
+  @include respond(small) {
     padding-top: 72px; 
     padding-bottom: 72px;
   }
@@ -120,7 +120,7 @@ img { max-width: 100%; }
   padding-top: 72px; 
   padding-bottom: 72px;
 
-  @include respond(large){
+  @include respond(small){
     padding-top: 112px; 
     padding-bottom: 112px;
   }
@@ -130,7 +130,7 @@ img { max-width: 100%; }
   padding-top: 96px; 
   padding-bottom: 96px;
 
-  @include respond(large) {
+  @include respond(small) {
     padding-top: 168px; 
     padding-bottom: 168px;
   }
