@@ -64,18 +64,35 @@
 
   &__heading {
     width: 100%;
-    font-size: 10vw;
+    font-size: clamp(32px, 55vw, 10vw);
     color: $white;
     white-space: nowrap;
   }
 
   &__subheading {
     position: absolute;
-    left: 0; right: 0; bottom: 24px;
+    left: 0; 
+    right: 0; 
+    bottom: 4px;
     color: $colorTwo;
-    font-size: 72px;
+    font-size: clamp(24px, 55vw, 6vw);
     font-family: $font-tertiary;
+    white-space: nowrap;
+
+     p {
+      display: inline;
+     }
   } 
+
+  &__search-form {
+    width: 88%;
+    margin: -32px auto 0;
+    max-width: 640px;
+
+    @include respond-up(small){
+      margin: 40px auto 0;
+    }
+  }
 }
 
 
@@ -150,4 +167,32 @@
 
 .load-more {
   margin: 40px auto;
+}
+
+// Navigation
+.nav-links {
+  @include container;
+  padding: 16px 0;
+  
+  @include respond-up(small){
+    @include flex-between;
+  }
+}
+
+.nav-subtitle {
+  display: none;
+}
+
+.nav-previous {
+  &:before {
+    content: '\f061';
+    font-family: fontawesome;
+  }
+}
+
+.nav-next {
+ &:after {
+  content: '\f061';
+  font-family: fontawesome;
+  }
 }

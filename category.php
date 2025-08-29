@@ -15,7 +15,7 @@ get_header(); ?>
           <h2 class="category-header__heading"><?php single_cat_title('', true); ?></h2>
           <div class="category-header__subheading"><?php echo category_description(); ?></div>
         </div>
-        <div class="category-content__search-form">
+        <div class="category-header__search-form">
           <?php get_search_form(); ?>
         </div>
       </div>

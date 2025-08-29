@@ -83,6 +83,16 @@ strong {
 
 img { max-width: 100%; }
 
+.wp-block-quote {
+  max-width: 640px;
+  margin: auto;
+  padding: 80px;
+  text-align: center;
+  font-size: clamp(24px, 55vw, 1.2vw);
+  line-height: 1.4;
+  font-family: $font-tertiary;
+}
+
 .entry-footer { display: none; }
 
 .container { @include container; }

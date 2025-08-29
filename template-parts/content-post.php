@@ -14,7 +14,7 @@
 				<?php echo get_the_post_thumbnail(); ?>
 			</div>	
 			<div class="content-post__title">
-				<h1><?php the_title(); ?></h1>
+				<h1 class="content-post__heading"><?php the_title(); ?></h1>
 				<div class="content-post__date"><?php echo get_the_date(); ?></div>
 			</div>
 		</div>

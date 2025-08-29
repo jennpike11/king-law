@@ -70,8 +70,10 @@
   &__title {
     @include container;
     z-index: 2;
-    width: 100%;
-    font-size: 10vw;
+  }
+
+  &__heading {
+    font-size: clamp(28px, 55vw, 4vw);
     color: $white;
   }
 
@@ -79,7 +81,7 @@
     @include container;
     z-index: 2;
     color: $colorTwo;
-    font-size: 32px;
+    font-size: clamp(24px, 55vw, 1.5vw);
     font-family: $font-tertiary;
   }
 

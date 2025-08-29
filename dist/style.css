@@ -133,7 +133,7 @@
 }
 .category-header__heading {
   width: 100%;
-  font-size: 10vw;
+  font-size: clamp(32px, 55vw, 10vw);
   color: #ffffff;
   white-space: nowrap;
 }
@@ -141,10 +141,24 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 24px;
+  bottom: 4px;
   color: #be0002;
-  font-size: 72px;
+  font-size: clamp(24px, 55vw, 6vw);
   font-family: "LibreBaskerville-Regular", serif;
+  white-space: nowrap;
+}
+.category-header__subheading p {
+  display: inline;
+}
+.category-header__search-form {
+  width: 88%;
+  margin: -32px auto 0;
+  max-width: 640px;
+}
+@media (min-width: 48em) {
+  .category-header__search-form {
+    margin: 40px auto 0;
+  }
 }
 
 .category-content {
@@ -217,6 +231,35 @@
 
 .load-more {
   margin: 40px auto;
+}
+
+.nav-links {
+  box-sizing: border-box;
+  width: calc(100% - 64px);
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px 0;
+}
+@media (min-width: 48em) {
+  .nav-links {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.nav-subtitle {
+  display: none;
+}
+
+.nav-previous:before {
+  content: "\f061";
+  font-family: fontawesome;
+}
+
+.nav-next:after {
+  content: "\f061";
+  font-family: fontawesome;
 }
 
 .primary-button, .site-footer form input.wpcf7-submit,
@@ -459,6 +502,16 @@ strong {
 
 img {
   max-width: 100%;
+}
+
+.wp-block-quote {
+  max-width: 640px;
+  margin: auto;
+  padding: 80px;
+  text-align: center;
+  font-size: clamp(24px, 55vw, 1.2vw);
+  line-height: 1.4;
+  font-family: "LibreBaskerville-Regular", serif;
 }
 
 .entry-footer {
@@ -1124,8 +1177,9 @@ i.fa-solid:before {
   margin-left: auto;
   margin-right: auto;
   z-index: 2;
-  width: 100%;
-  font-size: 10vw;
+}
+.post-template-default .content-post__heading {
+  font-size: clamp(28px, 55vw, 4vw);
   color: #ffffff;
 }
 .post-template-default .content-post__date {
@@ -1136,7 +1190,7 @@ i.fa-solid:before {
   margin-right: auto;
   z-index: 2;
   color: #be0002;
-  font-size: 32px;
+  font-size: clamp(24px, 55vw, 1.5vw);
   font-family: "LibreBaskerville-Regular", serif;
 }
 .post-template-default .content-post__content {
