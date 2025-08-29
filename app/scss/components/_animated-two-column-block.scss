@@ -1,12 +1,20 @@
 @use '../base/globals' as *;
 
 .animated-two-column-block {
+   @include flex-between;
+   flex-direction: column;
   /* default slide-in direction (from RIGHT) */
   --slide-x: 4rem;
 
-  @include respond-up(large) {
-    @include flex-between;
+  @include respond-up(small) {
+    flex-direction: row;
     align-items: stretch;
+  }
+
+  &.reverse-on-mobile--1 {
+    @include respond-down(small){
+      flex-direction: column-reverse;
+    }
   }
 
   &__wrapper {
@@ -76,8 +84,6 @@
   &__description {
     width: 80%;
     margin: auto auto 0;
-    font-size: 18px;
-    line-height: 32px;
     color: $white;
   }
 

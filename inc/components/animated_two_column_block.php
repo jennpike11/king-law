@@ -1,16 +1,17 @@
 <?php // Two Column Block
 if( have_rows('animated_two_column_block') ): 
   while( have_rows('animated_two_column_block') ): the_row(); 
+    $reverseLayout = get_sub_field('reverse_layout'); 
+    $reverseOnMobile = get_sub_field('reverse_on_mobile'); 
     $verticalPadding = get_sub_field('vertical_padding'); 
     $heading = get_sub_field('heading'); 
     $description = get_sub_field('description');
     $cta = get_sub_field('cta'); 
     $image = get_sub_field('image'); 
-    $reverseLayout = get_sub_field('reverse_layout'); 
 ?>
 
 <section class="animated-two-column-block__wrapper padding--<?php echo $verticalPadding ?>">
-  <div class="animated-two-column-block reverse--<?php echo $reverseLayout ?>">
+  <div class="animated-two-column-block reverse--<?php echo $reverseLayout ?> reverse-on-mobile--<?php echo $reverseOnMobile ?>">
     <div class="animated-two-column-block__image">
       <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
     </div>  

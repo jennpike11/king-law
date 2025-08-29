@@ -1351,15 +1351,22 @@ i.fa-solid:before {
   }
 }
 .animated-two-column-block {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   /* default slide-in direction (from RIGHT) */
   --slide-x: 4rem;
   /* ===== Reversed layout: image on RIGHT, text on LEFT ===== */
 }
-@media (min-width: 64em) {
+@media (min-width: 48em) {
   .animated-two-column-block {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: stretch;
+  }
+}
+@media (max-width: 47.98em) {
+  .animated-two-column-block.reverse-on-mobile--1 {
+    flex-direction: column-reverse;
   }
 }
 .animated-two-column-block__wrapper {
@@ -1417,8 +1424,6 @@ i.fa-solid:before {
 .animated-two-column-block__description {
   width: 80%;
   margin: auto auto 0;
-  font-size: 18px;
-  line-height: 32px;
   color: #ffffff;
 }
 .animated-two-column-block .primary-button {
