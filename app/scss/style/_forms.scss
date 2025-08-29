@@ -3,8 +3,12 @@
 // Contact Form
 .site-footer-form {
   form {
-      width: 64%;
+      width: 80%;
       margin: auto;
+
+      @include respond-up(large){
+        width: 64%;
+      }
 
       input:not(.wpcf7-submit), textarea {
         width: 100% !important;

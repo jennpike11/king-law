@@ -90,7 +90,7 @@
     background: $white;
     cursor: pointer;
 
-    @include respond-up(small){
+    @include respond-up(large){
       width: calc(50% - 16px);
     }
 

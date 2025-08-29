@@ -15,12 +15,17 @@
 
   &__subheading {
     position: absolute;
-    bottom: 8px;
+    bottom: -8px;
     text-align: center;
     width: 100%;
     color: $colorTwo;
-    font-size: 72px;
+    font-size: 26px;
     font-family: $font-tertiary;
+
+     @include respond-up(large){
+      bottom: 8px;
+      font-size: 72px;
+    }
   }
 }
 
@@ -48,9 +53,13 @@
     flex-direction: column;
     height: 100%;
     margin: auto;
-    padding: 48px;
+    padding: 24px;
     background: $white;
     border-radius: 24px;
+
+    @include respond-up(large){
+      padding: 48px;
+    }
   }
 
   &__stars { 
@@ -90,10 +99,14 @@
   .slick-arrow {
     position: absolute;
     bottom: -72px;
-    left: 46%;
+    left: 36%;
     border: none;
     font-size: 0;
     background: none;
+
+    @include respond-up(large){
+      left: 46%;
+    }
 
     &:after {
       content: '\f137';
@@ -104,8 +117,12 @@
   }
 
   .slick-next {
-    right: 46%;
+    right: 36%;
     left: auto;
+
+    @include respond-up(large){
+      right: 46%;
+    }
 
     &:after { content: '\f138'; }
   }

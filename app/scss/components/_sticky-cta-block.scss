@@ -40,7 +40,7 @@
   }
 
   .landing-page__content {
-    @include respond(small){
+    @include respond(large){
       width: 60%;
     }
   }
@@ -55,14 +55,14 @@
   width: fit-content;
   margin: auto;
 
-  @include respond-down(small){
+  @include respond-down(large){
     width: calc(100% - 64px);
     padding: 32px;
     border: 1px solid $black;
     border-radius: 16px;
   }
 
-  @include respond(small){
+  @include respond(large){
     position: absolute;
     top: 0;
     right: 0;

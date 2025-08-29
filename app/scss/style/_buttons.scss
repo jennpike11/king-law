@@ -43,10 +43,14 @@
 }
 
 .site-footer form input.wpcf7-submit {
-  min-width: 400px;
+  min-width: 100%;
   height: 56px;
   margin: auto;
   font-size: 32px;
+
+  @include respond-up(large){
+    min-width: 400px;
+  }
 }
 
 // Read more buttons
@@ -54,7 +58,7 @@
     display: flex !important;
     align-items: center;
     margin-top: $spacer;
-    text-transform: uppercase;
+    text-transform: uppercase; 
 
     &:hover {
         display: flex !important;
