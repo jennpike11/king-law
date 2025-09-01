@@ -6,13 +6,13 @@
   /* default slide-in direction (from RIGHT) */
   --slide-x: 4rem;
 
-  @include respond-up(small) {
+  @include respond-up(large) {
     flex-direction: row;
     align-items: stretch;
   }
 
   &.reverse-on-mobile--1 {
-    @include respond-down(small){
+    @include respond-down(large){
       flex-direction: column-reverse;
     }
   }
