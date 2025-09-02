@@ -63,21 +63,17 @@
     z-index: 2;
     max-width: 320px;
 
-    @include respond-up(medium){
+    @include respond-up(large){
       max-width: 1080px;
     }
   }
 
   &__heading {
-    font-size: clamp(24px, 55vw, 8.8vw);
+    font-size: clamp(24px, 55vw, 10vw);
     line-height: .9;
     font-family: $font-secondary;
     text-transform: uppercase;
     color: rgba(255,255,255,.99);
-
-    @include respond-up(medium){
-      font-size: clamp(24px, 55vw, 11vw);
-    }
   }
 
   &__subheading {
@@ -95,11 +91,11 @@
     z-index: 2;
     line-height: 0;
 
-    @include respond-up(small){
+    @include respond-up(medium){
       right: 0;
     }
 
-    @include respond-up(medium){
+    @include respond-up(large){
       right: 2vw;
     }
 
@@ -118,9 +114,20 @@
 }
 
 // Pages that are not home page
-.page-template-default:not(.home) .hero-block {
+.page-template-default:not(.home) .hero-block,
+.page-template-page-old-pages .hero-block {
+  @include respond-up(large){
+    width: calc(100% - 64px);
+  }
+
   &__wrapper {
     height: clamp(320px, 46vw, 680px);
+  }
+
+  &__text {
+    @include respond-up(xlarge){
+      max-width: 100%;
+    }
   }
 
   &__heading {
@@ -153,21 +160,24 @@
 
     img {
       height: 100%;
-
-      @include respond-up(small){
-        height: 100%;
-      }
-
-      @include respond-up(medium){
-        height: 100%;
-      }
     }
   }
 }
 
+.page-template-page-old-pages .hero-block {
+  .hero-block__text {
+    max-width: 100%;
+  }
+
+  .hero-block__king {
+    display: none;
+  }
+}
+
+
 // Animation 
 
-// Line on page load
+// Line on page load for new pages that are not home page
 .page-template-default:not(.home) .ready .hero-block__heading:after {
   width: 100%;
 }

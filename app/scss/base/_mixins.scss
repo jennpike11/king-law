@@ -29,7 +29,7 @@ $breakpoints: (
 }
 
 // Container
-$container-max: 1600px !default; 
+$container-max: 1440px !default; 
 $container-pad: 32px !default;
 
 @mixin container($max: $container-max, $pad: $container-pad) {
