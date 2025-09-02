@@ -8,7 +8,7 @@
   border-radius: 24px;
   overflow: hidden;
 
-  @include respond-up(large){
+  @include respond-up(medium){
     padding: 64px;
   }
 
@@ -36,7 +36,7 @@
   &__items {
     @include container;
 
-    @include respond(large) {
+    @include respond(medium) {
       @include flex-between;
       align-items: flex-start;
     }
@@ -53,7 +53,7 @@
     letter-spacing: .02rem;
     color: $white;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       margin-bottom: 40px;
     }
   }
@@ -83,7 +83,7 @@
     cursor: pointer;
     transition: all .4s ease;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       width: 50%;
       font-size: 20px;
     }
@@ -175,7 +175,7 @@
   .primary-button {
     margin: 40px auto;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       margin: 40px 0;
     }
   }

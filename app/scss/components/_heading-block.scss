@@ -27,7 +27,7 @@
     font-family: $font-tertiary;
     white-space: nowrap;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       bottom: 8px;
       font-size: 72px;
     }

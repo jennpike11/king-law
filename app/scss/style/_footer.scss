@@ -60,14 +60,8 @@
     line-height: 24px;
     color: $white;
 
-    @include respond-down(large){
-      width: fit-content;
-    }
-
-    @include respond-up(large){
+    @include respond-up(medium){
       display: flex;
-      align-items: flex-start;
-      margin-top: unset;
     }
   }
 
@@ -126,9 +120,13 @@
     align-items: center;
     justify-content: flex-end;
     flex-direction: column;
-    margin: 32px auto 24px;
+    margin: 48px auto auto;
+
+    @include respond-up(medium){
+      margin: 32px auto 24px;
+    }
     
-    @include respond(large){
+    @include respond-up(large){
       flex-direction: row;
       width: 40%;
       margin:unset;

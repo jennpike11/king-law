@@ -97,7 +97,7 @@
           font-size: 28px;
           line-height: 38px;
 
-          @include respond(large){
+          @include respond(medium){
               font-size: 32px;
               line-height: 42px;
           }

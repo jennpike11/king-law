@@ -4,7 +4,7 @@
     @include container;
     max-width: unset;
 
-    @include respond(large){
+    @include respond(medium){
         display: flex;
         align-items: center;
         position: relative;
@@ -21,7 +21,7 @@
         padding-top: 96px;
         transition: all .2s linear;
 
-        @include respond(large){
+        @include respond(medium){
             position: fixed;
             top: 0;
             left: 0;
@@ -33,7 +33,7 @@
         }
 
         &.sticky {
-            @include respond(large) {
+            @include respond(medium) {
                 box-shadow: 0 0 30px 0 rgba(35, 35, 35, 0.05);
                 background-color: $colorOne;
                 transition: all .2s linear;
@@ -58,7 +58,7 @@
     }
 
     .main-navigation {
-        @include respond(large){
+        @include respond(medium){
             margin: 0 32px 0 auto;
         }
         
@@ -67,7 +67,7 @@
             text-transform: uppercase;
             font-size: 16px;
 
-            @include respond(large){
+            @include respond(medium){
                 margin: 0 32px 0 auto;
             }
          }

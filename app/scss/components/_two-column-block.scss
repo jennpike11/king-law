@@ -3,7 +3,7 @@
 .two-column-block {
     @include container;
 
-    @include respond(large){
+    @include respond(medium){
         @include flex-between;
     }
 
@@ -27,7 +27,7 @@
         @include flex-center;
         flex-direction: column;
 
-        @include respond(large){
+        @include respond(medium){
             width: calc(50% - 32px);
         } 
 
@@ -68,7 +68,7 @@
         &:first-of-type {
             margin-bottom: 40px;
 
-            @include respond(large){
+            @include respond(medium){
                 margin-bottom: unset;
             }
         }

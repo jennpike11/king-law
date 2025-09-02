@@ -45,7 +45,8 @@ $hide_cta = is_singular($landing_cpt_slugs) || is_post_type_archive($landing_cpt
 					<div>Westlake Village, CA 91361</div>
 					<div class="site-footer__phone"><span>Spanish:</span> (818) 855-5116</div>
 				</div>
-				<div class="socials">
+			</div>
+			<div class="socials">
 					<div class="socials__message">Follow for tips</div>
 					<div class="socials__links">
 						<a class="facebook" href="https://www.facebook.com/profile.php?id=61570183541871" target="_blank"></a>
@@ -55,7 +56,6 @@ $hide_cta = is_singular($landing_cpt_slugs) || is_post_type_archive($landing_cpt
 						<a class="youtube" href="https://www.youtube.com/@KennethKingLaw" target="_blank"></a>
 					</div>
 				</div>
-			</div>
 		</div>
 
   </div><!-- .site-footer -->

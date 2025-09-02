@@ -5,10 +5,11 @@
 // Comments show approximate pixel values for reference.
 $breakpoints: (
   small:   48em,   // 768
-  large:   64em,   // 1024
-  xlarge:  80em,   // 1280
-  xxlarge: 100em,  // 1600
-  ultra:   120em   // 1920
+  medium:   64em,   // 1024
+  large:  80em,   // 1280
+  xlarge: 100em,  // 1600
+  xxlarge:   120em,   // 1920
+  ultra:   150em   // 2400
 );
 
 // Lookup helper

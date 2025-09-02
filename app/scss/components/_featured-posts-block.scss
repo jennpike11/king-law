@@ -57,6 +57,22 @@
   }
 }
 
+.slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.slick-slide {
+  display: flex !important;
+  flex-direction: column;
+  height: auto !important;  
+}
+
+.slick-slide > div {
+  flex: 1;              
+  display: flex;
+}
+
 .slick-dots {
   display: flex;
   justify-content: center;

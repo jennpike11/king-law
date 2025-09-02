@@ -107,11 +107,11 @@
     background: $white;
     cursor: pointer;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       width: calc(50% - 16px);
     }
 
-    @include respond-up(large){
+    @include respond-up(medium){
       width: calc(33.33% - 16px);
     }
 

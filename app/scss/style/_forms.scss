@@ -6,7 +6,7 @@
       width: 88%;
       margin: auto;
 
-      @include respond-up(large){
+      @include respond-up(medium){
         width: 64%;
       }
 

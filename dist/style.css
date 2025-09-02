@@ -772,7 +772,7 @@ i.fa-solid:before {
   display: flex;
   justify-content: space-between;
 }
-@media (min-width: 64em) {
+@media (min-width: 80em) {
   .site-footer__contact-info {
     padding: 56px 0 32px;
   }
@@ -788,17 +788,9 @@ i.fa-solid:before {
   line-height: 24px;
   color: #ffffff;
 }
-@media (max-width: 63.98em) {
-  .site-footer__locations {
-    width: -moz-fit-content;
-    width: fit-content;
-  }
-}
 @media (min-width: 64em) {
   .site-footer__locations {
     display: flex;
-    align-items: flex-start;
-    margin-top: unset;
   }
 }
 .site-footer__phone {
@@ -810,7 +802,7 @@ i.fa-solid:before {
 .site-footer__location-one, .site-footer__location-two {
   margin-top: 32px;
 }
-@media (min-width: 64em) {
+@media (min-width: 80em) {
   .site-footer__location-one, .site-footer__location-two {
     width: 30%;
     margin-top: unset;
@@ -854,9 +846,14 @@ i.fa-solid:before {
   align-items: center;
   justify-content: flex-end;
   flex-direction: column;
-  margin: 32px auto 24px;
+  margin: 48px auto auto;
 }
 @media (min-width: 64em) {
+  .socials {
+    margin: 32px auto 24px;
+  }
+}
+@media (min-width: 80em) {
   .socials {
     flex-direction: row;
     width: 40%;
@@ -871,7 +868,7 @@ i.fa-solid:before {
   line-height: 36px;
   text-align: center;
 }
-@media (min-width: 64em) {
+@media (min-width: 80em) {
   .socials__message {
     max-width: 160px;
     margin-bottom: unset;
@@ -1907,6 +1904,22 @@ i.fa-solid:before {
   transition: all 0.2s ease-in-out;
 }
 
+.slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.slick-slide {
+  display: flex !important;
+  flex-direction: column;
+  height: auto !important;
+}
+
+.slick-slide > div {
+  flex: 1;
+  display: flex;
+}
+
 .slick-dots {
   display: flex;
   justify-content: center;
@@ -2920,9 +2933,14 @@ i.fa-solid:before {
 }
 .reviews-block .slick-slide {
   display: flex !important;
-  height: auto;
+  flex-direction: column;
+  height: auto !important;
   min-height: 460px;
   margin: 0 16px;
+}
+.reviews-block .slick-slide > div {
+  flex: 1;
+  display: flex;
 }
 .reviews-block .slick-arrow {
   position: absolute;
@@ -2933,6 +2951,11 @@ i.fa-solid:before {
   background: none;
 }
 @media (min-width: 64em) {
+  .reviews-block .slick-arrow {
+    left: 40%;
+  }
+}
+@media (min-width: 80em) {
   .reviews-block .slick-arrow {
     left: 46%;
   }
@@ -2948,6 +2971,11 @@ i.fa-solid:before {
   left: auto;
 }
 @media (min-width: 64em) {
+  .reviews-block .slick-next {
+    right: 40%;
+  }
+}
+@media (min-width: 80em) {
   .reviews-block .slick-next {
     right: 46%;
   }

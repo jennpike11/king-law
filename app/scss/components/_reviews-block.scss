@@ -22,7 +22,7 @@
     font-size: 26px;
     font-family: $font-tertiary;
 
-     @include respond-up(large){
+     @include respond-up(medium){
       bottom: 8px;
       font-size: 72px;
     }
@@ -57,7 +57,7 @@
     background: $white;
     border-radius: 24px;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       padding: 48px;
     }
   }
@@ -91,9 +91,15 @@
 
   .slick-slide {
     display: flex !important;
-    height: auto;
+    flex-direction: column;
+    height: auto !important;
     min-height: 460px;
     margin: 0 16px;
+  }
+
+  .slick-slide > div {
+    flex: 1;              
+    display: flex;
   }
 
   .slick-arrow {
@@ -103,6 +109,10 @@
     border: none;
     font-size: 0;
     background: none;
+
+    @include respond-up(medium){
+      left: 40%;
+    }
 
     @include respond-up(large){
       left: 46%;
@@ -120,9 +130,14 @@
     right: 36%;
     left: auto;
 
+    @include respond-up(medium){
+      right: 40%;
+    }
+
     @include respond-up(large){
       right: 46%;
     }
+
 
     &:after { content: '\f138'; }
   }

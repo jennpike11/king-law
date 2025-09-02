@@ -6,13 +6,13 @@
   /* default slide-in direction (from RIGHT) */
   --slide-x: 4rem;
 
-  @include respond-up(large) {
+  @include respond-up(medium) {
     flex-direction: row;
     align-items: stretch;
   }
 
   &.reverse-on-mobile--1 {
-    @include respond-down(large){
+    @include respond-down(medium){
       flex-direction: column-reverse;
     }
   }
@@ -22,7 +22,7 @@
   }
 
   &__image {   
-    @include respond-up(large) { 
+    @include respond-up(medium) { 
       position: relative;    
       overflow: hidden; 
       width: 50%; 
@@ -35,7 +35,7 @@
       height: 320px;
       object-fit: cover; 
 
-      @include respond-up(large){
+      @include respond-up(medium){
         position: absolute;    
         inset: 0;                 
         object-position: top;
@@ -66,7 +66,7 @@
     min-height: 0;
     padding-bottom: 40px;
 
-    @include respond-up(large) { 
+    @include respond-up(medium) { 
       width: 50%; 
     }
   }
@@ -76,7 +76,7 @@
     font-size: clamp(40px, 55vw, 4vw); 
     color: $colorTwo;
 
-    @include respond-up(large){
+    @include respond-up(medium){
       margin: 24px 0 32px -112px;
     }
   }
@@ -99,7 +99,7 @@
   /* ===== Reversed layout: image on RIGHT, text on LEFT ===== */
   &.reverse--1 {
     /* flip layout on ≥ large */
-    @include respond-up(large) { flex-direction: row-reverse; }
+    @include respond-up(medium) { flex-direction: row-reverse; }
 
     /* flip slide direction (now from LEFT) */
     --slide-x: -4rem;
@@ -108,7 +108,7 @@
       margin: 24px 24px 32px;
       text-align: right;
 
-      @include respond-up(large){
+      @include respond-up(medium){
         margin: 24px -112px 32px 0;
       }
     }

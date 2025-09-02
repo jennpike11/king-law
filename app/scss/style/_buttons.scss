@@ -48,7 +48,7 @@
   margin: auto;
   font-size: 32px;
 
-  @include respond-up(large){
+  @include respond-up(medium){
     min-width: 400px;
   }
 }
