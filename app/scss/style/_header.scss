@@ -1,144 +1,210 @@
 @use '../base/globals' as *;
 
+/* =========================================
+   Header shell
+========================================= */
 .site-header {
-    @include container;
-    max-width: unset;
+  @include container;
+  max-width: unset;
 
-    @include respond(medium){
+  @include respond-up(large){
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+  }
+
+  /* =========================
+     Wrapper
+  ========================== */
+  &__wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100; /* sits above the mobile drawer */
+    width: 100%;
+    height: 64px;
+    background-color: $colorOne;
+
+    @include respond-up(large){
+      position: fixed;
+      top: 0;
+      left: 0;
+      color: $white;
+      background-color: transparent;
+    }
+
+    &.sticky {
+      box-shadow: 0 0 30px 0 rgba(35, 35, 35, 0.05);
+      background-color: $colorOne;
+
+      @include respond-down(large){
+        height: 64px; /* fixed bar height on mobile */
+      }
+
+      .site-header {
+          display: flex;
+          align-items: center;
+          height: 100%;
+      }
+    }
+
+    .primary-button {
+      display: none;
+
+      @include respond-up(large){
         display: flex;
-        align-items: center;
+        width: fit-content;
+        height: 38px;
+        font-size: 18px;
         position: relative;
-        height: 100%;
+        z-index: 120; /* above drawer */
+      }
     }
+  }
 
-    &__wrapper {
-        position: absolute;
-        left: 100%;
-        top: 0;
-        z-index: 9;  
-        width: 100%;
-        min-height: 100vh;
-        padding-top: 96px;
-        transition: all .2s linear;
+  /* =========================
+     Logo and title
+  ========================== */
+  &__logo {
+    display: flex;               /* visible at all sizes */
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 120;  
+    height: 64px;              /* above the nav drawer */
 
-        @include respond(medium){
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 64px;
-            min-height: unset;
-            padding-top: unset;
-            color: $white;
-            background-color: unset;
-        }
+    img {
+      height: 40px;
+      width: auto;
 
-        &.sticky {
-            @include respond(medium) {
-                box-shadow: 0 0 30px 0 rgba(35, 35, 35, 0.05);
-                background-color: $colorOne;
-                transition: all .2s linear;
-            }
-
-            .site-header__logo {
-                display: flex;
-            }
-        }
+      @include respond-up(large){
+        height: 48px;
+      }
     }
+  }
 
-    &__title {
-        font-family: $font-tertiary;
-        text-transform: uppercase;
-        font-size: 24px;
-        color: $white;
-        font-weight: bold;
-
-        &:hover {
-            color: $white;
-        }
-    }
-
-    .main-navigation {
-        @include respond(medium){
-            margin: 0 32px 0 auto;
-        }
-        
-        ul {
-            font-family: $font-secondary;
-            text-transform: uppercase;
-            font-size: 16px;
-
-            @include respond(medium){
-                margin: 0 32px 0 auto;
-            }
-         }
-
-         .primary-button {
-            font-size: 14px;
-            width: fit-content;
-            height: 38px;
-         }
-    }
-}
-
-
-// Mobile Menu
-.menu-toggle {
-    display: none;
-    margin-left: 40px;
-    padding: 4px 24px;
-    border: 2px solid $white;
-    border-radius: 4px;
+  &__title {
+    font-family: $font-tertiary;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
     color: $white;
-    background: unset;
+    text-decoration: none;
+
+    &:hover { color: $white; }
+  }
+
+  /* =========================
+     Primary nav container
+  ========================== */
+  .main-navigation {
+    @include respond-up(large){
+      margin: 0 32px 0 auto;
+    }
+
+    ul {
+      font-family: $font-secondary;
+      text-transform: uppercase;
+      font-size: 16px;
+
+      @include respond-up(large){
+        margin: 0 32px 0 auto;
+      }
+    }
+  }
 }
 
+/* =========================================
+   Mobile menu toggle
+========================================= */
 .menu-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 130; /* above everything interactive */
+  border: 0;
+  color: $white;
+  font-size: 32px;
+  background: transparent;
+  cursor: pointer;
+
+  &:after {
+    content: '\f0c9';
+    font-family: fontawesome;
+  }
+
+  @include respond-up(large){
+    display: none;
+  }
+
+  .active & {
     &:after {
-        content: 'MENU';
-        position: relative;
-        z-index: 999;
-        font-family: $font-secondary;
-        font-size: 24px;
-        color: $white;
+      content: '\f00d';
+      font-family: fontawesome;
     }
+  }
 }
 
-.menu-toggle.active {
-    &:after {
-        content: '\f00d';
-        position: relative;
-        z-index: 999;
-        font-family: fontawesome;
-        font-size: 30px;
-        color: $white;
-    }
-}
-
-// Landing Pages only
-.landing-page-template-default {
-    .menu-toggle {
-        display: none;
-    }
-}
-
-
-// Primary Navigation
-
-/* Wrapper */
+/* =========================================
+   Primary Navigation (drawer on mobile)
+========================================= */
 #site-navigation {
-  position: relative;
-  z-index: 50;
-  isolation: isolate;
+  /* Mobile drawer defaults */
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;                        /* default: full height */
+  transform: translateX(100%);
+  transition: transform .2s linear;
+  background-color: $colorOne;
+  z-index: 90;                   /* below logo and buttons */
+  padding: 16px 0 24px;
+  overflow-y: scroll;
+
+  @include respond-up(large){
+    position: relative;
+    inset: auto;
+    transform: none;
+    background: transparent;
+    z-index: auto;
+    padding: 0;
+    overflow-y: unset;
+  }
+}
+
+.menu-primary-menu-container {
+  padding-top: 72px;
+
+  @include respond-up(large){
+    padding-top: unset;
+  }
+}
+
+/* Open state for mobile */
+.active #site-navigation {
+  transform: translateX(0);
 }
 
 /* Top level ul */
 #site-navigation .menu {
-  display: flex;
-  align-items: center;
-  gap: 16px;
   margin: 0;
   padding: 0 8px;
   list-style: none;
+
+  /* vertical list on mobile */
+  li {
+    @include respond-down(large){
+      margin: 0;
+    }
+  }
+
+  @include respond-up(large){
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 }
 
 /* Top level li */
@@ -156,32 +222,16 @@
   text-decoration: none;
   transition: color .18s ease;
 }
+
 #site-navigation .menu > li:hover > a,
 #site-navigation .menu > li.current-menu-item > a,
 #site-navigation .menu > li.current-menu-ancestor > a {
   color: #ffffff;
 }
 
-/* Underline indicator on hover and current */
-#site-navigation .menu > li > a::after {
-  content: "";
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 8px;
-  height: 2px;
-  background: #4cc3ff;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform .2s ease;
-}
-#site-navigation .menu > li:hover > a::after,
-#site-navigation .menu > li.current-menu-item > a::after,
-#site-navigation .menu > li.current-menu-ancestor > a::after {
-  transform: scaleX(1);
-}
-
-/* Dropdown container */
+/* =========================================
+   Desktop dropdowns
+========================================= */
 #site-navigation .menu > li > .sub-menu {
   position: absolute;
   top: calc(100% - 2px);
@@ -198,7 +248,6 @@
   transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
 }
 
-/* Show on hover or focus */
 #site-navigation .menu > li:hover > .sub-menu,
 #site-navigation .menu > li:focus-within > .sub-menu {
   opacity: 1;
@@ -207,10 +256,15 @@
   transition-delay: 0s;
 }
 
-/* Submenu items */
-#site-navigation .sub-menu li {
-  position: relative;
+/* Nested submenus (fly right on desktop) */
+#site-navigation .sub-menu .sub-menu {
+  top: -8px;
+  left: calc(100% + 8px);
 }
+
+/* Submenu items base */
+#site-navigation .sub-menu li { position: relative; }
+
 #site-navigation .sub-menu a {
   display: block;
   padding: 10px 12px;
@@ -219,80 +273,88 @@
   transition: background-color .18s ease, color .18s ease;
 }
 
-/* Nested submenus (fly right) */
-#site-navigation .sub-menu .sub-menu {
-  top: -8px;
-  left: calc(100% + 8px);
+/* =========================================
+   Mobile accordion (overrides)
+   Requires JS to toggle: li.menu-item-has-children.is-open
+========================================= */
+@include respond-down(large) {
+
+  /* Parent links get a caret and extra tap area */
+  #site-navigation .menu li.menu-item-has-children > a {
+    position: relative;
+    padding-right: 44px;
+  }
+
+  #site-navigation .menu li.menu-item-has-children > a::after {
+    content: '\f107'; /* FontAwesome chevron-down */
+    font-family: fontawesome;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform .2s ease;
+  }
+
+  #site-navigation .menu li.is-open > a::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  /* Submenus stack, hidden by default, slide open */
+  #site-navigation .menu li > .sub-menu {
+    position: static;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    transition:
+      max-height .25s ease,
+      opacity .2s ease,
+      transform .2s ease,
+      visibility 0s linear .25s; /* delay visibility toggle to end of slide */
+  }
+
+  #site-navigation .menu li.is-open > .sub-menu {
+    max-height: 1000px; /* sufficiently large for long lists */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      max-height .3s ease,
+      opacity .2s ease,
+      transform .2s ease;
+  }
+
+  /* Mobile submenu link spacing */
+  #site-navigation .sub-menu a {
+    display: block;
+    padding: 12px 18px;
+    border-radius: 0;
+  }
+
+  /* Neutralize desktop hover behavior on mobile */
+  #site-navigation .menu > li:hover > .sub-menu,
+  #site-navigation .menu > li:focus-within > .sub-menu {
+    opacity: 1; /* keep focus styles sane */
+    transform: none;
+  }
 }
 
-/* Focus styles */
+/* =========================================
+   A11y + motion preferences
+========================================= */
 #site-navigation a:focus-visible {
   outline: 2px solid #4cc3ff;
   outline-offset: 2px;
   border-radius: 10px;
 }
 
-/* Motion respect */
 @media (prefers-reduced-motion: reduce) {
   #site-navigation * {
     transition: none !important;
     animation: none !important;
-  }
-}
-
-/* =========================================
-   Mobile Layout
-   ========================================= */
-@media (max-width: 1024px) {
-  #site-navigation .menu {
-    display: block;
-    padding: 12px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-  }
-
-  #site-navigation .menu > li > a {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 14px;
-    color: #ffffff;
-    border-radius: 10px;
-  }
-
-  /* Mobile submenus */
-  #site-navigation .menu > li > .sub-menu {
-    position: static;
-    width: 100%;
-    margin: 6px 0 10px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: none;
-    border: 1px solid rgba(255,255,255,0.06);
-
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    transform: none;
-    transition: max-height .25s ease, opacity .18s ease, visibility 0s linear .25s;
-  }
-
-  /* Reveal on tap/focus */
-  #site-navigation .menu > li:focus-within > .sub-menu,
-  #site-navigation .menu > li:hover > .sub-menu {
-    max-height: 1200px; /* enough to fit all */
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0s;
-  }
-
-  /* Nested submenus stack too */
-  #site-navigation .sub-menu .sub-menu {
-    position: static;
-    left: 0;
-    top: 0;
-    margin-top: 6px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.06);
   }
 }

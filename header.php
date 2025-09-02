@@ -26,6 +26,7 @@
 
 <div id="page" class="site">
 	<header id="masthead" class="site-header__wrapper">
+		<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"></button>
 		<div class="site-header">
 			<div class="site-header__logo">
 
@@ -52,6 +53,5 @@
 			<div class="site-header__phone primary-button">
 				<a href="tel:16467334711">Call now</a>
 			</div>
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( '', 'prc-theme' ); ?></button>
 		</div>	
 	</header><!-- #masthead -->

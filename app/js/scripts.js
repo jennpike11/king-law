@@ -16,6 +16,29 @@
     });
 
 
+// Mobile submenu accordion
+$(document).on('click', '#site-navigation .menu li.menu-item-has-children > a', function (e) {
+  // match your "large" breakpoint; adjust if your mixin differs
+  if (window.matchMedia('(max-width: 1023px)').matches) {
+    e.preventDefault();
+
+    var $li = $(this).parent('li');
+    var isOpen = $li.hasClass('is-open');
+
+    // close siblings at the same level
+    $li
+      .siblings('.is-open')
+      .removeClass('is-open')
+      .find('> a')
+      .attr('aria-expanded', 'false');
+
+    // toggle current
+    $li.toggleClass('is-open', !isOpen);
+    $(this).attr('aria-expanded', String(!isOpen));
+  }
+});
+
+
 // Hero Block Animation
 (function ($) {
   $(function () {
