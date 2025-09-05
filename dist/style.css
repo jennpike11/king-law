@@ -233,6 +233,11 @@
   margin: 40px auto;
 }
 
+/* hide items beyond the initial batch */
+.category-content__item.is-hidden {
+  display: none;
+}
+
 .nav-links {
   box-sizing: border-box;
   width: calc(100% - 64px);

@@ -169,6 +169,10 @@
   margin: 40px auto;
 }
 
+/* hide items beyond the initial batch */
+.category-content__item.is-hidden { display: none; }
+
+
 // Navigation
 .nav-links {
   @include container;

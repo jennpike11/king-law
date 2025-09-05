@@ -17,12 +17,6 @@ if( have_rows('one_column_block') ):
       </h2>
     <?php endif; ?>  
 
-    <?php if($subheading): ?>
-      <h3 class="one-column-block__subheading">
-        <?php echo esc_html($subheading); ?>
-      </h3>
-    <?php endif; ?>  
-
     <?php if($description): ?>
       <div class="one-column-block__description">
         <?php echo wp_kses_post($description); ?>

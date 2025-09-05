@@ -562,7 +562,7 @@ $(function () {
 });
 
 
-// Animated Two Column Block Animation
+// Animated List Block Animation
 $(document).on('click', '.animated-list-block__item', function (e) {
   var $it = $(this);
   var $parent = $it.closest('.animated-list-block');
@@ -590,8 +590,61 @@ $(document).on('click', function(e) {
 });
 
 
+// FAQ Accordion
+$(function(){
+  $('.faq-block__item').click(function(){
+    if($(this).hasClass('active')) {         
+      $('.faq-block__details').slideUp();
+      $('.faq-block__item').removeClass('active');
+    }
+    else
+    {      
+      $('.faq-block__item').removeClass('active');   
+      $(this).addClass('active');
+      $('.faq-block__details').slideUp();
+      $(this).find('.faq-block__details').slideDown();
+    }
+  });
+});
 
 
+// Load more button for posts
+(function () {
+  var BATCH = 6;
+
+  var $grid = $('.category-content');
+  var $items = $grid.find('.category-content__item');
+  var $btn = $('.load-more');
+
+  // initial state
+  $items.slice(BATCH).addClass('is-hidden');
+  if ($items.length <= BATCH) $btn.hide();
+
+  // click to reveal next batch
+  $btn.on('click', function (e) {
+    e.preventDefault();
+    var $hidden = $items.filter('.is-hidden').slice(0, BATCH);
+    if (!$hidden.length) {
+      $btn.hide();
+      return;
+    }
+
+    var old = $btn.text();
+    $btn.attr('aria-busy', 'true').text('Loading…');
+
+    // reveal with a quick fade
+    $hidden
+      .removeClass('is-hidden')
+      .hide()
+      .fadeIn(200);
+
+    if ($items.filter('.is-hidden').length === 0) {
+      $btn.hide();
+    }
+
+    $btn.removeAttr('aria-busy').text(old);
+  });
+})();
 
 
   });

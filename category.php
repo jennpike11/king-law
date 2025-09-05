@@ -18,7 +18,7 @@ get_header(); ?>
         <div class="category-header__search-form">
           <?php get_search_form(); ?>
         </div>
-      </div>
+      </div> 
     </div>
 
     <div class="category-content">
