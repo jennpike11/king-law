@@ -2747,10 +2747,10 @@ i.fa-solid:before {
 .one-column-block.content-width--medium {
   max-width: 1200px;
 }
-.one-column-block.content-width--large {
+.one-column-block.content-width--small {
   max-width: 960px;
 }
-.one-column-block.content-width--large .one-column-block__heading {
+.one-column-block.content-width--small .one-column-block__heading {
   text-align: center;
 }
 .one-column-block__wrapper {
